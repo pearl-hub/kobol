@@ -1,4 +1,4 @@
-# pearl(1) #
+# pearl-man #
 
 ## Name ##
 pearl-man - A Pearl module used for getting snippet from the open source world
@@ -27,12 +27,12 @@ the following:
 - To search for a "keyword" into the file:
   ``man2 keyword``
 - To list all the manuals:
-  ``man2 -d``
+  ``man2 -s``
 
 ## Help ##
 Just type one of the manuals you need in:
 
-    man pearl.<TAB>
+    man pearl.man2
 
 ## Copyright ##
 
