@@ -1247,6 +1247,7 @@ $(EXECUTABLE): $(OBJECTS)
             <command name="M-x text-mode"/>
             <command name="M-x fundamental-mode"/>
             <command name="M-x org-mode"/>
+            <command name="M-x flyspell-mode"/>
 
         List of minor modes:
             <command name="M-x auto-fill-mode"/>
@@ -1304,6 +1305,9 @@ $(EXECUTABLE): $(OBJECTS)
             +strike+
             =code=
             ~verbatim~
+
+        Create links: [[link]][[description]]
+        To go to the link:<command name="C-c C-o"/>
 
         To set the TODO types
         (place it at the beginning of the file and reload in the same line
