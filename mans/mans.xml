@@ -1359,8 +1359,8 @@ $(EXECUTABLE): $(OBJECTS)
     </item>
 </dict>
 
-<!--- ********************************* Vi/Vim ***************************************** -->
-<dict name="vi/vim">
+<!--- ********************************* Vim ***************************************** -->
+<dict name="vim">
 <item name="lezione 1 - movimento">
 			       Lezione 1 SOMMARIO
 
@@ -1712,8 +1712,8 @@ Evitare le directory .svn usando find<command name="find . -name .svn -prune -o 
 
 </item>
 </dict>
-<!--- ********************************** MAN IN THE MIDDLE/SNIFFING ***************************** -->
-<dict name="man in the middle(mitm)/sniffing">
+<!--- ********************************** MAN IN THE MIDDLE SNIFFING ***************************** -->
+<dict name="man in the middle(mitm) sniffing">
     <item name="sysctl">
         To displays all the output(parameters):<command name="sysctl -a"/>
         To do changes with the appropriate command:<command name="sudo sysctl -w parameter=value"/>
@@ -1838,8 +1838,8 @@ free_mem(first_matrix);
 </item>
 </dict>
 
-<!--- ********************************** Ripristino e installazione di sistemi GNU/Linux ***************************************** -->
-<dict name="Ripristino e installazione di sistemi GNU/Linux">
+<!--- ********************************** Ripristino e installazione di sistemi GNU Linux ***************************************** -->
+<dict name="Ripristino e installazione di sistemi GNU Linux">
 
 <item name="Opzioni di avvio del kernel">
 Per conoscere tutte le opzioni al time boot: <command name="man bootparam"/>
