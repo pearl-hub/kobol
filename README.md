@@ -1,38 +1,47 @@
 # pearl-man #
 
 ## Name ##
-pearl-man - A Pearl module used for getting snippet from the open source world
+pearl-man - Snippet-based manuals
 
 ## Description ##
 
-pearl-man is a minimal manual to get essentials snippet information about all the
-important linux commands, programming language, and much much more.
-It contains the command *man2* that is able to scan manuals in a xml format
-that are stored in both '$PEARL\_ROOT/mods/pearl-man/mans/' and '$PEARL\_HOME/mans/'
-directories.
-You can create your own manual xml file for storing all the information
-you need. Just copy the manual xml template file from
-'$PEARL\_ROOT/mods/pearl-man/mans/mans\_example.xml'
-to '$PEARL\_HOME/mans/your\_man.xml'.
-Type *man2 --help* to see all the available options.
+pearl-man is a minimal system used to get essentials snippet information about all the
+important linux commands, programming languages, and much much more.
+It contains the command `man3` that is a wrapper of the famous `man`.
+
+The manuals are all stored in both *$PEARL\_ROOT/mods/pearl-man/mans/* and
+*$PEARL\_HOME/mans/* directories.
+
+You can create your own markdown manuals just placing them to the directory
+'~/.config/pearl/markdown'.
 
 ## Installation ##
-This module can be used only installing ``pearl`` framework
-(https://github.com/fsquillace/pearl). After installing pearl type
-the following:
+
+### Option 1 ###
+
+    $ git clone https://github.com/fsquillace/pearl-man .pearl-man
+    $ cd .pearl-man
+    $ git submodule update --init --force --rebase
+
+### Option 2 ###
+`pearl-man` can be installed as part of [`pearl` framework](https://github.com/fsquillace/pearl).
+
+After installing pearl type the following:
 
     $ pearl_module_install_update pearl-man
 
 ## Usage ##
 - To search for a "keyword" into the file:
-  ``man2 keyword``
-- To list all the manuals:
-  ``man2 -s``
+  ``man3 -K keyword``
+- To see a specific "manual":
+  ``man3 manual``
+- To create your own markdown document "mydoc", just save it in ~/.config/pearl/markdown and then:
+  ``man3 mydoc``
 
 ## Help ##
 Just type one of the manuals you need in:
 
-    man pearl.man2
+    man pearl.man3
 
 ## Copyright ##
 

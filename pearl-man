@@ -15,9 +15,11 @@ function pearl_load_man(){
     local PEARL_MAN_MARKDOWN="${PEARL_HOME}/markdown"
     [ "$(ls -A $PEARL_MAN_MARKDOWN )" ] || return 0
 
-    for md_file in ${PEARL_MAN_MARKDOWN}/*.markdown
+    for md_file in ${PEARL_MAN_MARKDOWN}/*.markdown ${PEARL_MAN_MARKDOWN}/*.md
     do
-        man_name=$(echo ${md_file} | sed -e 's/^.*\///g' -e 's/\.1.markdown//' -e 's/\.markdown//')
+        man_name=$(echo ${md_file} | sed -e 's/^.*\///g' \
+            -e 's/\.1.markdown//' -e 's/\.markdown//' \
+            -e 's/\.1.md//' -e 's/\.md//')
         man_file="${man_name}.1.gz"
 
         ${PEARL_RONN_CMD} --roff --pipe --manual="${man_name}" \
