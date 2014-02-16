@@ -1,5 +1,5 @@
 
--  directory e file di linux
+#  directory e file di linux
 
 
 

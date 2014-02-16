@@ -1,15 +1,15 @@
 
--  Codifica caratteri speciali in XML e URL
+#  Codifica caratteri speciali in XML e URL
 
 
 
 ## codifica caratteri in XML
 
 Carattere	=>	Corrispondente XML
-"		=>	&amp;quot;
-&amp; 		=>	&amp;amp;
-&apos;		=>	&amp;apos;
-<		=>	&amp;lt;
+"		=>	&quot;
+& 		=>	&amp;
+&apos;		=>	&apos;
+<		=>	&lt;
 >		=>	&amp;gt;
 
 

@@ -1,5 +1,5 @@
 
--  mysql
+#  mysql
 
 
 ## common commands

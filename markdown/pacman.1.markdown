@@ -1,5 +1,5 @@
 
--  pacman and makepkg
+#  pacman and makepkg
 
 
 ## pacman

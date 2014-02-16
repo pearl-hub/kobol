@@ -1,5 +1,5 @@
 
--  processi memoria comandi
+#  processi memoria comandi
 
 
 

@@ -1,5 +1,5 @@
 
--  Ripristino e installazione di sistemi GNU Linux
+#  Ripristino e installazione di sistemi GNU Linux
 
 
 

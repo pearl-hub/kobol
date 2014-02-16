@@ -1,5 +1,5 @@
 
--  Grep Sed Paste &amp; Awk
+#  Grep Sed Paste &amp; Awk
 
 
 ## grep '\< [a-z0-9-]\+\>' doc.txt

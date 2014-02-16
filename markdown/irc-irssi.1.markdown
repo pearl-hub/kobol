@@ -1,5 +1,5 @@
 
--  irc irssi
+#  irc irssi
 
 
 ## basic commands
