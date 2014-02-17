@@ -1,11 +1,10 @@
 #!/bin/bash
 
-PEARL_MAN_ROOT="$(dirname $(readlink -f "${BASH_ARGV[0]}"))"
+[ -z $PEARL_MAN_ROOT ] && PEARL_MAN_ROOT="$(dirname $(readlink -f "${BASH_ARGV[0]}"))"
 if [ ! -d $PEARL_MAN_ROOT ]; then
     echo "Error: Could not set PEARL_MAN_ROOT env because $PEARL_MAN_ROOT does not exist."
     return 1
 fi
-PEARL_RONN_CMD="${PEARL_MAN_ROOT}/mods/ronn/bin/ronn"
 [ -z $PEARL_HOME ] && PEARL_HOME=~/.config/pearl
 
 mkdir -p ${PEARL_HOME}/markdown
@@ -22,7 +21,7 @@ function pearl_load_man(){
             -e 's/\.1.md//' -e 's/\.md//')
         man_file="${man_name}.1.gz"
 
-        ${PEARL_RONN_CMD} --roff --pipe --manual="${man_name}" \
+        ${PEARL_MAN_ROOT}/mods/ronn/bin/ronn --roff --pipe --manual="${man_name}" \
             --organization="${USER}" "${md_file}" | \
             gzip -f -c > "${PEARL_HOME}/mans/man/man1/${man_file}"
 
@@ -30,6 +29,5 @@ function pearl_load_man(){
     done
 }
 
-alias man3="pearl_load_man &> /dev/null; man -M ${PEARL_HOME}/mans/man:${PEARL_ROOT}/mods/pearl-man/mans/man -i --regex "
+alias man3="pearl_load_man &> /dev/null; man -M ${PEARL_HOME}/mans/man:${PEARL_MAN_ROOT}/mans/man "
 
-unset PEARL_MAN_ROOT
