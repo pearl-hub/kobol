@@ -13,7 +13,7 @@ The manuals are all stored in both *$PEARL\_ROOT/mods/pearl-man/mans/* and
 *$PEARL\_HOME/mans/* directories.
 
 You can create your own markdown manuals just placing them to the directory
-'~/.config/pearl/markdown'.
+*~/.config/pearl/markdown*.
 
 ## Installation ##
 
@@ -24,7 +24,7 @@ You can create your own markdown manuals just placing them to the directory
     $ git submodule update --init --force --rebase
 
 ### Option 2 ###
-`pearl-man` can be installed as part of [`pearl` framework](https://github.com/fsquillace/pearl).
+`pearl-man` can be installed as part of [*pearl framework*](https://github.com/fsquillace/pearl).
 
 After installing pearl type the following:
 

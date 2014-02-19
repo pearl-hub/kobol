@@ -1,44 +1,39 @@
 
-#  python
+PYTHON
+======
 
-
-## PYTHONPATH
+PYTHONPATH
+----------
 
 Contiene i percorsi in cui Python va alla ricerca di moduli. A livello di codice si puo' intervenire alla variabile, per esempio aggiungendo nuovi percorsi tramite la lista:
 
-sys.path
+`sys.path`
 
 
-
-
-## pickle
+Pickle
+------
 
 E' un modulo che consente di serializzare un oggetto in un file.
 Il metodo dump(obj, file) serve a serializzare l'oggetto obj nel file.
 Per caricare l'oggetto si invoca il metodo load
 
-
-
-
+```python
 -  x = [1, "asdfg"]
 -  f = open("/home/feel/prova", "w")
 -  pickle.dump(x, f)
 -  f = open("/home/feel/prova", "r")
 -  x = pickle.load(f)
+```
 
 
+Formattazione avanzata dell'output
+----------------------------------
 
-
-
-## Formattazione avanzata dell'output
-
-La funzione str() restituisce la rappresentazione del valore in termini umanamente comprensibili.
-La funzione repr() genera la rappresentazione del valore comprensibile dall’interprete (mostrando per esempio \n o altri caratteri speciali)
+La funzione `str()` restituisce la rappresentazione del valore in termini umanamente comprensibili.
+La funzione `repr()` genera la rappresentazione del valore comprensibile dall’interprete (mostrando per esempio \n o altri caratteri speciali)
 La stampa in stile sprintf di C puo' essere fatta in tal modo:
 
-
-
-print ’%2d %3d %4d’ % (x, x*x, x*x*x)
+`print ’%2d %3d %4d’ % (x, x*x, x*x*x)`
 
 
 
@@ -47,7 +42,7 @@ Questo può essere fatto equivalentemente con:
 
 
 
-print repr(x).rjust(2), repr(x*x).rjust(3), repr(x*x*x).rjust(4)
+`print repr(x).rjust(2), repr(x*x).rjust(3), repr(x*x*x).rjust(4)`
 
 
 
@@ -56,38 +51,25 @@ print repr(x).rjust(2), repr(x*x).rjust(3), repr(x*x*x).rjust(4)
 
 ## Operazioni su liste
 
-funzione 
+funzione `filter(func, seq)`
+Restituisce una sequenza di elementi che soddisfano la funzione avente un parametro.
 
-filter(func, seq)
+funzione `map(func, seq1, seq2,...)`
+Restituisce una sequenza di elementi ottenuti da 'funzione' avente come parametri il generico elemento di ogni sequenza
 
-): Restituisce una sequenza di elementi che soddisfano la funzione avente un parametro.
+funzione `reduce(func, seq, elemento_iniziale)`
+Restituisce un valore ottenuto tramite la funzione binaria partendo dall'elemento iniziale
 
-funzione
+funzione `sum(sequenza)`
+Applica una somma sugli elementi
 
-map(func, seq1, seq2,...)
-
-: Restituisce una sequenza di elementi ottenuti da 'funzione' avente come parametri il generico elemento di ogni sequenza
-
-funzione 
-
-reduce(func, seq, elemento_iniziale)"
-
-: Restituisce un valore ottenuto tramite la funzione binaria partendo dall'elemento iniziale
-
-funzione 
-
-sum(sequenza)
-
-: Applica una somma sugli elementi
 
 Esempi di costruzione di liste:
 
-
-
+```python
 >>> vec = [2, 4, 6]
 >>> [3*x for x in vec if x > 3]
 [12, 18]
-
 
 >>> vec1 = [2, 4, 6]
 >>> vec2 = [4, 3, -9]
@@ -95,19 +77,15 @@ Esempi di costruzione di liste:
 [8, 12, -54]
 >>> [x+y for x in vec1 for y in vec2]
 [6, 5, -7, 8, 7, -5, 10, 9, -3]
-
-
-
-
+```
 
 
 L'istruzione del consente di eliminare un elemento o porzioni in una lista o dizionario:
 
-
-
+```python
 >>>del a[0]
 >>>del a[2:4]
-
+```
 
 
 
@@ -118,7 +96,7 @@ L'istruzione del consente di eliminare un elemento o porzioni in una lista o diz
 Due modi per costruire un insieme:
 
 
-
+```python
 >>> frutta = set(['mela', 'pera', 'banana', 'mela'])
 >>> frutta
 set(['mela', 'pera', 'banana'])
@@ -126,48 +104,46 @@ set(['mela', 'pera', 'banana'])
 >>> a = set(’abracadabra’)
 >>> a
 set([’a’, ’r’, ’b’, ’c’, ’d’])
-
+```
 
 
 Le operazioni sono le seguenti:
 
 
-
+```python
 >>> a - b       -  Operazione differenza
 >>> a | b       -  Operazione unione
->>> a &amp; b   -  Operazione intersezione
->>> a ^ b       -  Operazione equivalente a: (a | b) - (a &amp; b)
-
-
-
+>>> a & b   -  Operazione intersezione
+>>> a ^ b       -  Operazione equivalente a: (a | b) - (a & b)
+```
 
 
 ## Tecniche sui cicli
 
-Per ricavare chiave e valore su un dizionario si usa i metodo iteritems():
+Per ricavare chiave e valore su un dizionario si usa i metodo `iteritems()`:
 
 
-
+```python
 >>> knights = {’gallahad’: ’the pure’, ’robin’: ’the brave’}
 >>> for k, v in knights.iteritems():
 ...     print k, v
+```
 
 
 
-
-Per ricavare la coppia (indice, valore) si usa enumerate('list'):
-
+Per ricavare la coppia (indice, valore) si usa `enumerate('list')`:
 
 
+```python
 >>> for i, v in enumerate([’tic’, ’tac’, ’toe’]):
 ...     print i, v
+```
 
 
-
-Per accoppiare due sequenze si usa zip():
-
+Per accoppiare due sequenze si usa `zip()`:
 
 
+```python
 >>> domande = [’nome’, ’scopo’, ’colore preferito’]
 >>> risposte = [’lancillotto’, ’il santo graal’, ’il blu’]
 >>> for q, a in zip(domande, risposte):
@@ -175,32 +151,32 @@ Per accoppiare due sequenze si usa zip():
 Qual’e‘ il tuo nome? E‘ lancillotto.
 Qual’e‘ il tuo scopo? E‘ il santo graal.
 Qual’e‘ il tuo colore preferito? E‘ il blu.
+```
 
 
-
-Invertire il ciclo di una sequenza con reversed(seq):
-
+Invertire il ciclo di una sequenza con `reversed(seq)`:
 
 
+```python
 >>> for i in reversed(xrange(1,10,2)):
 ...     print i
-
+```
 
 
 Ciclo di una sequenza ordinata con sorted(seq):
 
 
-
+```python
 >>> basket = [’apple’, ’orange’, ’apple’, ’pear’, ’orange’, ’banana’]
 >>> for f in sorted(set(basket)):
 ...     print f
-
+```
 
 
 Altri esempi interessanti:
 
 
-
+```python
 for elemento in [1, 2, 3]:
 print elemento
 for elemento in (1, 2, 3):
@@ -211,17 +187,18 @@ for carattere in "123":
 print carattere
 for line in open("myfile.txt"):
 print line
-
+```
 
 
 
 
 ## Iteratori e generatori
 
-E' semplice aggiungere un comportamento iteratore alle proprie classi, basta definire un metodo __iter__() che restituisca un oggetto con un metodo next():
+E' semplice aggiungere un comportamento iteratore alle proprie classi,
+basta definire un metodo `__iter__()` che restituisca un oggetto con un metodo `next()`:
 
 
-
+```python
 >>> class Reverse:      -  Iteratore per eseguire un ciclo al contrario su una sequenza
 def __init__(self, data):
 self.data = data
@@ -240,13 +217,13 @@ m
 a
 p
 s
+```
 
 
-
-La stessa cosa può essere fatta in un solo metodo attrverso la parola chiave yield che automaticamente genera i metodi __iter__() e next():
-
+La stessa cosa può essere fatta in un solo metodo attrverso la parola chiave yield che automaticamente genera i metodi `__iter__()` e `next()`:
 
 
+```python
 >>> def reverse(data):
 for index in range(len(data)-1, -1, -1):
 yield data[index]
@@ -257,9 +234,6 @@ f
 l
 o
 g
-
-
-
-
+```
 
 
