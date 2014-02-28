@@ -19,7 +19,7 @@ Add a gmail account:
 `account set <account id> username@gmail.com password`
 
 Change password:
-`account set <account id> password my password`
+`account set <account id> password <mypassword>`
 
 To see the setting related to this account:
 `acc gtalk set`
