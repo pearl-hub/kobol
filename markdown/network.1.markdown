@@ -255,7 +255,7 @@ Scan the port (using -S syn/-A ack/-F fin):
 
 
 
-## netcat
+## netcat ##
 
 Listen to a port -  3005 and execute /usr/bin/w command when client connects:
 `$ nc -l -p 3005 -e /usr/bin/w`
@@ -266,41 +266,60 @@ Later just do:
 
 
 
-## curl
+## curl ##
 
 In generale, consente di trasferire documenti HTML request di tipo GET o POST e ricevere dal server response.
 I parametri generali sono:
--v			Estremamente utile per fare debug. Mostra i messaggi che vengono trasferiti dal client al server e viceversa.
--i			Mostra i campi dell'header nascosti
--I			Mostra solo l'header.
--X "type"		Definisci il tipo di request (GET, POST, PUT...)
--u "user":"pass"	Permette l'autenticazione. Nel caso in cui non funziona provare con queste altre opzioni --ntlm, --digest, --negotiate o --anyauth (in base alla risposta che da il server)
--A "string"		Consente di cambiare il campo User-Agent dell'intestazione. A volte conviene mettere user-agent di un browser.
--L			Opzione molto utile. Specifica a curl di seguire l'url contenuto nel campo Location.
--H "string"		Personalizzazione dell'header. Ad esempio -H "Destination: http://moo.com/nowhere"
--b "name=string/file"	Consente di leggere i cookies
--c "file"		Scrive i cookies dopo l'operazione
--D "file"		Scrive gli header in questo file
--d "string"		Corpo di una richiesta POST. Conviene mandare i dati nello stesso ordine con cui un browser li manda.
--e "string"		Imposta un valore al campo Referer dell'intestazione
--G			Non molto utile. Serve solo per specificare che i dati contenuti in -d vengano usati per fare un HTTP GET piuttosto che un HTTP POST
+
+`-v` Estremamente utile per fare debug. Mostra i messaggi che vengono trasferiti dal client al server e viceversa.
+
+`-i` Mostra i campi dell'header nascosti
+
+`-I` Mostra solo l'header.
+
+`-X "type"` Definisci il tipo di request (GET, POST, PUT...)
+
+`-u "user":"pass"` Permette l'autenticazione. Nel caso in cui non funziona provare con queste altre opzioni --ntlm, --digest, --negotiate o --anyauth (in base alla risposta che da il server)
+
+`-A "string"` Consente di cambiare il campo User-Agent dell'intestazione. A volte conviene mettere user-agent di un browser.
+
+`-L` Opzione molto utile. Specifica a curl di seguire l'url contenuto nel campo Location.
+
+`-H "string"` Personalizzazione dell'header. Ad esempio -H "Destination: http://moo.com/nowhere"
+
+`-b "name=string/file"` Consente di leggere i cookies
+
+`-c "file"` Scrive i cookies dopo l'operazione
+
+`-D "file"` Scrive gli header in questo file
+
+`-d "string"` Corpo di una richiesta POST. Conviene mandare i dati nello stesso ordine con cui un browser li manda.
+
+`-e "string"` Imposta un valore al campo Referer dell'intestazione
+
+`-G` Non molto utile. Serve solo per specificare che i dati contenuti in -d vengano usati per fare un HTTP GET piuttosto che un HTTP POST
+
+
 I campi di una form che sono nascosti (ad esempio input type=hidden) vengono gestiti allo stesso modo degli altri. Gestisce automaticamente SSL.
 
-Richiesta GET:
+HEAD Request (to get the info about the file and the server):
+`curl -I http://s0.cyberciti.org/images/misc/static/2012/11/ifdata-welcome-0.png`
+
+GET Request:
 `curl -v -c cookies.txt -b cookies.txt -L "www.hotmail.com/when/junk.cgi?birthyear=1905&amp;press=OK"`
 
-Richiesta POST:
+POST Request:
 `curl -v -c cookies.txt -b cookies.txt -L -d "birthyear=1905&amp;press=%20OK%20" www.hotmail.com/when/junk.cgi`
  dove l'indirizzo url lo si trova nella form nell'attributo action
-Richiesta POST con dati codificati automaticamente:
+
+POST REquest with automatic data encode:
 `curl -c cookies.txt -b cookies.txt -L --data-urlencode "name=I am Daniel" www.example.com`
 
-Richiesta PUT:
+PUT Request:
 `curl -v -L -c cookies.txt -b cookies.txt -T uploadfile www.uploadhttp.com/receive.cgi`
 
 Quando nella form è presente l'oggetto per uplodare file(ad esempio due oggetti nella form: input type=file name=upload e altro input type=submit name=press value=OK), esso può essere fatto tramite il seguente comando curl:
 `curl -v -c cookies.txt -b cookies.txt -L -F upload=@localfilename -F press=OK [URL]`
-
 
 To know the public IP of your machine:
 `curl ifconfig.me`
@@ -311,10 +330,30 @@ To know the public IP and other more info:
 To know the timezone:
 `curl http://freegeoip.net/tz/json/US/10`
 
+Resume a previous download partially completed:
+`curl -L -O -C - http://ftp.ussg.iu.edu/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso`
+
+To download the first 20000 bytes and complete the remaining download later:
+`curl -o file.png --header "Range: bytes=0-20000" http://s0.cyberciti.org/images/misc/static/2012/11/ifdata-welcome-0.png`
+
+Or:
+`curl -r 0-20000 -o file.png http://s0.cyberciti.org/images/misc/static/2012/11/ifdata-welcome-0.png`
+
+`curl -o file.png -C 20001 http://s0.cyberciti.org/images/misc/static/2012/11/ifdata-welcome-0.png`
+
+### Using Telnet ###
+
+Use the '-v' option from curl you get the HTTP request can be used in *telnet*
+
+```
+telnet s0.cyberciti.org 80
+GET /images/misc/static/2012/11/ifdata-welcome-0.png HTTP/1.1
+Host: s0.cyberciti.org
+Range: bytes=0-1024
+```
 
 
-
-## arp
+## arp ##
 
 Consente di ricavare l'indirizzo MAC a partire dall'indirizzo IP:
 `arp 192.168.1.1`
