@@ -69,21 +69,32 @@ Per mostrare il qdisc esistente:
 
 
 
-## iptables
+## iptables ##
 
 General syntax:
 `iptables [-t table] command [match] [target/jump] `
 
 
-DISPLAY
+### DISPLAY ###
+
 Display (-L) numbered (--line-numbers) firewall rules without DNS resolution (-n):
 
 `iptables -n -L -v --line-numbers`
 
+### SET DEFAULT POLICY ###
 
-STOP/START/RESTART FIREWALL
-Service:
-`service iptables [stop/start/restart]`
+`iptables -P INPUT DROP`
+
+
+### DELETE FIREWALL RULES ###
+
+Delete the rule numbered four (using --line-numbers to get the number):
+
+`iptables -D INPUT 4`
+
+Delete from a particular rule:
+
+`iptables -D INPUT -s 202.54.1.1 -j DROP`
 
 Delete all rules:
 `iptables -F`
@@ -95,22 +106,8 @@ Delete all rule for a table:
 `iptables -t [nat|mangle] -F`
 
 
-SET DEFAULT POLICY
+### INSERT OR APPEND FIREWALL RULES ###
 
-`iptables -P INPUT DROP`
-
-
-DELETE FIREWALL RULES
-Delete the rule numbered four (using --line-numbers to get the number):
-
-`iptables -D INPUT 4`
-
-Delete from a particular rule:
-
-`iptables -D INPUT -s 202.54.1.1 -j DROP`
-
-
-INSERT OR APPEND FIREWALL RULES
 To insert in position 2:
 `iptables -I INPUT 2 -s 202.54.1.2 -j DROP`
 
@@ -118,7 +115,23 @@ To append:
 `iptables -A INPUT -i eth1 -s 192.168.0.0/24 -j DROP`
 
 
-SAVE/RESTORE
+### NAT ###
+
+Destination NAT:
+`iptables -t nat -A PREROUTING -p tcp -d 80.182.53.192 -dport 80 -j DNAT -to-destination 10.0.0.2:80`
+
+Source NAT:
+`iptables -t nat -A POSTROUTING -o ppp0 -j SNAT -to-source 150.92.48.25`
+
+Redirect:
+`iptables -t nat -A PREROUTING -d 192.168.1.1 --destination-port 80 -j REDIRECT -to-port 10000`
+
+Masquerade (change the source IP with the public one):
+`iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE`
+
+
+### SAVE/RESTORE ###
+
 Serve per salvare l'insieme di regole (rule-set) all'interno di un file. -c serve a mantenere memorizzati i contatori dei byte e dei pacchetti. Qst opzione può servire quando occorre chiudere il firewall, in qst modo le info relative alle quantità di byte e pacchetti rimangono comunque memorizzate. -t indica quali tabelle memorizzare (nat, mangle, filter, raw) nel file se omesso memorizza tutte le tabelle nel file.
 
 `iptables-save [-c] [-t table] > /etc/iptables/mytables.rules`
@@ -130,7 +143,8 @@ Serve a caricare il file fornito da iptables-save nel kernel.  -c serve a manten
 
 
 
-VARIOUS EXAMPLES
+### VARIOUS EXAMPLES ###
+
 To block port 80 on IP range:
 `iptables -A INPUT -i eth1 -p tcp -s 192.168.1.0/24 --dport 80 -j DROP`
 
@@ -361,7 +375,7 @@ Consente di ricavare l'indirizzo MAC a partire dall'indirizzo IP:
 
 
 
-## nmap
+## nmap ##
 
 
 Host discovery (ping scan):
@@ -402,9 +416,11 @@ MAC spoof:
 
 Awesome GUI interface is zenmap
 
+### NSE (Nmap Security Engine) scripts ###
 
 
-## macof
+
+## macof ##
 
 consente di fare flooding su uno switch per facilitare lo sniffing!
 
