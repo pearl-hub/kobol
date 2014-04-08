@@ -1,27 +1,54 @@
+# String Manipulation #
 
-#  Grep Sed Paste &amp; Awk
+This manual contains the main command for string manipulation
+
+## cut ##
+
+Select the first two fields:
+`echo "name,surname,age,sex,city" | cut -f -2 -d ","`
+
+Select the first 4 chars/bytes:
+`echo "name and surname" | cut -b=1-4`
+`echo "name and surname" | cut -c=1-4`
+
+Complement the result:
+`echo "name,surname,age,sex,city" | cut -b=1-4 --complement`
 
 
-## grep '\< [a-z0-9-]\+\>' doc.txt
+## grep ##
 
-ricerca su un file dati. -i ignora il case, -m "num" num massimo di abbinamenti, -n stampa il numero della linea, -f="FILE" per specificare che il Pattern si trova in File, --colour per il colore. per comandi avanzati sed oppure awk(molto difficile)
+- `-i`        Ignore case
+- `-m "num"`  Max matches number
+- `-n`        Print line
+- `-f FILE`   Match on the FILE
+- `--color`   Enable color
 
 To invert match:
 `grep -v python f.txt`
 
-To check an exact match:
+Select the exact match on the whole line:
 `grep -x python.* f.txt`
 
+Show only the match and not the whole line:
+echo "m1ao" | grep -o "^.[[:digit:]][^b-d]"
+
+Match a fixed string:
+echo "This is a sample" | grep -F "is a"
 
 
-## paste
+## paste ##
 
 Merge lines of files delimited by a space char:
 `paste -s -d ' ' file.txt`
 
 
+## tr ##
 
-## sed
+Convert to upper:
+`echo "abc" | tr [:lower:] [:upper:]`
+
+
+## sed ##
 
 The delimiters can be: @:,;% instead of / if we want.
 *  Substitution
@@ -31,7 +58,7 @@ Apply all occurences (because of g) of two substitutions:
 The substitution is only applied to lines matching the regular expression "not":
 `sed -e '/not/s/black/white/g' file`
 
-It matches the regular expression ^line.*one:
+It matches the regular expression ^line.\*one:
 `sed -e '/^line.*one/s/line/LINE/' file`
 
 
@@ -46,9 +73,7 @@ Delete the line from the first match with "hello" to the line that matches with 
 `sed -e '/hello/,/goodbye/d' file`
 
 
-
-
-## awk
+## awk ##
 
 Basic syntax is "pattern {action}".
 BEGIN and END specify the action to apply before and after process each line of stdin:
@@ -60,13 +85,14 @@ The option -v specify a variable:
 
 
 The built-in variables are:
-*   NR -- The current line's sequential number
-*   NF -- The number of fields in the current line
-*   FS -- The input field separator; defaults to whitespace and is reset by the -F command line parameter
-*   RS -- The record separator; by default is newline
-*   OFS -- The output field separator; default is space. See example below
-*   FILENAME -- name of the file (see below for an example to use it for joining two files!)
-*   FNR -- same as NR but with multiple files it restart counting from 1 for each file while NR continue incrementing
+
+- NR -- The current line's sequential number
+- NF -- The number of fields in the current line
+- FS -- The input field separator; defaults to whitespace and is reset by the -F command line parameter
+- RS -- The record separator; by default is newline
+- OFS -- The output field separator; default is space. See example below
+- FILENAME -- name of the file (see below for an example to use it for joining two files!)
+- FNR -- same as NR but with multiple files it restart counting from 1 for each file while NR continue incrementing
 
 Variables don't need dollar char!
 Example:
@@ -89,14 +115,14 @@ Print the maximum value:
 `awk 'BEGIN{} $1>x {x=$1} END{print x}'`
 
 To delete all words ending with a letter g:
-`awk '{gsub("[a-zA-Z0-9]*[g|G]", "");print}' input`
+`awk '{gsub("[a-zA-Z0-9]\*[g|G]", "");print}' input`
 
 
-To change the record separator: 
+To change the record separator:
 `echo "mela pera; cane gatto; Milano bari" | awk 'BEGIN { RS=";" } {print NR}'`
 
 Use another output field separator:
-`echo "banane;pere;ciliegie;fragole" | awk -F";" 'BEGIN { OFS="_" } {print $1,$2,$3}'`
+`echo "banane;pere;ciliegie;fragole" | awk -F";" 'BEGIN { OFS="\_" } {print $1,$2,$3}'`
 
 Null char output separator. USEFUL in order to use pipe with xargs -0:
 `echo "berry,banana,pineapple,apple" | awk 'BEGIN{RS=","} {printf "%s\000",$1}'`
