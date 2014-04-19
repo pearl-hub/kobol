@@ -1,6 +1,6 @@
 # String Manipulation #
 
-This manual contains the main command for string manipulation
+This manual contains the main commands for string manipulation
 
 ## cut ##
 
@@ -13,6 +13,27 @@ Select the first 4 chars/bytes:
 
 Complement the result:
 `echo "name,surname,age,sex,city" | cut -b=1-4 --complement`
+
+
+## xargs ##
+
+Limit the output with two elements per line (-n 2) using comma as delimiter (-d,)
+and prompt the whole command to stderr first:
+`echo "1,2,3,4" | xargs -t -n 2 -d,`
+
+To remove files with space (use the null char to identify the end of the filename):
+`find . -name "*.c" -print0 | xargs -0 rm -rf`
+
+Use placeholder {} to identify the line and ask to proceed with the mv command (-p):
+`find . -name "*.bak" -print0 | xargs -p -0 -I {} mv {} ~/old.files`
+
+Show the limit of the OS:
+`xargs --show-limits`
+
+### Multiprocessing ###
+
+Grep all files containing "string" using 8 processes excluding the blank lines (-r):
+`time find ./ -print0 | xargs -r -0 -n1 -P8 grep -H "string" > /dev/null`
 
 
 ## grep ##
