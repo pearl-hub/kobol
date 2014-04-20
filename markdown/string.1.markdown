@@ -35,6 +35,9 @@ Show the limit of the OS:
 Grep all files containing "string" using 8 processes excluding the blank lines (-r):
 `time find ./ -print0 | xargs -r -0 -n1 -P8 grep -H "string" > /dev/null`
 
+Use pipe in xargs command:
+`echo {0..$count} | xargs -d " " --max-procs=$count -I {} bash -c 't0=$(date +%s); cat $requests | nc localhost 33; t1=$(date +%s) echo process: {} time: $[$t1 - $t0];'`
+
 
 ## grep ##
 
