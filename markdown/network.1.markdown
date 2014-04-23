@@ -124,7 +124,7 @@ Source NAT:
 `iptables -t nat -A POSTROUTING -o ppp0 -j SNAT -to-source 150.92.48.25`
 
 Redirect:
-`iptables -t nat -A PREROUTING -d 192.168.1.1 --destination-port 80 -j REDIRECT -to-port 10000`
+`iptables -t nat -A PREROUTING -p tcp --destination-port 80 -j REDIRECT --to-port 10000`
 
 Masquerade (change the source IP with the public one):
 `iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE`
