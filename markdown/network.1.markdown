@@ -19,7 +19,7 @@
 ## automatic connection
 
 You need to install the following package:
-* wpa_actiond - for automatic/roaming wireless connection
+* wpa\_actiond - for automatic/roaming wireless connection
 * ifplugd - for automatic ethernet connection
 
 To connect profile during boot:
@@ -29,12 +29,12 @@ DAEMONS=(... net-profiles ...)
 
 To connect to wireless networks with roaming support:
 1. Edit /etc/rc.conf
-WIRELESS_INTERFACE="wlan0"
+WIRELESS\_INTERFACE="wlan0"
 DAEMONS=(... net-auto-wireless ...)
 
 To connect to wired networks:
 1. edit /etc/rc.conf
-WIRED_INTERFACE="eth0"
+WIRED\_INTERFACE="eth0"
 DAEMONS=(... net-auto-wired ...)
 
 
@@ -51,7 +51,7 @@ To restart the daemon:
 1. Create a script set-hw-addr in /etc/rc.d/
 2. In rc.conf put it prior to network daemon:
 DAEMONS=(... set-hw-addr network ...)
-3. Look at the source in https://wiki.archlinux.org/index.php/Configuring_Network- Change_MAC.2Fhardware_address
+3. Look at the source in https://wiki.archlinux.org/index.php/Configuring\_Network-Change\_MAC.2Fhardware\_address
 
 
 
@@ -384,7 +384,7 @@ Host discovery (ping scan):
 
 PORTS SCAN:
 Using SYN packets:
-`sudo nmap -sS -n 192.168.1.*`
+`sudo nmap -sS -n 192.168.1.\*`
 
 Using ACK packets:
 `sudo nmap -sA -n -A 192.168.1.1`
@@ -626,7 +626,7 @@ Per richiedere al server dhcp un indirizzo IP invocare il seguente comando:
 
 ## tcpdchk
 
-controlla la configurazione di TCP_WRAPPER segnalando config errate sui file /etc/hosts.deny /etc/hosts.allow
+controlla la configurazione di TCP\_WRAPPER segnalando config errate sui file /etc/hosts.deny /etc/hosts.allow
 
 
 
@@ -658,7 +658,7 @@ To display all IPv4 HTTP packets to and from port 80,
 i.e. print only packets that contain data, not,
 for example, SYN and FIN packets and ACK-only packets, enter:
 
-`tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)<<2)) - ((tcp[12]&amp;0xf0)<<2)) != 0)'`
+```tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)<<2)) - ((tcp[12]&amp;0xf0)<<2)) != 0)'```
 
 
 
@@ -702,13 +702,13 @@ script per il wireless. Vi è inoltre il file wireless.conf
 
 ## /etc/hosts.allow
 
-TCP_WRAPPERS Es. sshd: 193.207.49.111 host.server.org permette al sistema con ip 193.207.49.111 di connettersi al proprio sistema utilizzando il demone sshd
+TCP\_WRAPPERS Es. sshd: 193.207.49.111 host.server.org permette al sistema con ip 193.207.49.111 di connettersi al proprio sistema utilizzando il demone sshd
 
 
 
 ## /etc/hosts.deny
 
-TCP_WRAPPERS  Es. - Accesso vietato a chiunque, in quanto i servizi sono bloccati, basta aggiungere ALL:ALL@ALL, PARANOID
+TCP\_WRAPPERS  Es. - Accesso vietato a chiunque, in quanto i servizi sono bloccati, basta aggiungere ALL:ALL@ALL, PARANOID
 
 
 
@@ -746,10 +746,10 @@ Generare le chiavi:
 `gpg --gen-key`
 
 Esportare la kiave pubblica in formato ascii:
-`gpg --export -a -o rsa_key`
+`gpg --export -a -o rsa\_key`
 
 Importare una chiave per esempio di un altro utente:
-`gpg --import new_key`
+`gpg --import new\_key`
 
 Generare un certificato di revoca. E' consigliabile farlo non appena si genera una chiave e conservarlo in luogo sicuro:
 `gpg --gen-revoke`
@@ -793,6 +793,12 @@ Cifrare un testo in formato ascii:
 
 Decifrare un testo in stdout(usare -o file per stamparlo su file):
 `gpg -d msg.txt.asc`
+
+To use a symmetric key to encrypt the document (and make it portable!):
+`gpg --output doc.asc --symmetric doc`
+
+To decrypt the document with the symmetric encrypt:
+`gpg --output doc --decrypt doc.asc`
 
 
 AUTENTICAZIONE (firmare e verificare le firme):
@@ -872,10 +878,10 @@ Sniffa i pacchetti contenti IV:
 
 
 
-## aircrack-ng opts file_dump
+## aircrack-ng opts file\_dump
 
 Programma per trovare la kiave:
-`aircrack-ng -a 1 -e $AP -b final_dump.pcap`
+`aircrack-ng -a 1 -e $AP -b final\_dump.pcap`
 
 
 Serve per crakkare una kiave, -e essid, -b bssid, -a algoritmo ad es. 1 per WEP o 2 per WPA, -n num si usa per specificare il num di bit della kiave se si conosce, -f num es 3 o 4 piu' e' piccolo e piu' il tempo diminuisce ma le possibilit? di trovare la kiave diminuiscono, -w file serve per la WPA per un dizionario che puo' essere scaricato opp generato da JohnTheRipper
@@ -976,13 +982,13 @@ Ritrasmissione di un pacchetto alterato con arpforge:
 
 tcpdump per leggere un plaintext ottenuto con aireplay-ng -4:
 
-`tcpdump -s 0 -n -e -r replay_dec-0916-114019.cap`
+`tcpdump -s 0 -n -e -r replay\_dec-0916-114019.cap`
 
 
 
 
 
-## arpforge replay_dec-0916-114019.xor 1 $manDest $macSource $ipSource $ipDest forge-arp.cap
+## arpforge replay\_dec-0916-114019.xor 1 $manDest $macSource $ipSource $ipDest forge-arp.cap
 
 Falsifica i pacchetti da un host all'altro. si puo recuperare il keystream con aireplay-ng -4
 
