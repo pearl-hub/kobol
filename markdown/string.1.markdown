@@ -14,6 +14,31 @@ Select the first 4 chars/bytes:
 Complement the result:
 `echo "name,surname,age,sex,city" | cut -b=1-4 --complement`
 
+## uniq ##
+
+To count repetitions:
+
+```
+echo -e "ciao\nbla\nciao\nciao" | uniq -c
+    1 ciao
+    1 bla
+    2 ciao
+```
+
+To count repetitions sorted first:
+
+```
+echo -e "ciao\nbla\nciao\nciao" | sort | uniq -c
+    1 bla
+    3 ciao
+```
+
+To count repetitions printing only the duplicates :
+
+```
+echo -e "ciao\nbla\nciao\nciao" | uniq -c
+    2 ciao
+```
 
 ## xargs ##
 
@@ -54,10 +79,10 @@ Select the exact match on the whole line:
 `grep -x python.* f.txt`
 
 Show only the match and not the whole line:
-echo "m1ao" | grep -o "^.[[:digit:]][^b-d]"
+`echo "m1ao" | grep -o "^.[[:digit:]][^b-d]"`
 
 Match a fixed string:
-echo "This is a sample" | grep -F "is a"
+`echo "This is a sample" | grep -F "is a"`
 
 
 ## paste ##
@@ -99,32 +124,50 @@ Delete the line from the first match with "hello" to the line that matches with 
 
 ## awk ##
 
-Basic syntax is "pattern {action}".
-BEGIN and END specify the action to apply before and after process each line of stdin:
+Basic syntax is:
+
+```
+    pattern1 {action1}
+    pattern2 {action2}
+```
+
+*BEGIN* and *END* are special pattern that specify the action to apply
+before and after processing each line:
 
 `awk 'BEGIN { print "File\tOwner"} { print $8, "\t", $3} END{ print "DONE" }'`
 
 The option -v specify a variable:
 `awk -v q=0 'BEGIN{} $1==q {print $0 }END{}'`
 
-
 The built-in variables are:
+
+INPUT:
+
+- FS -- The input field separator; defaults to whitespace and is reset by the -F command line parameter
+- RS -- The record separator; by default is newline
+- OFS -- The output field separator; default is space.
+- FILENAME -- Name of the file (see below for an example to use it for joining two files!)
+- FNR -- Same as NR but with multiple files it restart counting from 1 for each file while NR continue incrementing
+- IGNORECASE -- If assigned the regex ignores the upper and lower case.
+
+OUTPUT:
 
 - NR -- The current line's sequential number
 - NF -- The number of fields in the current line
-- FS -- The input field separator; defaults to whitespace and is reset by the -F command line parameter
-- RS -- The record separator; by default is newline
-- OFS -- The output field separator; default is space. See example below
-- FILENAME -- name of the file (see below for an example to use it for joining two files!)
-- FNR -- same as NR but with multiple files it restart counting from 1 for each file while NR continue incrementing
+- ARGC, ARGV -- Allow to access to the awk arguments
+- ENVIRON -- Associative array for accessing to the environ variables
+- FIELDWIDTHS -- comma separated list to specify the width size of each field
+
 
 Variables don't need dollar char!
 Example:
 `awk '{print $1,NF,NR,FS }'`
 
+Print if the line starts with "this" ignore case:
+`awk 'BEGIN {IGNORECASE=1} /^this/ {print $2}'`
 
-Print if $1 begin with J:
-`awk '($1~/^J/) { print $1 }'`
+Print if $2 begin with J:
+`awk '($2~/^J/) { print $1 }'`
 
 To use several separator (it's also possible to change it at runtime using FS):
 `awk -F "[,;.]" '{print $4}'`
@@ -135,7 +178,7 @@ Print if the lenght of $1 is greater than 6:
 Count number of lines where col3 > col1:
 `awk '$3 > $1 {print i + "1"; i++}'`
 
-Print the maximum value: 
+Print the maximum value:
 `awk 'BEGIN{} $1>x {x=$1} END{print x}'`
 
 To delete all words ending with a letter g:
@@ -160,171 +203,140 @@ Traspose a column into row:
 Use of arrays:
 `$ awk 'BEGIN{ortolano["banana"]=20; print ortolano["banana"]}'`
 
+Use the comma as decimal floating separator:
+`$ awk -N '/^Dry/ {tot=$2*$4} END{print tot}'`
 
-SORTING AN ARRAY:
+### REDIRECT ###
+
+Redirect the output on different files:
+`$ awk '$2>=10 {print $3 > "big-items"}; $2<5 {print $3 > "small-items"}'`
+
+### SORTING AN ARRAY ###
 To sort an array according its values (makes a copy):
 
-A = asort(squadra,alta);"
-
+```
+    size = asort(arr_input, arr_output);
+```
 
 To sort an array according its indexes (makes a copy):
 
-A = asorti(squadra,alta);"
-
+```
+    size = asorti(arr_input, arr_output);
+```
 
 To sort the array without making a copy set the PROCINFO array.
 For sort by index:
 
-PROCINFO["sorted_in"] = "@ind_num_asc"
-
+```
+    PROCINFO["sorted\_in"] = "@ind\_num\_asc"
+```
 
 For sort by value:
 
-PROCINFO["sorted_in"] = "@val_type_asc"
+```
+    PROCINFO["sorted\_in"] = "@val\_type\_asc"
+```
 
 
-
-Examples:
-
+### AWK Examples ###
 
 
-- !/usr/bin/awk -f
-- calcolare la media dei voti con relativi giudizi.
-BEGIN {
-print "     \fESITO DELLE PROVE\n"
-print " \fNome\tMedia\tGiudizio\n";
-}
-{
-totale=$2+$3+$4+$5+$6;
-media=totale/5
-if (media>18) {giudizio="promosso";}
-else if (media<18) {giudizio="respinto";}
-print $1,media,"=>",giudizio;
-}
+*Math example*
+
+```
+    #!/usr/bin/awk -f
+    BEGIN {
+        count1=0
+        count2=0
+        print "\fRISULTATI STATISTICI"
+    }
+
+    $4 ~ /promosso/ {count1++}
+    $4 ~ /respinto/ {count2++}
+
+    {media+=$2/9}
+
+    END {
+        promossi=(count1/NR)*100
+        respinti=(count2/NR)*100
+
+        print "\fnumero candidati:", NR
+        print "numero dei promossi:", count1
+        print "percentuale dei promossi", promossi "%"
+        print "numero dei respinti", count2
+        print "percentuale dei respinti:", respinti "%"
+        print "punteggio medio di tutti i candidati:", media
+        print ".........................."
+    }
+
+```
+
+*Count word,rows and chars in a file*
+
+```
+#!/usr/bin/awk -f
+{nc += length($0); np += NF }
+
 END {
-print "------------------------"
+    print "Il file",FILENAME " contains:", NR " rows,", np " words,", nc " chars"
 }
+```
 
 
+*Example of arrays*
 
-
-
-
-- !/usr/bin/awk -f
+```
+#!/usr/bin/awk -f
 BEGIN {
-count1=0
-count2=0
-print "\fRISULTATI STATISTICI"
+    print "\n\n"
+    geo["Francia"] = "Parigi"
+    geo["Angola"] = "Luanda"
+    geo["Bhutan"] = "Thimphu"
+    for (i in geo) {
+        printf "%8s %06s\n", i, geo[i]
+    }
+
+    print "\n\n"
+
+    delete geo["Francia"]
+    for (i in geo) {
+        print i, geo[i]
+    }
+
+    print "\n\n"
+    # Gives 0, Francia key doesn't exist
+    print "Francia " ( "Francia" in geo )
+    # Gives 1, Bhutan key exists
+    print "Bhutan " ( "Bhutan" in geo )"\n"
 }
-- conto i candidati promossi
-$4 ~ /promosso/ {count1++}
-- conto i candidati respinti
-$4 ~ /respinto/ {count2++}
-- calcolo la percentuale dei promossi
-{promossi=(count1/NR)*100}
-- calcolo la percentuale dei respinti
-{respinti=(count2/NR)*100}
-- calcolo il punteggio medio tra tutti i candidati
-{media+=$2/9}
+```
+
+
+
+
+*Example of using two files doing a join in one table!*
+
+```
+#!/usr/bin/awk -f
+
+BEGIN {
+    print "\n\t.............START....................\n"
+    FORMAT="\t%-12s%-12s%-8s%s\n"
+    printf FORMAT,"ALUNNI","MATRICOLE","VOTI","MATERIE"
+}
+{
+    if (FILENAME == "tabella1.txt") {
+        matricole[$1] = $2
+    }
+    if (FILENAME == "tabella2.txt") {
+        printf FORMAT, $1,matricole[$1],$2,$3
+    }
+}
+
 END {
-print "\fnumero candidati:", NR
-print "numero dei promossi:", count1
-print "percentuale dei promossi", promossi "%"
-print "numero dei respinti", count2
-print "percentuale dei respinti:", respinti "%"
-print "punteggio medio di tutti i candidati:", media
-print ".........................."
+    print "\n\t.................END..................\n"
 }
-
-
-
-
-
-
-- !/usr/bin/awk -f
--  Count word,rows and chars in a file
-{
-nc += length($0); np += NF
-}
-END { print "Il file",FILENAME " contiene:", NR " righe,", np " parole,", nc " caratteri."
-}
-
-
-
-
-
-
-
-
-- !/usr/bin/awk -f
-BEGIN {
-print " \f- - - - - - - - - - RETRIBUZIONE TOTALE- - - - - - - - - - - \n"
-}
-{
-i=2; totale=0
-while (i<=NF) {
-totale=totale+$i;
-i++
-}
-print "\nil Signor",$1, "in sette mesi ha guadagnato", totale, "euro"
-}
-
-
-
-
-
-
-
-- !/usr/bin/awk -f
-
--  Example of arrays
-
-BEGIN {
-print "\n\n"
-- L'array geo ha come chiavi tre Stati e, come valori, le rispettive capitali.
-geo["Francia"] = "Parigi"
-geo["Angola"] = "Luanda"
-geo["Bhutan"] = "Thimphu"
-for (i in geo) {
-printf "%8s %06s\n", i, geo[i] - su printf ci ritorneremo
-}
--  Eliminiamo la chiave "Francia" con il comando delete.
-print "\n\n"
-delete geo["Francia"]
-for (i in geo) {
-print i, geo[i] - Controlliamo se ha eliminato la chiave Francia col suo relativo valore.
-}
--  cerca se la chiave Francia esiste
-print "\n\n"
-print "Francia " ( "Francia" in geo )   - Dà 0, la chiave Francia non esiste
-print "Bhutan " ( "Bhutan" in geo )"\n"  - Dà 1, la chiave Bhutan esiste
-}
-
-
-
-
-
-
-
--  Example of using two files doing a joing in one table!
-- !/usr/bin/awk -f
-
-BEGIN {
-print "\n\t.............START....................\n"
-FORMAT="\t%-12s%-12s%-8s%s\n"
-printf FORMAT,"ALUNNI","MATRICOLE","VOTI","MATERIE"
-}
-{
-if (FILENAME == "tabella1.txt") {
-matricole[$1] = $2
-}
-if (FILENAME == "tabella2.txt") {
-printf FORMAT, $1,matricole[$1],$2,$3
-}
-}
-END {
-print "\n\t.................END..................\n"
-}
+```
 
 
 
