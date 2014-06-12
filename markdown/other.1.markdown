@@ -73,6 +73,8 @@ Date epoch:
 Date format using the epoch:
 `date --date='@number'`
 
+To change the TIMEZONE (the values can be found in /usr/share/zoneinfo):
+`TZ=Japan date`
 
 
 

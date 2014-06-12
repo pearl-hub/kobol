@@ -77,12 +77,14 @@ Cancellare le cartelle vuote:
 Cancellare tutti i file .pyc:
 `find . -depth -type f -name *.pyc -exec rm {} \;`
 
-Cancellare tutte le directory .svn: 
+Cancellare tutte le directory .svn:
 `find . -depth -type d -name .svn -exec rm -Rf {} \;`
 
+Delete all the files that are NOT '\*.php':
+`find ~/sources/ -type f -not -name '*.php' -delete`
 
 con -cmin "minuti" e mmin "minuti" fa la ricerca di file cambiati e modificati nell'arco di "minuti".
-un utilizzo più complesso e' find ~/ -name 'core*' -exec "comando" {} \; che Cancella tutti i file core presenti nella directory home dell'utente. Con vicino "COMANDO" c'e' {}, allora find sostituisce "{}" con il percorso completo del file selezionato.
+un utilizzo più complesso e' find ~/ -name 'core\*' -exec "comando" {} \; che Cancella tutti i file core presenti nella directory home dell'utente. Con vicino "COMANDO" c'e' {}, allora find sostituisce "{}" con il percorso completo del file selezionato.
 
 
 Find the files modified on a specific date(works for find version >=4.3.3):
@@ -193,7 +195,7 @@ rimuove file e directory.-r rimuove anche il contenuto della directory, -i versi
 
 
 
-## rsync -avz --exclude pippo.* --delete <server>:/web/ web/
+## rsync -avz --exclude pippo.\* --delete <server>:/web/ web/
 
 permette di replicare una directory presente su un sistema server
 
