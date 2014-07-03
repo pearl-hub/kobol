@@ -95,7 +95,8 @@ Legge le righe contenute nel file con descittore 3:
 
 `while read riga <&amp;3 do {echo riga}`
 
-
+To redirect both sdtout and stderr to file (The 2>&1 goes always at the end):
+`command >file 2>&1`
 
 
 
