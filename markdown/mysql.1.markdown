@@ -19,6 +19,9 @@ To show tables in the current database:
 To show the columne of a table:
 `show columns from TABLE \g`
 
+To show the description of a table:
+`desc TABLE \g`
+
 To query:
 `select * from TABLE where FIELD like '%something%' \g`
 
