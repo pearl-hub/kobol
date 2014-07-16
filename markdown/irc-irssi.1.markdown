@@ -95,5 +95,34 @@ To a private chat:
 
 
 
+## manage window ##
+
+To show a window #num in a new horizontal container (works only for non stick windows):
+`/window show #num`
+
+To hide a window:
+`/window hide #num`
+
+To disable stickness from a window:
+`/window stick #num off`
+
+To move window up/down:
+`/window move IP/DOWN`
+
+To close the current window:
+`/window close`
+
+### manage window size ###
+
+To balance the size of all windows:
+`/window balance`
+
+To shrink/grow the size of the current window:
+
+`/window shrink [#lines]`
+
+`/window grow [#lines]`
+
+
 
 
