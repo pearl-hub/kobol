@@ -63,6 +63,9 @@ Grep all files containing "string" using 8 processes excluding the blank lines (
 Use pipe in xargs command:
 `echo {0..$count} | xargs -d " " --max-procs=$count -I {} bash -c 't0=$(date +%s); cat $requests | nc localhost 33; t1=$(date +%s) echo process: {} time: $[$t1 - $t0];'`
 
+Use the option -i to keep use your own aliases and functions with xargs:
+`echo "{0..5}" | xargs -I {} bash -ic "my_function"`
+
 
 ## grep ##
 

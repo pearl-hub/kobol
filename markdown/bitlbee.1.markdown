@@ -16,10 +16,10 @@ To register your own account:
 `register <password>`
 
 Add a gmail account:
-`account set <account id> username@gmail.com password`
+`account <account id> set username@gmail.com password`
 
 Change password:
-`account set <account id> password <mypassword>`
+`account <account id> set password <mypassword>`
 
 To see the setting related to this account:
 `acc gtalk set`

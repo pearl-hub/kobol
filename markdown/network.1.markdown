@@ -271,6 +271,27 @@ Scan the port (using -S syn/-A ack/-F fin):
 
 ## netcat ##
 
+The option -p correspond always to the local port.
+The option -z is used for port scanning but not for sending data.
+
+###Connect mode###
+
+To check connection to server.com:8080 from source port 1025 waiting for one second:
+`nc -w1 -z -u -p 1025 server.com 8080`
+
+To send a message from client to server:
+`echo "nc is awesome!" | nc localhost 8080`
+
+###Listen mode###
+
+To continuosly (with -z) listen for UDP packets:
+`nc -l -p 8080 -z localhost`
+
+To send a message from server to client:
+echo "Yeah, it is true!" | nc -l -p 8080
+
+
+### Execute remotely a command###
 Listen to a port -  3005 and execute /usr/bin/w command when client connects:
 `$ nc -l -p 3005 -e /usr/bin/w`
 

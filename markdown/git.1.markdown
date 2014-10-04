@@ -276,6 +276,9 @@ To manage merging conflicts with a graphical tool:
 To delete a branch:
 `git branch -d hotfix`
 
+To delete a remote branch locally:
+`git branch -rd origin/remotebranch`
+
 To see the last commit on each branch:
 `git branch -v`
 
