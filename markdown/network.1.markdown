@@ -542,15 +542,38 @@ Se si vuole avviare un'applicazione specificando un dato terminale:
 
 Per mostrare i DISPLAY degli altri terminali attivi basta usare il comando who.
 
-TCP Forwarding (SSH Tunnelling)
+### ssh tunnelling (TCP forwarding) ###
+
 For define a ssh tunnel:
 `ssh -f -N -L localhost:24800:server:24800 user@server`
 
-With -N no remote command will be executed, -f set the ssh to background
-and -L define the local and remote socket which set the tunnel
+Options:
 
+- **-N** No remote command will be execute
+- **-f** Set the ssh to background
+- **-L** *port* define the local and remote socket which set the tunnel
 
+Additional options:
 
+- **-p** *port* Port to connect to on the remote host
+
+#### reverse ssh tunnelling ####
+
+In order to connect to a firewalled box (natbox) from an internet reachable box (openbox),
+establish a reverse tunnel in the natbox:
+
+`ssh -p1234 -R 5555:localhost:22 openboxuser@OPENbox.example.com`
+
+Options:
+
+- **-R** *port* Specifies that the given port on the remote (server) host is
+         to be forwarded to the given host and port on the local side.
+
+This will create a reverse tunnel at port 22 for the remote party to connect and get in.
+
+Type the following command on OPENbox:
+
+`ssh -p5555 natboxuser@localhost`
 
 ## telnet [- l utente] [host [port]]
 
