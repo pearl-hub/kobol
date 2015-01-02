@@ -1,10 +1,127 @@
+#Disk management#
 
-#  filesystem dischi
+##No space left on device##
+Disk partition usage:
+
+```
+df -h
+```
+
+Show a human readable summary:
+
+```
+du -h -s <directory>
+```
+
+Show the size of directory for the first level:
+
+```bash
+du -h --max-depth=1 <directory>
+```
+
+Find out the largest directories or files eating disk space:
+
+```bash
+du -ha /tmp | sort -n -r | head -n 10
+```
+
+Find and remove large files that are open but have been deleted:
+
+```bash
+lsof -nP | grep '(deleted)'
+```
+
+##The file system is in read-only mode?##
+Try to remount the partition with rw options:
+
+```bash
+mount -o remount,rw /ftpusers/tmp
+```
+
+##Not enough inodes?##
+To check for available inodes:
+
+```bash
+df -ih
+```
+
+If there is not enough inodes you still need to delete large files
+even though there is space available.
+
+##Has the disk partition bad sectors?##
+
+```bash
+smartctl -a /dev/sda
+```
+
+or
+
+```bash
+fsck -y -t ext3 /dev/sda8
+```
+
+To simulate:
+
+```bash
+fsck -N /dev/sda8
+```
+
+With `fsck` remember to umount the partition first.
+
+##Is the disk too hot?##
+
+```bash
+hddtemp /dev/sda
+```
+
+or
+
+```bash
+smartctl -d ata -A /dev/sda | grep -i temperature
+```
+
+##Deal with RAID##
+
+```bash
+## get detail on /dev/md0 raid ##
+mdadm --detail /dev/md0
+
+## Find status ##
+cat /proc/mdstat
+watch cat /proc/mdstat
+```
+
+Disks are failing if they show underscores: `|_UUUU|`
+
+To remove disk from an array md0:
+
+```bash
+mdadm --manage /dev/md0 --fail /dev/sdb1
+mdadm --manage /dev/md0 --remove /dev/sdb1
+```
+
+You may need to reboot if the disk are not hot-swappable
+
+To add disk:
+
+```bash
+mdadm --manage /dev/md0 --add /dev/sdb1
+```
+
+##Create a file image##
+
+```bash
+fallocate -l 1G test4.img
+```
+
+or
+
+```bash
+qemu-img create archlinux.img 8G
+```
 
 
-
-## create a RAM disk
-
+##Create a RAM disk##
 In order to create a disk into the ram:
 
 `mkdir -p /media/ramdisk`
@@ -38,22 +155,6 @@ Controllare il reversed blocks:
 `sudo  tune2fs -l /dev/sda1`
 
 
-
-
-## df
-
-visualizza info sui dischi
-
-
-
-
-## du -h -s
-
-fornisce info sullo spazio occupato del disco.
-
-
-
-
 ## fdisk
 
 "/dev/hda"app per la gestione di partizione
@@ -61,7 +162,7 @@ fornisce info sullo spazio occupato del disco.
 
 
 
-## qtparted 
+## qtparted
 
 app per la gestione di partizione
 
@@ -136,8 +237,4 @@ monta un filesystem. i dati di montaggio sono collocati nel file /etc/fstab. Esi
 ## umount /mnt/hda2
 
 operazione inversa del mount
-
-
-
-
 
