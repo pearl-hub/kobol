@@ -103,27 +103,39 @@ Convert to upper:
 ## sed ##
 
 The delimiters can be: @:,;% instead of / if we want.
-*  Substitution
-Apply all occurences (because of g) of two substitutions:
-`sed -e 's/dog/cat/g' -e 's/cat/elephant/g' file`
+
+###Substitute###
+
+Substitute all occurences (since g keyword) and place the changes to the same file (since option -i):
+
+    sed -i -e 's/dog/cat/g' -e 's/cat/elephant/g' file
 
 The substitution is only applied to lines matching the regular expression "not":
-`sed -e '/not/s/black/white/g' file`
+
+    sed -e '/not/s/black/white/g' file
 
 It matches the regular expression ^line.\*one:
-`sed -e '/^line.*one/s/line/LINE/' file`
+
+    sed -e '/^line.*one/s/line/LINE/' file
 
 
-*  Delete
+###Delete###
+
 The lines are deleted if they match with the regular expression "line":
-`sed -e '/line/d' file`
+
+    sed -e '/line/d' file
 
 Delete the first and second line:
-`sed -e '1,2d' file`
+
+    sed -e '1,2d' file
 
 Delete the line from the first match with "hello" to the line that matches with "goodbye":
-`sed -e '/hello/,/goodbye/d' file`
 
+    sed -e '/hello/,/goodbye/d' file
+
+Remove commented and empty lines in /tmp/file and create a backup file.origin:
+
+    sed -i.origin -e '/^#/d;/^$/d' /tmp/file
 
 ## awk ##
 

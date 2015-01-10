@@ -1,7 +1,6 @@
 
 #  network
 
-
 ## netcfg
 
 1. Define a network in /etc/network.d/ called mynetwork (copy one of the examples in the examples directory)
