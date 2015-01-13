@@ -37,9 +37,26 @@ Command     Alias     Info
 /window close   /wc     Force closure of a window.
 /whois  /wi     WHOIS a user. Displays user information
 
+## Manage a channel ##
 
+To create a channel:
 
-## miscellaneous
+    /join #channel
+
+To invite people in channel:
+
+    /invite buddy #channel
+
+To insert the topic:
+
+    /topic this is my topic
+
+To change the mode to private or secret:
+
+    /mode #channel +s
+    /mode #channel +p
+
+## miscellaneous ##
 
 To get the property:
 `/set`
@@ -60,18 +77,14 @@ To highlight some nick:
 `/hilight yournick`
 
 
-
-
-## perl script
+## perl script ##
 
 Put the script in ~/.irssi/scripts or in ~/.irssi/scripts/autorun to run the script at startup.
 To execute a script:
 `/run scriptname`
 
 
-
-
-## set a new account
+## set a new account ##
 
 To set a nick:
 `/nick feel`
@@ -86,9 +99,7 @@ To change the password:
 `/ns set password newPassword`
 
 
-
-
-## chatting
+## chatting ##
 
 To a private chat:
 `/query nick`
