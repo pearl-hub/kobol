@@ -194,10 +194,59 @@ To limit to 3 connections for the same host (--syn is equivalent to --tcp-flags 
 
 
 
+## ipset ##
+Allow to keep the iptables rule simple by creating set of addresses or ports
+that be defined in entries of iptables.
+
+### Set of ports ###
+
+To accept all incoming packets towards email ports (23, 110 and 143),
+we can create an *EmailPorts* set:
+
+    ipset create EmailPorts bitmap:port range 0-65535 comment
+    ipset add EmailPorts 23 comment SMTP
+    ipset add EmailPorts 110 comment POP3
+    ipset add EmailPorts 143 comment IMAP
+    ipset add EmailPorts 152-155 comment "Additional ports range"
+
+To list the sets:
+
+    ipset list
+
+To create the iptables rule:
+
+    iptables -A INPUT -s 192.0.2.0/24 -p tcp -m set --match-set EmailPorts dst -j ACCEPT
+
+### Set of hosts/subnet ###
+To accept packets from trusted hosts towards email ports:
+
+    ipset create TrustedHosts hash:ip family inet comment
+    ipset ad TrustedHosts 192.0.2.10 comment "Alice"
+    ipset ad TrustedHosts 192.0.2.15 comment "Bob"
+
+    iptables -A INPUT -p tcp --dport 22 -m set --match-set TrustedHosts src -m set --match-set EmailPorts dst -j ACCEPT
+
+To create a subnet:
+
+    ipset create NetworkList hash:net
+    ipset add NetworkList 10.1.0.0/24
+
+### Combine hosts, protocols and ports ###
+
+    ipset create AppSupport hash:ip,port
+    ipset add AppSupport 203.0.113.15,tcp:5000
+    ipset add AppSupport 203.0.113.15,tcp:5000
+    ipset add AppSupport 203.0.113.15,tcp:5000
+
+    iptables -A INPUT -m set --match-set AppSupport src,dst -j ACCEPT
 
 
+### Save and restore ###
+    ipset save > /path/to/ipset.save
+    ipset restore < /path/to/ipset.save
 
-## nfs
+
+## nfs ##
 
 Server side:
 Pacchetti necessari:apt-get install nfs-kernel-server nfs-common portmap. PASSI DA FARE: 1) scrivere in /etc/exports i permessi (es /home/ 192.168.210.128/24(rw)) leggere il manuale (man exports). 2) Riavviare il server: /etc/init.d/nfs-kernel-server restart oppure con exportfs -a. 3) Per verificare l'esportazione showmount -e
