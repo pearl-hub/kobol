@@ -1,68 +1,85 @@
 
-#  bash
+# Bash #
 
 
 ## history
 
-Permette di visualizzare lo storico dei comandi.
--c cancella tutto, num indica il num di comandi da visualizzare.
-Il file è denominato .bash_history ed è localizzato nella dir home dell'utente:
+Show the commands history.
 
-`history [-c] [num]`
+To show the last *num* commands:
+
+    history num
+
+To remove all commands
+
+    history -c
+
+The file containing the command history is located in  ~/.bash\_history.
 
 
 The most recent command containing the "string":
-`!?string`
+
+    !?string
 
 
 Take the command that either is in the row "num" (it can be negative) or has "string" as prefix:
 
-`!n`
- or 
-`!string`
+    !n
+    !string
 
 Substitute string1 with string2 in the previous command:
-`^string1^string2^`
+
+    ^string1^string2^
+
+To execute the last command with sudo:
+
+    sudo !!
+
+To run command with the last argument of the most recent command:
+
+    sudo vi !$
 
 
-
-
-## multitasking
+## multitasking ##
 
 Stop the execution of the script until all the background jobs have finished or until
 the specified job has finished:
-`wait %job`
+
+    wait %job
 
 
 Bring the process as foreground:
-`fg %job`
+
+    fg %job
 
 
 Execute directly a job in background:
-`comando &amp; `
+
+    comando &
 
 
 Execute a job in background:
-`bg %job`
+
+    bg %job
 
 
 Kill a background job:
-`kill %job`
+
+    kill %job
 
 
 List all the current jobs:
-`jobs`
+
+    jobs
 
 
 ctrl+c kill the current job, ctrl+z suspend the current job:
 
-`ctrl+c e ctrl+z`
+    ctrl+c e ctrl+z
 
 
 
-
-
-## redirection i/o and pipe
+## redirection i/o and pipe ##
 
 Il ; consente l'esecuzione sequenziale dei comandi:
 `comand1 ; comand2`
@@ -132,7 +149,7 @@ Ctrl-w          Delete from the cursor to the start of the word.
 Esc-Del         Delete previous word (may not work, instead try Esc followed by Backspace)
 Ctrl-y          Pastes text from the clipboard.
 Ctrl-l          Clear the screen leaving the current line at the top of the screen.
-Ctrl-x Ctrl-u   Undo the last changes. Ctrl-_ does the same
+Ctrl-x Ctrl-u   Undo the last changes. Ctrl-\_ does the same
 Alt-r           Undo all changes to the line.
 Alt-Ctrl-e      Expand command line.
 Ctrl-r          Incremental reverse search of history.
@@ -233,9 +250,6 @@ echo ${array[@]//t/a} -  Substitute all the occurrences "t" with "a".
 
 
 
-
-
-
 ## Variables
 
 $@: Array variable of the parameters
@@ -249,6 +263,93 @@ ${FUNCNAME}: Array variable containing the function in the execution call stack
 Provides completion generation.
 To get the list of pearl function: 
 `compgen -abck pearl_`
+
+
+## trap ##
+
+Consente di catturare segnali inviati tramite il comando kill da un altro processo. La sintassi e':
+`trap arg sig`
+ Dove arg rappresenta una funzione da eseguire una volta ricevuto il segnale specificato. Se arg è : vuol dire che quel segnale viene ignorato dal processo. Mentre se arg è - viene ripristinato al valore iniziale nullo.
+Ad esempio:
+
+
+
+sigquit()
+{
+echo "signal QUIT received"
+}
+
+sigint()
+{
+echo "signal INT received, script ending"
+exit 0
+}
+
+trap 'sigquit' QUIT
+trap 'sigint'  INT
+trap ':'       HUP      -  ignore the specified signals
+echo "test script started. My PID is $$"
+
+
+
+Su un'altra shell possiamo eseguire i seguenti comandi:
+`kill -HUP  25309`
+
+`$ kill -QUIT 25309`
+
+`kill -INT  25309`
+
+che verranno opportunamente gestiti tramite trap.
+
+Allo stesso modo puoi consentire comunicazioni tra i processi.
+
+
+
+config="our.config.file"
+sigusr1()
+{
+echo "(SIGUSR1: re-reading config file)"
+. $config
+}
+
+trap sigusr1 USR1       -  catch -USR1 signal
+
+echo "Daemon started. Assigned PID is $$"
+
+
+
+
+Per far rileggere il file di configurazione basta fare:
+`kill -USR1 25843`
+
+
+
+#  colori
+
+
+
+## echo -e \E[GRASSETTO;COLORE1;COLORE2mQui va inserito il testo.
+
+
+GRASSETTO vale 1 (attivo) oppure 0 (nn attivo). \E[0m ripristina le impostazioni precedenti
+Colore  Primo piano Sfondo
+30          40
+nero
+31          41
+rosso
+32          42
+verde
+33          43
+giallo
+34          44
+blu
+35          45
+magenta
+36          46
+cyan
+37          47
+bianco
+
 
 
 

@@ -1,12 +1,11 @@
 
-#  user &amp; group
+# Administrator #
 
 
 
 ## finger
 
 [-sl][utente][@macchina]ottieni info su un utente o sulla macchina, quale e' l'ultima volta che è acceduto al sistema. -s forma breve, -l forma estesa.
-
 
 
 
@@ -70,6 +69,8 @@ To show the last accesses of the user feel:
 `last feel`
 
 
+## lslogins ##
+Show information about the user in the system
 
 
 

@@ -109,32 +109,39 @@ rimuove un modulo in memoria. -a rimuove tutti i moduli
 ## ps
 
 Lists of the processes in execution:
-`ps -e`
+
+    ps -e
 
 Shows with more details:
-`ps aux`
+
+    ps aux
 
 
-TREE STRUCTURE:
 Shows the process tree:
-`ps faxj`
 
-OR 
-`pstree`
+    ps faxj
+
+OR
+
+    pstree
 
 
 Shows all processes for the getty command with customized fields:
-`ps -C getty -o user,pid,tty,time,comm`
+
+    ps -C getty -o user,pid,tty,time,comm
 
 Shows the first 10 processes sorted by CPU usage:
-`ps aux | sort -n -k 3 | tail -10`
+
+    ps aux | sort -n -k 3 | tail -10
 
 Shows the first 10 processes sorted by Memory usage:
-`ps aux | sort -n -k 4 | tail -10`
+
+    ps aux | sort -n -k 4 | tail -10
 
 
 Shows the processes running as a user:
-`ps -U feel -u feel u`
+
+    ps -U feel -u feel u
 
 
 visualizza ulteriori info sui processi attivi. si utilizzano le opzioni -afx, -a mostra i processi utilizzati da altri utenti, -f definisce una struttura ad albero, -x mostra  processi senza terminali di controllo, u rende l'output human-readble
@@ -144,14 +151,14 @@ See the pearl functions: touser, cpumost, memmost, topid, frompid
 
 
 
-## pstree
+## pstree ##
 
 Provide the list of process with a tree structure.
 See also ps command.
 
 
 
-## kill
+## kill ##
 
 uccide il processo "pid"
 `kill pid`
@@ -160,66 +167,6 @@ Elenco dei segnali che possono essere mandati al processo
 `kill -l`
 
 I segnali più importanti sono: SIGHUP che consente di uccidere tutti i processi figli del processo specificato; SIGINT segnale di interruzione che corrisponde a Cntrl-C; SIGKILL; SIGTSTP che corrisponde a Cntrl-Z; SIGCONT che è il segnale inviato da una shell tramite i comandi fg e bg; SIGWINCH che è per eventi di finestra come resize e cosi via; e, infine SIGUSR1 e SIGUSR2 che permettono comunicazioni inter-processo.
-
-
-
-## trap
-
-Consente di catturare segnali inviati tramite il comando kill da un altro processo. La sintassi e':
-`trap arg sig`
- Dove arg rappresenta una funzione da eseguire una volta ricevuto il segnale specificato. Se arg è : vuol dire che quel segnale viene ignorato dal processo. Mentre se arg è - viene ripristinato al valore iniziale nullo.
-Ad esempio:
-
-
-
-sigquit()
-{
-echo "signal QUIT received"
-}
-
-sigint()
-{
-echo "signal INT received, script ending"
-exit 0
-}
-
-trap 'sigquit' QUIT
-trap 'sigint'  INT
-trap ':'       HUP      -  ignore the specified signals
-echo "test script started. My PID is $$"
-
-
-
-Su un'altra shell possiamo eseguire i seguenti comandi:
-`kill -HUP  25309`
-
-`$ kill -QUIT 25309`
-
-`kill -INT  25309`
-
-che verranno opportunamente gestiti tramite trap.
-
-Allo stesso modo puoi consentire comunicazioni tra i processi.
-
-
-
-config="our.config.file"
-sigusr1()
-{
-echo "(SIGUSR1: re-reading config file)"
-. $config
-}
-
-trap sigusr1 USR1       -  catch -USR1 signal
-
-echo "Daemon started. Assigned PID is $$"
-
-
-
-
-Per far rileggere il file di configurazione basta fare:
-`kill -USR1 25843`
-
 
 
 
@@ -247,12 +194,26 @@ Vedere pure il comando
 
 
 
+## Adjust process priorities ##
+
+The nice command assumes the value of 10.
+The priority is a valuerange -20 to 20. The default priority is 0, priority 20 is the lowest possible.
+
+To adjust the priority:
+
+    nice -n num program
+
+### Alter priority on running processes ###
 
 
-## nice -n num programma
+To set the priority or the increment of a running process:
 
-permette di modificare la priorità di un processotra -20 (la più alta) a 19 (la più bassa)
+    renice priority pid
+    renice -n increment pid
 
+To set the processes belonging to a given user:
+
+    renice -u user
 
 
 

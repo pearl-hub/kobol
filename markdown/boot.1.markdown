@@ -1,17 +1,17 @@
 
-#  Ripristino e installazione di sistemi GNU Linux
+# Boot system #
 
 
 
-## Opzioni di avvio del kernel
+## Boot kernel parameters ##
+Per conoscere tutte le opzioni al time boot:
 
-Per conoscere tutte le opzioni al time boot: 
-`man bootparam`
-
-
+    man bootparam
 
 
-## Installare ubuntu senza cd ma solo con la iso
+
+
+## Installare ubuntu senza cd ma solo con la iso ##
 
 Per prima cosa, scaricare l’immagine ISO di Ubuntu e posizionatela nella root directory (“/”), adesso digitate:
 
@@ -52,25 +52,6 @@ E per la partizione:
 
 
 
-
-## elenco pacchetti installati
-
-
-1) Creare una lista dei pacchetti installati con il seguente comando:
--    dpkg --get-selections > /home/$USER/lista_pacchetti
-
-2) E' buona norma salvare anche il file /etc/apt/sources.list
-
-3) Per ripristinare i pacchetti sistemiamo il sources.list salvato in precedenza
-
-4) Successivamente diamo da terminale:
--    sudo dpkg --set-selections (simbolo minore) /home/$USER/lista_pacchetti
--    sudo apt-get dselect-upgrade
-
-
-
-
-
 ## scrittura mbr
 
 
@@ -83,6 +64,17 @@ In caso di errori del tipo error: no such disk quando si intende avviare XP prov
 -  grub-install /dev/sda
 
 
+## Grub 2 ##
 
+To generate automatically the configuration from the files */etc/default/grub* and
+the files located in */etc/grub.d/*:
 
+    grub-mkconfig | grub-script-check
+    grub-mkconfig -o /boot/grub/grub.cfg
+
+The main variable to set are:
+
+    GRUB_TIMEOUT - elapsed time for the initial grub menu
+    GRUB_DISABLE_OS_PROBER - disable the check of windows OS (grub may be faster by disabling this)
+    GRUB_CMDLINE_LINUX - add the kernel extra options on all the entries
 

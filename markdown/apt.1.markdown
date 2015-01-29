@@ -37,4 +37,15 @@ Comandi:
 * pkgnames "prefix" mostra il nome di un pkg.
 
 
+## elenco pacchetti installati
+1) Creare una lista dei pacchetti installati con il seguente comando:
+-    dpkg --get-selections > /home/$USER/lista_pacchetti
+
+2) E' buona norma salvare anche il file /etc/apt/sources.list
+
+3) Per ripristinare i pacchetti sistemiamo il sources.list salvato in precedenza
+
+4) Successivamente diamo da terminale:
+-    sudo dpkg --set-selections (simbolo minore) /home/$USER/lista_pacchetti
+-    sudo apt-get dselect-upgrade
 
