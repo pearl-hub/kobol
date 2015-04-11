@@ -65,8 +65,36 @@ Per rimuovere il qdisc esistente:
 Per mostrare il qdisc esistente: 
 `tc -s qdisc show dev $eth`
 
+## ufw (Uncomplicated  Firewall)
 
+Enable the firewall with the default rules defined in /etc/ufw/before6.rules
 
+    ufw enable
+
+Allow traffic for ssh:
+
+    ufw allow ssh/tcp
+
+It is possible to see the effect of the operation via iptables:
+
+    iptables -L -vn
+
+### Logging and status ###
+
+Enable logging (visible with dmesg):
+
+    ufw logging on
+
+To check the status and remove the rule number 4:
+
+    ufw status numbered
+    ufw delete 4
+
+#### Limit ###
+
+To limit access for ssh to a single IP for 6 simultaneous connections every 30 secs:
+
+    ufw limit ssh/cp
 
 ## iptables ##
 
