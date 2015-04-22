@@ -199,6 +199,9 @@ Print the maximum value:
 To delete all words ending with a letter g:
 `awk '{gsub("[a-zA-Z0-9]\*[g|G]", "");print}' input`
 
+Avoid lines beginning with either Never or root:
+`lastlog | awk '!(/^Never/ || /^root/)' {print}`
+
 
 To change the record separator:
 `echo "mela pera; cane gatto; Milano bari" | awk 'BEGIN { RS=";" } {print NR}'`
@@ -255,6 +258,15 @@ For sort by value:
 
 ### AWK Examples ###
 
+*Use of an array as a dictionary of <IP,Number of access>*
+
+```
+    {ip[$1]++}
+    END {
+        for (i in ip)
+            print i, " has accessed ", ip[i], " times"}
+    }
+```
 
 *Math example*
 
