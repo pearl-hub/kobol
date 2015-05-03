@@ -96,6 +96,7 @@ To limit access for ssh to a single IP for 6 simultaneous connections every 30 s
 
     ufw limit ssh/cp
 
+
 ## iptables ##
 
 General syntax:
@@ -375,6 +376,62 @@ Later just do:
 `telnet localhost 3005`
 
 
+## socat (SOcket CAT) ##
+
+It allows to establish two bidirectional byte streams that can be used for many
+purposes.
+
+More info: http://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/
+Snippets: http://www.dest-unreach.org/socat/doc/socat.html#EXAMPLES
+
+###TCP proxy Port Forwarder###
+To redirect all connections on port 80 to a remote host in port 22:
+`sudo socat TCP-LISTEN:80,fork TCP:192.168.0.2:22`
+
+Then you can access to the remote host via ssh using local connection:
+`ssh -p 80 localhost`
+
+###Listen mode###
+Accept all connections in port 5555 and execute ls command in a sandbok with sandbox as user.
+Use pty to communicate between socat and ls; redirect the stderr to stdout so that the
+error can be transferred via socat.
+`
+socat TCP4-LISTEN:5555,fork \
+    EXEC:/bin/usr/ls,chroot=/home/sandbox,su-d=sandbox,pty,stderr
+`
+
+Accept all connections and the data sent by the clients are appended to /tmp/in.log.
+Allow immediate restart of the server process (reuseaddr):
+`
+socat -u TCP4-LISTEN:3334,reuseaddr,fork \
+    OPEN:/tmp/in.log,creat,append
+`
+
+An OpenSSL server:
+`socat SSL-LISTEN:4443,reuseaddr,pf=ip4,fork,cert=server.pem,cafile=client.crt PIPE`
+
+###Connect to service###
+Transfer data between stdin and local port 8080:
+`echo ciao | socat - TCP4:localhost:8080`
+
+Transfer data with readline and store them in ~/.http\_history. The option -d -d
+will print the progress and crnl will correct line termination char instead of NL:
+`socat -d -d READLINE,history=$HOME/.http_history TCP4:localhost:8080,crnl`
+
+Connect to ssh server. Uses pty for communication between socat and ssh,
+control the ssh terminal tty (ctty) and makes the pty the owner of the new process group (setsid),
+so ssh accepts the password from socat:
+`(sleep 5; echo oneone; sleep 5; echo ls; sleep 1) | socat - EXEC:'ssh -l feel 192.168.0.23',pty,setsid,ctty`
+
+A OpenSSL client that tries to connect to a SSL server. In case of client authentication,
+the cert is used to specify the client certificate.
+The first address ('-') can be replaced by almost any other socat address:
+`socat - SSL:server:4443,cafile=server.crt,cert=client.pem`
+
+Unidirectional data transfer (-u). Socat transfers data from file /tmp/readdata,
+starting at its current end (seek-end=0 lets socat start reading at current end of file;
+use seek=0 or no seek option to first read the existing data) in a "tail -f" like mode (ignoreeof). The "file" might also be a listening UNIX domain socket (do not use a seek option then):
+`socat -u /tmp/readdata,seek-end=0,ignoreeof -`
 
 
 ## curl ##
