@@ -656,10 +656,8 @@ Per accedere come root ricordare di abilitare l'accesso remoto sul terminale nel
 
 ## ssh
 
-versione sicura di telnet
 To access with enabling compression
 `ssh -C user@host`
-
 
 X11 Forwarding
 Per comprimere i dati trasmessi e abilitare l'inoltro X11:
@@ -690,23 +688,31 @@ Additional options:
 
 - **-p** *port* Port to connect to on the remote host
 
-#### reverse ssh tunnelling ####
+#### Reverse ssh tunnelling ####
 
 In order to connect to a firewalled box (natbox) from an internet reachable box (openbox),
 establish a reverse tunnel in the natbox:
 
-`ssh -p1234 -R 5555:localhost:22 openboxuser@OPENbox.example.com`
+`ssh -fN -R 5555:localhost:22 openboxuser@OPENbox.example.com`
+
+This forward traffic on port 5555 of openbox to port 22 of natbox.
 
 Options:
 
 - **-R** *port* Specifies that the given port on the remote (server) host is
          to be forwarded to the given host and port on the local side.
 
-This will create a reverse tunnel at port 22 for the remote party to connect and get in.
-
 Type the following command on OPENbox:
 
 `ssh -p5555 natboxuser@localhost`
+
+In order to reach the natbox endpoint from an external host outside the openbox host:
+`ssh -fN -R OPENbox.example.com:5555:localhost:22 openboxuser@OPENbox.example.com`
+
+Then, you can access via from any host:
+`ssh -p5555 natboxuser@OPENbox.example.com`
+
+Ref.: http://xmodulo.com/access-linux-server-behind-nat-reverse-ssh-tunnel.html
 
 ## telnet [- l utente] [host [port]]
 
