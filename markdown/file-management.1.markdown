@@ -250,13 +250,6 @@ imposta i permessi. esiste la versione ottale, opp -  chmod u+rwx,go-rwx gsg.tex
 
 
 
-## tee file
-
-copia lo standard input allo std output e al file
-
-
-
-
 ## read
 
 legge righe da una file

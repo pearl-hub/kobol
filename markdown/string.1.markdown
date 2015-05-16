@@ -1,6 +1,25 @@
 # String Manipulation #
 
 This manual contains the main commands for string manipulation
+Reference: http://www.techdarting.com/2015/05/linux-commands-for-text-manipulating.html
+
+## comm ##
+
+comm compares two sorted files FILE1, FILE2 line by line.
+
+Arguments:
+
+- 1 -- Suppress lines unique to the left file
+- 2 -- Suppress lines unique to the right file
+- 3 -- Suppress lines that appear in both the files
+
+Print only lines present in both file1 and file2:
+
+    comm -12 file1 file2
+
+Print lines in file1 not in file2, and vice versa:
+
+    comm -3   file1 file2
 
 ## cut ##
 
@@ -14,7 +33,29 @@ Select the first 4 chars/bytes:
 Complement the result:
 `echo "name,surname,age,sex,city" | cut -b=1-4 --complement`
 
+## diff ##
+Compares differecnes between files.
+
+Few essential arguments:
+
+- -a --   Treat all files as text and compare them line-by-line, even if they do not seem to be text.
+- -b --   Ignore changes in amount of white space.
+- -c --   Use the context output format.
+
+## fold ##
+
+To wrap lines of a file at column 80 and break at spaces (-s):
+
+    fold -sw 80 myfile
+
 ## uniq ##
+
+Essential arguments:
+
+- -c  --   Prefix lines with a number representing how many times they occurred.
+- -d  --   Only print duplicate lines
+- -i  --   Enable case-insensitive comparisons.
+- -u  --   Only print unique lines
 
 To count repetitions:
 
@@ -74,6 +115,9 @@ Use the option -i to keep use your own aliases and functions with xargs:
 - `-n`        Print line
 - `-f FILE`   Match on the FILE
 - `--color`   Enable color
+- `-l`        Just print the files that match the pattern.
+- `-R , -r`   Read all files within a directory recursively.
+- `-w`        Select only those lines containing matches that form whole words.
 
 To invert match:
 `grep -v python f.txt`
@@ -87,6 +131,15 @@ Show only the match and not the whole line:
 Match a fixed string:
 `echo "This is a sample" | grep -F "is a"`
 
+## head ##
+
+Print the first 10 lines:
+
+    head -n 10 file1
+
+## nl ##
+
+Numbers the non empty lines of the given file.
 
 ## paste ##
 
@@ -99,6 +152,32 @@ Merge lines of files delimited by a space char:
 Convert to upper:
 `echo "abc" | tr [:lower:] [:upper:]`
 
+## sort ##
+Sort a file.
+
+Essential arguments:
+
+- -g --  Compare according to general numerical value.
+- -R --  Sort by random hash of keys.
+- -r --  Reverse the result of comparisons.
+- -f --  Ignore case.
+- -n --  Compare according to string numerical value.
+
+To shuffle lines in a file:
+
+    sort -R myfile
+
+## tail ##
+
+Prints last 10 line and output the appended data as the file grows:
+
+    tail -f -n 10
+
+## tee ##
+
+Send output to stdout and multiple files:
+
+    ls | tee file1.txt file2.txt file3.txt
 
 ## sed ##
 
@@ -365,7 +444,8 @@ END {
 }
 ```
 
-
+## wc ##
+Count and print the lines, words, chars and bytes of a file.
 
 
 
