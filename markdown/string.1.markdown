@@ -197,6 +197,14 @@ It matches the regular expression ^line.\*one:
 
     sed -e '/^line.*one/s/line/LINE/' file
 
+Only the lines that matches (option -n suppress the other lines) will be displayed
+by "p" and written in changes.txt
+
+    sed -n 's/While/Whereas/gpw changes.txt' sedtest.txt
+
+Make substitution only on the second occurrence only:
+
+    sed 's/is/XX/2' sedtest.txt
 
 ###Delete###
 
@@ -204,17 +212,50 @@ The lines are deleted if they match with the regular expression "line":
 
     sed -e '/line/d' file
 
-Delete the first and second line:
+Delete from the first up to the third line:
 
-    sed -e '1,2d' file
+    sed -e '1,3d' file
+
+Delete last line:
+
+    sed '$d' file
+
+Delete every alternate line starting from the second one:
+
+    sed '2~2 d' file
 
 Delete the line from the first match with "hello" to the line that matches with "goodbye":
 
     sed -e '/hello/,/goodbye/d' file
 
+Delete all line that do NOT include the pattern:
+
+    sed '/PATTERN/ !d' file
+
+Delete lines that match one of the two patterns:
+
+    sed '/PATTERN1\|PATTERN2/ d' FILE.txt
+
 Remove commented and empty lines in /tmp/file and create a backup file.origin:
 
     sed -i.origin -e '/^#/d;/^$/d' /tmp/file
+
+###Print lines###
+
+It is exaclty the same use as delete action.
+Use the action "p" instead of "d" in the **Delete** section.
+
+
+###Append and insert###
+
+Append a comment after the first line:
+
+    sed '1 a #This is just a commented line' sedtest.txt
+
+Insert a comment in line four:
+
+    sed '4 i #This is the extra line' sedtest.txt
+
 
 ## awk ##
 
