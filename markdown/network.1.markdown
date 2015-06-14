@@ -376,8 +376,9 @@ Later just do:
 `telnet localhost 3005`
 
 
-## socat (SOcket CAT) ##
+##socat##
 
+Aka (SOcket CAT).
 It allows to establish two bidirectional byte streams that can be used for many
 purposes.
 
@@ -713,6 +714,24 @@ Then, you can access via from any host:
 `ssh -p5555 natboxuser@OPENbox.example.com`
 
 Ref.: http://xmodulo.com/access-linux-server-behind-nat-reverse-ssh-tunnel.html
+
+### Proxy command ###
+
+To go through one host to reach another server:
+
+    ssh -t -o ProxyCommand='ssh firewall_host nc remote_host 22' remote_host
+
+Or:
+
+    ssh -o "ProxyCommand ssh user@reachable_host -W %h:%p" user@unreacheable_host
+
+Also:
+
+    ssh -tt firewall_host ssh -tt remote_host
+
+Ref.: http://www.cyberciti.biz/faq/linux-unix-ssh-proxycommand-passing-through-one-host-gateway-server/
+
+See also: [socat](#socat)
 
 ## telnet [- l utente] [host [port]]
 
