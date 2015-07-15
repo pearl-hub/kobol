@@ -334,27 +334,27 @@ editor di testo
 
 
 
-## tac
+## tac ##
 
-concatena file al contrario. vedere cat :)
+Concatenate and print files in reverse. See cat :)
 
+## cat ##
 
+Show line numbers:
 
+    cat -n file
 
-## cat file
+Minimal file editor (press ctrl+c to exit):
 
-visualizza il contenuto di un file. -n numera le linee, -A mostra i caratteri di controllo come caratteri normali. Provare cat > "file" per avere un rudimentale editor di testo, una volta scritto tutto il file premere ctrl+c per uscire e salvare
+    cat > file
 
+To prepend text to a file:
 
+    echo "text to prepend" | cat - file
 
-
-## head -n file
+## head -n file ##
 
 mostra le prime n righe
-
-
-
-
 ## tail -n file
 
 mostra le ultime n righe
