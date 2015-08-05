@@ -76,7 +76,8 @@ Date format using the epoch:
 To change the TIMEZONE (the values can be found in /usr/share/zoneinfo):
 `TZ=Japan date`
 
-
+To get the tomorrow day:
+`TZ=GMT-24 date +%d`
 
 ## hwclock --show
 
