@@ -394,6 +394,17 @@ Listen to a port -  3005 and execute /usr/bin/w command when client connects:
 Later just do:
 `telnet localhost 3005`
 
+### Check connectivity without netcat! ###
+
+    exec 5<>/dev/tcp/time.nist.gov/13; cat <&5 & cat >&5; exec 5>&-
+
+- exec sets up a redirect for /dev/tcp/$server/$host to file descriptor 5
+- first cat redirects from file descriptor 5 to STDOUT
+- second cat redirects STDIN to file descriptor 5
+- last exec cleans up the file descriptor
+
+Re: http://www.commandlinefu.com/commands/view/14406/read-and-write-to-tcp-or-udp-sockets-with-common-bash-tools
+
 
 ##socat##
 
@@ -452,7 +463,6 @@ Unidirectional data transfer (-u). Socat transfers data from file /tmp/readdata,
 starting at its current end (seek-end=0 lets socat start reading at current end of file;
 use seek=0 or no seek option to first read the existing data) in a "tail -f" like mode (ignoreeof). The "file" might also be a listening UNIX domain socket (do not use a seek option then):
 `socat -u /tmp/readdata,seek-end=0,ignoreeof -`
-
 
 ## curl ##
 
