@@ -183,6 +183,11 @@ permette di dare info di tempo su un comando (time ls = lo esegue e da info).
 Utilizzare /usr/bin/uptime per ottenere maggiori informazioni.
 
 
+## uptime
+
+stampa il tempo trascorso da quando il sistema e' in funzione
+
+
 
 
 ## nohup programma

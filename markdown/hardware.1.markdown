@@ -138,35 +138,6 @@ blocca la console testo per evitare intrusioni. un comando analogo per X server 
 
 
 
-## env/set
-
-visualizza le variabili d'ambiente. con set è possibile anche impostare variabili
-
-
-
-
-
-## alias
-
-Per abbreviare la digitazione di comandi con molte opzioni è possibile utilizzare gli alias
-
-
-
-
-## export
-
-assegna un valore ad una variabile name=value. Es. export PATH=$PATH:/usr/local/bin. Di solito si usa un delimitatore per valutare cio che e' variabile e cio che non lo e'. Es. PATH=${PATH}:.:${HOME}/myScripts. e' possibile all'interno di uno scripts dichiarare una variabile cosi CICCIO='ciao' opp MARIO='come va?' e successivamente esportarli in qst modo export CICCIO MARIO
-
-
-
-
-## uptime
-
-stampa il tempo trascorso da quando il sistema e' in funzione
-
-
-
-
 ## play -v 10 file
 
 permette di aprire molti formati audio tra cui gli mp3. -v è l'opzione per il volume
