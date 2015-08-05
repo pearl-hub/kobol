@@ -90,12 +90,31 @@ To check the status and remove the rule number 4:
     ufw status numbered
     ufw delete 4
 
-#### Limit ###
+### Applications ###
+
+To list all the available apps:
+
+    ufw app list
+
+To get info about an app:
+
+    ufw app info Squid
+
+### Limit ###
 
 To limit access for ssh to a single IP for 6 simultaneous connections every 30 secs:
 
     ufw limit ssh/cp
 
+### More examples ###
+
+To allow an ip to access to port 22 for all protocols:
+
+    ufw allow from 192.168.1.10 to any port 22
+
+To allow a subnet to access to any app Samba:
+
+    ufw allow from 192.168.1.0/24 to any app Samba
 
 ## iptables ##
 
