@@ -96,6 +96,7 @@ The default is to display it.
 To discover the real TTL from the authoritative server:
 `dig +trace +nocmd +noall +answer +ttlid aaaa www.cyberciti.biz`
 
-
+To get the public ip address:
+`dig +short myip.opendns.com @resolver1.opendns.com`
 
 
