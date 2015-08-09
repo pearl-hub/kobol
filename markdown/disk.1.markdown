@@ -202,13 +202,32 @@ crea un reiserfs
 crea filesystem. è un comando più generico degli altri
 
 
+## dd ##
+
+To copy an image to an pendrive:
+
+    dd if=/home/nomeutente/nomefile.img of=/dev/sdb bs=10M
+
+### Test performance of Disk with dd ###
+
+To measure throughput (write speed):
+
+    dd if=/dev/zero of=/tmp/test1.img bs=1G count=1 oflag=dsync
+
+To measure latency:
+
+    dd if=/dev/zero of=/tmp/test2.img bs=512 count=1000 oflag=dsync
 
 
-## hdparm 
+## hdparm ##
 
 [opt] "/dev/hda"verifica le prestazioni dei dischi. -t verifica le prestazioni in lettura,-T verifica le prestazioni della cache, -c [flag(es 1)] add supporto 32 bit, -d [flag(es 1)] add DMA, -k [flag(es. 1)] consente di mantenere le impostazioni fatte. quindi per l'esecuzione del prog all'avvio mettere hdparm -c1 -d1 -k1 /dev/sda per esempio in /etc/rc.d/rc.local
 
+### Test performance of Disk with hdparm ###
 
+To measure read performance on cache and disk:
+
+    hdparm -Tt /dev/sda
 
 
 ## pwd

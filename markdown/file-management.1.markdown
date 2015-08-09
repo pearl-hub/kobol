@@ -202,13 +202,6 @@ permette di replicare una directory presente su un sistema server
 
 
 
-## dd
-
-To copy an image to an pendrive:
-`dd if=/home/nomeutente/nomefile.img of=/dev/sdb bs=10M`
-
-
-
 
 ## cp
 

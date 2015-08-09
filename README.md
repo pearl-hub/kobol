@@ -68,7 +68,7 @@ Go to 'https://github.com/fsquillace/pearl-man/issues' you can report directly
 this unexpected behaviors.
 
 ## Authors ##
-Filippo Squillace <feel.squally@gmail.com>.
+Filippo Squillace <feel.sqoox@gmail.com>.
 
 ## WWW ##
 https://github.com/fsquillace/pearl
