@@ -6,37 +6,25 @@ pearl-man - Snippet-based manuals
 ## Description ##
 
 pearl-man is a minimal system used to get essentials snippet information about all the
-important linux commands, programming languages, and much much more.
+important linux commands, programs, and much much more.
 It contains the command `man3` that is a wrapper of the famous `man`.
 
-The manuals are all stored in both *$PEARL\_ROOT/mods/pearl-man/mans/* and
-*$PEARL\_HOME/mans/* directories.
+The Pearl manuals are all located in `$PEARL_ROOT/mods/pearl-man/mans/`.
 
-You can create your own markdown manuals just placing them to the directory
-*~/.config/pearl/markdown*.
+You can create your own markdown manuals just place them to the directory
+`~/.config/pearl/markdown`.
 
 ## Installation ##
+`pearl-man` is a [*pearl*](https://github.com/fsquillace/pearl).
 
-### Option 1 ###
+After installing pearl type just the following:
 
-    $ git clone https://github.com/fsquillace/pearl-man .pearl-man
-    $ cd .pearl-man
-    $ git submodule update --init --force --rebase
-
-### Option 2 ###
-`pearl-man` can be installed as part of [*pearl framework*](https://github.com/fsquillace/pearl).
-
-After installing pearl type the following:
-
-    $ pearl_module_install_update pearl-man
+    $ pearl module install pearl/man
 
 ## Usage ##
-- To search for a "keyword" into the file:
-  ``man3 -K keyword``
-- To see a specific "manual":
-  ``man3 manual``
-- To create your own markdown document "mydoc", just save it in ~/.config/pearl/markdown and then:
-  ``man3 mydoc``
+- To search for a "keyword" among all themans: `man3 -K keyword`
+- To see a specific "manual": `man3 manual_name`
+- To create your own markdown document *mydoc*, just save it in `~/.config/pearl/markdown` and then:`man3 mydoc`
 
 ## Help ##
 Just type one of the manuals you need in:
@@ -45,7 +33,7 @@ Just type one of the manuals you need in:
 
 ## Copyright ##
 
-    Copyright  (C) 2008-2014 Free  Software Foundation, Inc.
+    Copyright  (C) 2008-2016 Free  Software Foundation, Inc.
 
     Permission  is  granted to make and distribute verbatim copies
     of this document provided the copyright notice and  this  per‐
