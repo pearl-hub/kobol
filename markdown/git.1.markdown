@@ -123,25 +123,48 @@ doc/*.txt -  ignore doc/notes.txt, but not doc/server/arch.txt
 
 
 
-## undoing things
+## undoing things ##
 
 To replace a commit with another
 (because you forgot to add somethings in your message):
 
 `git commit --amend`
 
+### Pre-Staging and Staging Errors ###
 
 To unstaging a staged file:
 
 `git reset HEAD file`
 
-
 Unmodify a modified file up to the last commit:
+
 `git checkout -- file.rb`
 
+### Errors After Committing ###
 
+You can un-commit a commit with git reset --soft.
+This does not change any of your files, but rather goes back in time
+as though your last commit did not happen and you are still in staging:
 
-## other stuffs
+`git reset --soft HEAD^`
+
+### Revert the offending commit ###
+
+You can use git revert to reverse a specific commit:
+
+`git revert 42c54ed7262d`
+
+The nuclear option is with git reset --hard.
+
+Use git reflog to see your recent commits from newest to oldest:
+
+`git reflog`
+
+Use a hard reset to go back in time to your chosen commit:
+
+`git reset --hard d1f8998`
+
+## other stuffs ##
 
 To create an alias:
 `git config --global alias.co checkout`

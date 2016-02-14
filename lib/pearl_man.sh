@@ -1,8 +1,9 @@
 #!/bin/bash
 
-[ -z $PEARL_MAN_ROOT ] && PEARL_MAN_ROOT="$(dirname $(readlink -f "${BASH_ARGV[0]}"))"
+PEARL_MAN_ROOT="${PEARL_ROOT}/mods/pearl/man"
+
 if [ ! -d $PEARL_MAN_ROOT ]; then
-    echo "Error: Could not set PEARL_MAN_ROOT env because $PEARL_MAN_ROOT does not exist."
+    echo "Error: The directory $PEARL_MAN_ROOT does not exist."
     return 1
 fi
 [ -z $PEARL_HOME ] && PEARL_HOME=~/.config/pearl
@@ -31,6 +32,4 @@ function pearl_load_man(){
         echo "Wrote ${man_file}"
     done
 }
-
-alias man3="pearl_load_man &> /dev/null; man -M ${PEARL_HOME}/mans/man:${PEARL_MAN_ROOT}/mans/man "
 

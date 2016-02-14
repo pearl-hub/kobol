@@ -200,7 +200,11 @@ rimuove file e directory.-r rimuove anche il contenuto della directory, -i versi
 permette di replicare una directory presente su un sistema server
 
 
+## rename ##
 
+Remove all spaces from all files in current folder:
+
+    rename 's/ //g' *
 
 
 ## cp

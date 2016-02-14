@@ -177,13 +177,22 @@ esegue il file solo quando il carico della CPU scende (di 0.8 per default)
 
 
 
-## time
+## time ##
 
-permette di dare info di tempo su un comando (time ls = lo esegue e da info).
-Utilizzare /usr/bin/uptime per ottenere maggiori informazioni.
+There two type of commands:
+
+- `time` is a builtin shell command and provide the basic info on the execution time
+- `/usr/bin/time` is a command that determines the system resource usage
+  during of execution of a particular command.
 
 
-## uptime
+For getting extesive info:
+
+    /usr/bin/time -v host
+
+
+
+## uptime ##
 
 stampa il tempo trascorso da quando il sistema e' in funzione
 
