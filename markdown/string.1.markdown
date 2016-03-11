@@ -131,6 +131,12 @@ Show only the match and not the whole line:
 Match a fixed string:
 `echo "This is a sample" | grep -F "is a"`
 
+Get count of a word in a file:
+`echo -e "apple\napple" | grep -c "apple"`
+
+To read a file as binary:
+`grep -a xyz abc.txt`
+
 ## head ##
 
 Print the first 10 lines:
