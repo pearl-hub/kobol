@@ -1,0 +1,4 @@
+MANPATH=$MANPATH:$PEARL_PKGDIR/man
+PATH=$PATH:${PEARL_PKGDIR}/bin
+
+# vim: ft=sh

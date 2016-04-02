@@ -1,25 +1,25 @@
-# pearl-man #
+# Kobol #
 
 ## Name ##
-pearl-man - Snippet-based manuals
+kobol - Snippet-based manuals
 
 ## Description ##
 
-pearl-man is a minimal system used to get essentials snippet information about all the
+kobol is a minimal system used to get essentials snippet information about all the
 important linux commands, programs, and much much more.
 It contains the command `man3` that is a wrapper of the famous `man`.
 
-The Pearl manuals are all located in `$PEARL_ROOT/mods/pearl-man/mans/`.
+The Pearl manuals are all located in `$PEARL_PKGDIR/mans/`.
 
 You can create your own markdown manuals just place them to the directory
 `~/.config/pearl/markdown`.
 
 ## Installation ##
-`pearl-man` is a [*pearl*](https://github.com/fsquillace/pearl).
+`kobol` is a [*pearl*](https://github.com/fsquillace/pearl).
 
 After installing pearl type just the following:
 
-    $ pearl module install pearl/man
+    $ pearl install kobol
 
 ## Usage ##
 - To search for a "keyword" among all themans: `man3 -K keyword`
@@ -29,7 +29,7 @@ After installing pearl type just the following:
 ## Help ##
 Just type one of the manuals you need in:
 
-    man pearl.man3
+    man pearl.kobol
 
 ## Copyright ##
 
@@ -52,7 +52,7 @@ Just type one of the manuals you need in:
 
 ## Bugs ##
 Of course there is no bug in pearl. But there may be unexpected behaviors.
-Go to 'https://github.com/fsquillace/pearl-man/issues' you can report directly
+Go to 'https://github.com/pearl-hub/kobol/issues' you can report directly
 this unexpected behaviors.
 
 ## Authors ##
@@ -60,7 +60,7 @@ Filippo Squillace <feel.sqoox@gmail.com>.
 
 ## WWW ##
 https://github.com/fsquillace/pearl
-https://github.com/fsquillace/pearl-man
+https://github.com/pearl-hub/kobol
 
 ## Last words ##
 

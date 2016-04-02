@@ -252,6 +252,14 @@ permette di cambiare il proprietario del file. -R rende possibile la ricorsione 
 imposta i permessi. esiste la versione ottale, opp -  chmod u+rwx,go-rwx gsg.tex
 
 
+## install ##
+
+install command is particularly useful whenever it is needed to combine the command
+`cp`, `chown` and `chmod`.
+
+An example of how to change ownership (-o), group (-g), mode (-m):
+
+    `install -v -g surendra -o surendra -m a+x abc.sh /tmp/abc.sh`
 
 
 ## read
