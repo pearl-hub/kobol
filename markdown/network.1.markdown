@@ -860,8 +860,6 @@ Per richiedere al server dhcp un indirizzo IP invocare il seguente comando:
 controlla la configurazione di TCP\_WRAPPER segnalando config errate sui file /etc/hosts.deny /etc/hosts.allow
 
 
-
-
 ## tcpdump
 
 Sniff packets from the interface eth0 and read the filtering rule from file:
@@ -889,9 +887,7 @@ To display all IPv4 HTTP packets to and from port 80,
 i.e. print only packets that contain data, not,
 for example, SYN and FIN packets and ACK-only packets, enter:
 
-```tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)<<2)) - ((tcp[12]&amp;0xf0)<<2)) != 0)'```
-
-
+``tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)<<2)) - ((tcp[12]&amp;0xf0)<<2)) != 0)'``
 
 
 ## ifconfig eth0 192.168.0.1/24
@@ -899,74 +895,73 @@ for example, SYN and FIN packets and ACK-only packets, enter:
 può configurare una interfaccia di rete in caso di assenza del dhcp per esempio. 192.168.0.1 è indIP, /24 indica la netmask
 
 
+## Deal with DNS lookup ##
 
+### Static mapping ###
 
-## /etc/inetd.conf
+In case the DNS does not contain the names required, a static mapping can be specified in **/etc/hosts** file.
+For example the `localhost` name can be mapped to `127.0.0.1` ip:
 
-(deprecata)permette di abilitare/disabilitare servizi in rete, andando a commentare con -  le righe che nn interessano. è importante che qst file sia protetto e quindi conviene applicare il comando -  chown root /etc/inetd.conf. inoltre può essere reso immutevole con -  chattr +i /etc/inetd.conf. una volta apportate le modifiche al file di conf si aggiorna il demone con il comando -  killall -HUP inetd
+    127.0.0.1    localhost
 
+***Important NOTE***:
 
+Make sure that the file **/etc/nsswitch.conf** contains the line:
 
+    hosts:        files dns
 
-## /etc/rc.d/rc.intet1
+Which tells a program to first interrogate **/etc/hosts** file and then fall back to DNS.
 
-script per l'avvio delle periferiche e interfacce di rete inet1.conf è il file di config dei parametri GW DHCP ecc si usa start (o restart) per avviarlo.
+There is **/etc/host.conf** file that use a keyword *order* which is used on old C library for controlling the order lookup.
+Nowadays, **/etc/nsswitch.conf** is the default file for domain name resolution.
+The file **/etc/host.conf** is still used for different purposes always related to the host lookup.
 
+### Validate /etc/hosts mappings ###
 
+***Important NOTE***:
 
+Do not use the commands `dig` or `host` to validate the /etc/hosts file. Those commands
+are for DNS purpose only and use *libresolv* to perform DNS queries directly.
 
-## /etc/rc.d/rc.inet2
+Fortunately, most applications use *gethostbyname* sys call that obeys to the config of **/etc/nsswitch.conf**.
+To perform a host lookup for testing **/etc/hosts** similarly to what an application would do use the following:
 
-script per l'avvio dei servizi di rete es ssh, telnet
+    getent hosts serverfault.com
 
+### /etc/resolv.conf ###
 
+This file specify the DNS servers for hostname lookup. For instance to add the Google DNS:
 
+    nameserver 8.8.8.8
 
+Currently, you may include a maximum of three nameserver lines.
 
-## /etc/rc.d/rc.wireless
+Since applications can override the content of the file `/etc/resolv.conf`,
+you can create a file called /etc/resolv.conf.head containing your DNS servers
+that will get higher priority and no other applications are supposed to change it.
 
-script per il wireless. Vi è inoltre il file wireless.conf
+In order to refer to local hosts such as mainmachine1.localdomain.com as simply mainmachine1,
+add the following in `/etc/resolv.conf`:
 
+    domain localdomain.com
 
+## /etc/hosts.{allow,deny}
+These files are kind of deprecated. Alternative to them is to use tools such as iptables.
 
-
-
-## /etc/hosts.allow
+### /etc/hosts.allow ###
 
 TCP\_WRAPPERS Es. sshd: 193.207.49.111 host.server.org permette al sistema con ip 193.207.49.111 di connettersi al proprio sistema utilizzando il demone sshd
 
-
-
-## /etc/hosts.deny
+### /etc/hosts.deny ###
 
 TCP\_WRAPPERS  Es. - Accesso vietato a chiunque, in quanto i servizi sono bloccati, basta aggiungere ALL:ALL@ALL, PARANOID
 
+## hostname ##
 
+Allow to temporarly change the hostname or get the current hostname of the machine.
+To change permanently the hostname, change the content of the file located in `/etc/hostname`
 
-
-## /etc/aliases
-
-file che contiene alias di sistema, e permette di abilitare/disabilitare dei comandi. è necessario invocare il comando -  /usr/bin/newaliases dopo
-
-
-
-
-## /etc/hosts
-
-effettue il mapping nome host->indIP. ES. 127.0.0.1localhost
-
-
-
-
-
-## hostname nuovo nome
-
-consente (temporaneamente) di cambiare il nome del computer(host). Se lo si vuole rendere permanente cambiare il contenuto di /etc/hostname in "nuovo nome" e sostituire il contenuto di /etc/hosts con il nuovo nume, infine avviare /etc/init.d/hostname.sh
-
-
-
-
-## gpg
+## gpg ##
 
 GESTIONE CHIAVI:
 
