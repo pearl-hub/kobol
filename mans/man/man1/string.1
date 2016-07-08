@@ -1,0 +1,813 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "STRING" "1" "April 2016" "Filippo Squillace" "string"
+This manual contains the main commands for string manipulation Reference: http://www\.techdarting\.com/2015/05/linux\-commands\-for\-text\-manipulating\.html
+.
+.SH "comm"
+comm compares two sorted files FILE1, FILE2 line by line\.
+.
+.P
+Arguments:
+.
+.IP "\(bu" 4
+1 \-\- Suppress lines unique to the left file
+.
+.IP "\(bu" 4
+2 \-\- Suppress lines unique to the right file
+.
+.IP "\(bu" 4
+3 \-\- Suppress lines that appear in both the files
+.
+.IP "" 0
+.
+.P
+Print only lines present in both file1 and file2:
+.
+.IP "" 4
+.
+.nf
+
+comm \-12 file1 file2
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Print lines in file1 not in file2, and vice versa:
+.
+.IP "" 4
+.
+.nf
+
+comm \-3   file1 file2
+.
+.fi
+.
+.IP "" 0
+.
+.SH "cut"
+Select the first two fields: \fBecho "name,surname,age,sex,city" | cut \-f \-2 \-d ","\fR
+.
+.P
+Select the first 4 chars/bytes: \fBecho "name and surname" | cut \-b=1\-4\fR \fBecho "name and surname" | cut \-c=1\-4\fR
+.
+.P
+Complement the result: \fBecho "name,surname,age,sex,city" | cut \-b=1\-4 \-\-complement\fR
+.
+.SH "diff"
+Compares differecnes between files\.
+.
+.P
+Few essential arguments:
+.
+.IP "\(bu" 4
+\-a \-\- Treat all files as text and compare them line\-by\-line, even if they do not seem to be text\.
+.
+.IP "\(bu" 4
+\-b \-\- Ignore changes in amount of white space\.
+.
+.IP "\(bu" 4
+\-c \-\- Use the context output format\.
+.
+.IP "" 0
+.
+.SH "fold"
+To wrap lines of a file at column 80 and break at spaces (\-s):
+.
+.IP "" 4
+.
+.nf
+
+fold \-sw 80 myfile
+.
+.fi
+.
+.IP "" 0
+.
+.SH "uniq"
+Essential arguments:
+.
+.IP "\(bu" 4
+\-c \-\- Prefix lines with a number representing how many times they occurred\.
+.
+.IP "\(bu" 4
+\-d \-\- Only print duplicate lines
+.
+.IP "\(bu" 4
+\-i \-\- Enable case\-insensitive comparisons\.
+.
+.IP "\(bu" 4
+\-u \-\- Only print unique lines
+.
+.IP "" 0
+.
+.P
+To count repetitions:
+.
+.IP "" 4
+.
+.nf
+
+echo \-e "ciao\enbla\enciao\enciao" | uniq \-c
+    1 ciao
+    1 bla
+    2 ciao
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To count repetitions sorted first:
+.
+.IP "" 4
+.
+.nf
+
+echo \-e "ciao\enbla\enciao\enciao" | sort | uniq \-c
+    1 bla
+    3 ciao
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To count repetitions printing only the duplicates :
+.
+.IP "" 4
+.
+.nf
+
+echo \-e "ciao\enbla\enciao\enciao" | uniq \-c
+    2 ciao
+.
+.fi
+.
+.IP "" 0
+.
+.SH "xargs"
+Limit the output with two elements per line (\-n 2) using comma as delimiter (\-d,) and prompt the whole command to stderr first: \fBecho "1,2,3,4" | xargs \-t \-n 2 \-d,\fR
+.
+.P
+To remove files with space (use the null char to identify the end of the filename): \fBfind \. \-name "*\.c" \-print0 | xargs \-0 rm \-rf\fR
+.
+.P
+Use placeholder {} to identify the line and ask to proceed with the mv command (\-p): \fBfind \. \-name "*\.bak" \-print0 | xargs \-p \-0 \-I {} mv {} ~/old\.files\fR
+.
+.P
+Show the limit of the OS: \fBxargs \-\-show\-limits\fR
+.
+.SS "Multiprocessing"
+Grep all files containing "string" using 8 processes excluding the blank lines (\-r): \fBtime find \./ \-print0 | xargs \-r \-0 \-n1 \-P8 grep \-H "string" > /dev/null\fR
+.
+.P
+Use pipe in xargs command: \fBecho {0\.\.$count} | xargs \-d " " \-\-max\-procs=$count \-I {} bash \-c \'t0=$(date +%s); cat $requests | nc localhost 33; t1=$(date +%s) echo process: {} time: $[$t1 \- $t0];\'\fR
+.
+.P
+Use the option \-i to keep use your own aliases and functions with xargs: \fBecho "{0\.\.5}" | xargs \-I {} bash \-ic "my_function"\fR
+.
+.SH "grep"
+.
+.IP "\(bu" 4
+\fB\-i\fR Ignore case
+.
+.IP "\(bu" 4
+\fB\-m "num"\fR Max matches number
+.
+.IP "\(bu" 4
+\fB\-n\fR Print line
+.
+.IP "\(bu" 4
+\fB\-f FILE\fR Match on the FILE
+.
+.IP "\(bu" 4
+\fB\-\-color\fR Enable color
+.
+.IP "\(bu" 4
+\fB\-l\fR Just print the files that match the pattern\.
+.
+.IP "\(bu" 4
+\fB\-R , \-r\fR Read all files within a directory recursively\.
+.
+.IP "\(bu" 4
+\fB\-w\fR Select only those lines containing matches that form whole words\.
+.
+.IP "" 0
+.
+.P
+To invert match: \fBgrep \-v python f\.txt\fR
+.
+.P
+Select the exact match on the whole line: \fBgrep \-x python\.* f\.txt\fR
+.
+.P
+Show only the match and not the whole line: \fBecho "m1ao" | grep \-o "^\.[[:digit:]][^b\-d]"\fR
+.
+.P
+Match a fixed string: \fBecho "This is a sample" | grep \-F "is a"\fR
+.
+.P
+Get count of a word in a file: \fBecho \-e "apple\enapple" | grep \-c "apple"\fR
+.
+.P
+To read a file as binary: \fBgrep \-a xyz abc\.txt\fR
+.
+.SH "head"
+Print the first 10 lines:
+.
+.IP "" 4
+.
+.nf
+
+head \-n 10 file1
+.
+.fi
+.
+.IP "" 0
+.
+.SH "nl"
+Numbers the non empty lines of the given file\.
+.
+.SH "paste"
+Merge lines of files delimited by a space char: \fBpaste \-s \-d \' \' file\.txt\fR
+.
+.SH "tr"
+Convert to upper: \fBecho "abc" | tr [:lower:] [:upper:]\fR
+.
+.SH "sort"
+Sort a file\.
+.
+.P
+Essential arguments:
+.
+.IP "\(bu" 4
+\-g \-\- Compare according to general numerical value\.
+.
+.IP "\(bu" 4
+\-R \-\- Sort by random hash of keys\.
+.
+.IP "\(bu" 4
+\-r \-\- Reverse the result of comparisons\.
+.
+.IP "\(bu" 4
+\-f \-\- Ignore case\.
+.
+.IP "\(bu" 4
+\-n \-\- Compare according to string numerical value\.
+.
+.IP "" 0
+.
+.P
+To shuffle lines in a file:
+.
+.IP "" 4
+.
+.nf
+
+sort \-R myfile
+.
+.fi
+.
+.IP "" 0
+.
+.SH "tail"
+Prints last 10 line and output the appended data as the file grows:
+.
+.IP "" 4
+.
+.nf
+
+tail \-f \-n 10
+.
+.fi
+.
+.IP "" 0
+.
+.SH "tee"
+Send output to stdout and multiple files:
+.
+.IP "" 4
+.
+.nf
+
+ls | tee file1\.txt file2\.txt file3\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.SH "sed"
+The delimiters can be: @:,;% instead of / if we want\.
+.
+.SS "Substitute"
+Substitute all occurences (since g keyword) and place the changes to the same file (since option \-i):
+.
+.IP "" 4
+.
+.nf
+
+sed \-i \-e \'s/dog/cat/g\' \-e \'s/cat/elephant/g\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+The substitution is only applied to lines matching the regular expression "not":
+.
+.IP "" 4
+.
+.nf
+
+sed \-e \'/not/s/black/white/g\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+It matches the regular expression ^line\.*one:
+.
+.IP "" 4
+.
+.nf
+
+sed \-e \'/^line\.*one/s/line/LINE/\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Only the lines that matches (option \-n suppress the other lines) will be displayed by "p" and written in changes\.txt
+.
+.IP "" 4
+.
+.nf
+
+sed \-n \'s/While/Whereas/gpw changes\.txt\' sedtest\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Make substitution only on the second occurrence only:
+.
+.IP "" 4
+.
+.nf
+
+sed \'s/is/XX/2\' sedtest\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.SS "Delete"
+The lines are deleted if they match with the regular expression "line":
+.
+.IP "" 4
+.
+.nf
+
+sed \-e \'/line/d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete from the first up to the third line:
+.
+.IP "" 4
+.
+.nf
+
+sed \-e \'1,3d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete last line:
+.
+.IP "" 4
+.
+.nf
+
+sed \'$d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete every alternate line starting from the second one:
+.
+.IP "" 4
+.
+.nf
+
+sed \'2~2 d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete the line from the first match with "hello" to the line that matches with "goodbye":
+.
+.IP "" 4
+.
+.nf
+
+sed \-e \'/hello/,/goodbye/d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete all line that do NOT include the pattern:
+.
+.IP "" 4
+.
+.nf
+
+sed \'/PATTERN/ !d\' file
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete lines that match one of the two patterns:
+.
+.IP "" 4
+.
+.nf
+
+sed \'/PATTERN1\e|PATTERN2/ d\' FILE\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Remove commented and empty lines in /tmp/file and create a backup file\.origin:
+.
+.IP "" 4
+.
+.nf
+
+sed \-i\.origin \-e \'/^#/d;/^$/d\' /tmp/file
+.
+.fi
+.
+.IP "" 0
+.
+.SS "Print lines"
+It is exaclty the same use as delete action\. Use the action "p" instead of "d" in the \fBDelete\fR section\.
+.
+.SS "Append and insert"
+Append a comment after the first line:
+.
+.IP "" 4
+.
+.nf
+
+sed \'1 a #This is just a commented line\' sedtest\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Insert a comment in line four:
+.
+.IP "" 4
+.
+.nf
+
+sed \'4 i #This is the extra line\' sedtest\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.SH "awk"
+Basic syntax is:
+.
+.IP "" 4
+.
+.nf
+
+    pattern1 {action1}
+    pattern2 {action2}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fIBEGIN\fR and \fIEND\fR are special pattern that specify the action to apply before and after processing each line:
+.
+.P
+\fBawk \'BEGIN { print "File\etOwner"} { print $8, "\et", $3} END{ print "DONE" }\'\fR
+.
+.P
+The option \-v specify a variable: \fBawk \-v q=0 \'BEGIN{} $1==q {print $0 }END{}\'\fR
+.
+.P
+The built\-in variables are:
+.
+.P
+INPUT:
+.
+.IP "\(bu" 4
+FS \-\- The input field separator; defaults to whitespace and is reset by the \-F command line parameter
+.
+.IP "\(bu" 4
+RS \-\- The record separator; by default is newline
+.
+.IP "\(bu" 4
+OFS \-\- The output field separator; default is space\.
+.
+.IP "\(bu" 4
+FILENAME \-\- Name of the file (see below for an example to use it for joining two files!)
+.
+.IP "\(bu" 4
+FNR \-\- Same as NR but with multiple files it restart counting from 1 for each file while NR continue incrementing
+.
+.IP "\(bu" 4
+IGNORECASE \-\- If assigned the regex ignores the upper and lower case\.
+.
+.IP "" 0
+.
+.P
+OUTPUT:
+.
+.IP "\(bu" 4
+NR \-\- The current line\'s sequential number
+.
+.IP "\(bu" 4
+NF \-\- The number of fields in the current line
+.
+.IP "\(bu" 4
+ARGC, ARGV \-\- Allow to access to the awk arguments
+.
+.IP "\(bu" 4
+ENVIRON \-\- Associative array for accessing to the environ variables
+.
+.IP "\(bu" 4
+FIELDWIDTHS \-\- comma separated list to specify the width size of each field
+.
+.IP "" 0
+.
+.P
+Variables don\'t need dollar char! Example: \fBawk \'{print $1,NF,NR,FS }\'\fR
+.
+.P
+Print if the line starts with "this" ignore case: \fBawk \'BEGIN {IGNORECASE=1} /^this/ {print $2}\'\fR
+.
+.P
+Print if $2 begin with J: \fBawk \'($2~/^J/) { print $1 }\'\fR
+.
+.P
+To use several separator (it\'s also possible to change it at runtime using FS): \fBawk \-F "[,;\.]" \'{print $4}\'\fR
+.
+.P
+Print if the lenght of $1 is greater than 6: \fBawk \'(length($2)>6) {print $2}\'\fR
+.
+.P
+Count number of lines where col3 > col1: \fBawk \'$3 > $1 {print i + "1"; i++}\'\fR
+.
+.P
+Print the maximum value: \fBawk \'BEGIN{} $1>x {x=$1} END{print x}\'\fR
+.
+.P
+To delete all words ending with a letter g: \fBawk \'{gsub("[a\-zA\-Z0\-9]\e*[g|G]", "");print}\' input\fR
+.
+.P
+Avoid lines beginning with either Never or root: \fBlastlog | awk \'!(/^Never/ || /^root/)\' {print}\fR
+.
+.P
+To change the record separator: \fBecho "mela pera; cane gatto; Milano bari" | awk \'BEGIN { RS=";" } {print NR}\'\fR
+.
+.P
+Use another output field separator: \fBecho "banane;pere;ciliegie;fragole" | awk \-F";" \'BEGIN { OFS="\e_" } {print $1,$2,$3}\'\fR
+.
+.P
+Null char output separator\. USEFUL in order to use pipe with xargs \-0: \fBecho "berry,banana,pineapple,apple" | awk \'BEGIN{RS=","} {printf "%s\e000",$1}\'\fR
+.
+.P
+Null char input separator: \fBdu \-0 \-b | awk \'BEGIN{RS="\ex00"}{print $0}\'\fR
+.
+.P
+Traspose a column into row: \fBecho \-e "a\enb\enc\en" | awk \'BEGIN {RS="\en"; ORS=" ";print "\en"} {print $0} END{print "\en\en"}\'\fR
+.
+.P
+Use of arrays: \fB$ awk \'BEGIN{ortolano["banana"]=20; print ortolano["banana"]}\'\fR
+.
+.P
+Use the comma as decimal floating separator: \fB$ awk \-N \'/^Dry/ {tot=$2*$4} END{print tot}\'\fR
+.
+.SS "REDIRECT"
+Redirect the output on different files: \fB$ awk \'$2>=10 {print $3 > "big\-items"}; $2<5 {print $3 > "small\-items"}\'\fR
+.
+.SS "SORTING AN ARRAY"
+To sort an array according its values (makes a copy):
+.
+.IP "" 4
+.
+.nf
+
+    size = asort(arr_input, arr_output);
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To sort an array according its indexes (makes a copy):
+.
+.IP "" 4
+.
+.nf
+
+    size = asorti(arr_input, arr_output);
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To sort the array without making a copy set the PROCINFO array\. For sort by index:
+.
+.IP "" 4
+.
+.nf
+
+    PROCINFO["sorted\e_in"] = "@ind\e_num\e_asc"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+For sort by value:
+.
+.IP "" 4
+.
+.nf
+
+    PROCINFO["sorted\e_in"] = "@val\e_type\e_asc"
+.
+.fi
+.
+.IP "" 0
+.
+.SS "AWK Examples"
+\fIUse of an array as a dictionary of \fIIP,Number of access\fR\fR
+.
+.IP "" 4
+.
+.nf
+
+    {ip[$1]++}
+    END {
+        for (i in ip)
+            print i, " has accessed ", ip[i], " times"}
+    }
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fIMath example\fR
+.
+.IP "" 4
+.
+.nf
+
+    #!/usr/bin/awk \-f
+    BEGIN {
+        count1=0
+        count2=0
+        print "\efRISULTATI STATISTICI"
+    }
+
+    $4 ~ /promosso/ {count1++}
+    $4 ~ /respinto/ {count2++}
+
+    {media+=$2/9}
+
+    END {
+        promossi=(count1/NR)*100
+        respinti=(count2/NR)*100
+
+        print "\efnumero candidati:", NR
+        print "numero dei promossi:", count1
+        print "percentuale dei promossi", promossi "%"
+        print "numero dei respinti", count2
+        print "percentuale dei respinti:", respinti "%"
+        print "punteggio medio di tutti i candidati:", media
+        print "\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\."
+    }
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fICount word,rows and chars in a file\fR
+.
+.IP "" 4
+.
+.nf
+
+#!/usr/bin/awk \-f
+{nc += length($0); np += NF }
+
+END {
+    print "Il file",FILENAME " contains:", NR " rows,", np " words,", nc " chars"
+}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fIExample of arrays\fR
+.
+.IP "" 4
+.
+.nf
+
+#!/usr/bin/awk \-f
+BEGIN {
+    print "\en\en"
+    geo["Francia"] = "Parigi"
+    geo["Angola"] = "Luanda"
+    geo["Bhutan"] = "Thimphu"
+    for (i in geo) {
+        printf "%8s %06s\en", i, geo[i]
+    }
+
+    print "\en\en"
+
+    delete geo["Francia"]
+    for (i in geo) {
+        print i, geo[i]
+    }
+
+    print "\en\en"
+    # Gives 0, Francia key doesn\'t exist
+    print "Francia " ( "Francia" in geo )
+    # Gives 1, Bhutan key exists
+    print "Bhutan " ( "Bhutan" in geo )"\en"
+}
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fIExample of using two files doing a join in one table!\fR
+.
+.IP "" 4
+.
+.nf
+
+#!/usr/bin/awk \-f
+
+BEGIN {
+    print "\en\et\.\.\.\.\.\.\.\.\.\.\.\.\.START\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\en"
+    FORMAT="\et%\-12s%\-12s%\-8s%s\en"
+    printf FORMAT,"ALUNNI","MATRICOLE","VOTI","MATERIE"
+}
+{
+    if (FILENAME == "tabella1\.txt") {
+        matricole[$1] = $2
+    }
+    if (FILENAME == "tabella2\.txt") {
+        printf FORMAT, $1,matricole[$1],$2,$3
+    }
+}
+
+END {
+    print "\en\et\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.END\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\en"
+}
+.
+.fi
+.
+.IP "" 0
+.
+.SH "wc"
+Count and print the lines, words, chars and bytes of a file\.

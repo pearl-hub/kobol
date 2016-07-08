@@ -1,0 +1,85 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "COMPRESS" "1" "February 2014" "Filippo Squillace" "compress"
+.
+.SH "unrar"
+To UNRAR a compress file: \fBunrar e file\.rar path/to/dir\fR
+.
+.SH "tar \-zcvf archivio\.tar\.gz Directory/"
+Decomprimere un file comp_file\.tar\.gz: \fBtar \-vxzf comp\-file\.tar\.gz\fR
+.
+.P
+Usa \-p per preservare i permessi ai file\.
+.
+.P
+Comprimere i file in: \fBtar \-vzcf comp\-file\.tar\.gz BLASSM MATGEN/MISC\fR
+.
+.P
+To change the starting directory you can use \-C option: \fBtar \-vczf foo\.tar\.gz \-C /etc passwd hosts \-C /lib libc\.a\fR
+.
+.P
+Per listare il contenuto di file\-comp\.tar\.gz: \fBtar \-tf comp\-file\.tar\.gz\fR
+.
+.P
+Per appendere nuovi file: \fBtar \-rf comp\-file\.tar\.gz\fR
+.
+.P
+Per permette di creare a partire da archivio più volumi compressi da inserire su floppy: \fBtar \-cvfM /dev/fd0H1440 archivio/\fR
+.
+.P
+Per riunire nuovamente i volumi: \fBcat 1\.tar 2\.tar > archivio\.tar\.gz\fR
+.
+.SH "convert jpg to pdf"
+With imagemagick: \fBconvert \-verbose *\.jpg salida\.pdf\fR
+.
+.SH "join pdf files"
+With ghostscript: \fBgs \-dBATCH \-dNOPAUSE \-q \-sDEVICE=pdfwrite \-sOutputFile=finished\.pdf file1\.pdf file2\.pdf\fR
+.
+.SH "compress pdf files"
+With ghostscript:
+.
+.P
+\fBgs \-sDEVICE=pdfwrite \-dCompatibilityLevel=1\.4 \-dPDFSETTINGS=/screen \-dNOPAUSE \-dQUIET \-dBATCH \-sOutputFile=output\.pdf input\.pdf\fR
+.
+.P
+Possible values are: \-dPDFSETTINGS=/screen (qualità da schermo, 72 dpi) \-dPDFSETTINGS=/ebook (bassa qualità, 150 dpi ) \-dPDFSETTINGS=/printer (alta qualità, 300 dpi ) \-dPDFSETTINGS=/prepress (alta qualità, preserva i colori, 300 dpi) \-dPDFSETTINGS=/default (quasi identico a /screen)
+.
+.SH "zip file\.zip file"
+comprime un file in file\.zip\. è possibile decomprimere con \- unzip file\.zip
+.
+.SH "bzip2 file / bunzip2 file"
+Comprime/Decomprime un file
+.
+.SH "compress"
+comprime un file in tipo \.Z Con \-d lo decomprime
+.
+.SH "cpio"
+un\'altro ennesimo compressore
+.
+.SH "gzip file /gunzip file\.gz"
+comprime/decomprime file
+.
+.SH "catdoc file\.doc"
+fornisce in stdout il documento word \.doc
+.
+.SH "pdftops \.pdf \.txt"
+converte in \.ps
+.
+.SH "pdftotext \.pdf \.txt"
+converte in testo
+.
+.SH "dvipdfm \-o file\.pdf file\.dvi"
+converte da \.dvi a \.pdf
+.
+.SH "dvips \-o file\.ps file\.dvi"
+converte da \.dvi \.ps\. Le opzioni \-A \-B permettono di creare un \.ps con le pagine pari o con le pagine dispari\.
+.
+.SH "enscript"
+converte un file \.txt in \.ps o \.rtf o \.html
+.
+.SH "latex"
+converte da \.tex a \.dvi che è un formato per la stampa
+.
+.SH "mencoder"
+mencoder \-idx out\-1\.ogv \-ovc lavc \-oac mp3lame \-o output\.avi converte un file \.ogv in \.avi

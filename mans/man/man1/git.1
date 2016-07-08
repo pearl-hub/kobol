@@ -1,0 +1,506 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT" "1" "December 2015" "Filippo Squillace" "git"
+.
+.SH "config"
+To set user information:
+.
+.P
+\fBgit config \-\-global user\.name "John Doe"\fR
+.
+.P
+\fBgit config \-\-global user\.email johndoe@example\.com\fR
+.
+.P
+To set editor: \fBgit config \-\-global core\.editor emacs\fR
+.
+.P
+To set diff editor: \fBgit config \-\-global merge\.tool vimdiff\fR
+.
+.P
+To set color: \fBgit config color\.diff auto\fR
+.
+.P
+To check config: \fBgit config \-\-list\fR
+.
+.SH "init a project"
+Existing project: \fBgit init\fR
+.
+.P
+Cloning project: \fBgit clone git://github\.com/schacon/grit\.git\fR
+.
+.P
+To create a repository without a working directory: \fBgit init \-\-bare \-\-shared myproject\.git\fR
+.
+.P
+To clone a repository without a working directory: \fBgit init \-\-bare \-\-shared remoterepo myproject\.git\fR
+.
+.P
+The last two commands above are useful for a shared repository\.
+.
+.SH "fundamental commands"
+To track a file in git or to stage a file to be candidate for a commit: \fBgit add file\fR
+.
+.P
+Note: Every time you change a file it will not be in a stage area and to get the last changes in stage you have to retype git add on that file\. The interctive tool for manage untracked or unstaged files: \fBgit add \-i\fR
+.
+.P
+\fBgit mv fileold filenew\fR
+.
+.P
+\fBgit status\fR
+.
+.P
+To commit and skip the staged phase: \fBgit commit \-am \'message\'\fR
+.
+.P
+To remove file: \fBgit rm file\fR
+.
+.P
+To remove from the tracker but not from disk: \fBgit rm \-\-cached file\fR
+.
+.P
+To see what you\'ve changed but not yet staged: \fBgit diff\fR
+.
+.P
+To compares your staged changes to your last commit: \fBgit diff \-\-staged\fR
+.
+.P
+To show the diff and log message of a commit/branch or whatever object: \fBgit show name_object\fR
+.
+.P
+To take track of your past commit: \fBgit log\fR
+.
+.P
+And using diff too of the last one: \fBgit log \-p \-1\fR
+.
+.P
+To use the graph: \fBgit log \-\-graph\fR
+.
+.P
+To get statistics: \fBgit log \-\-stat\fR
+.
+.P
+For a concise list of commits: \fBgit log \-\-pretty=oneline\fR
+.
+.P
+To log only a branch but not the commit of master: \fBgit log name_branch \-\-not master\fR
+.
+.P
+For a detailed use of log see:http://progit\.org/book/ch2\-3\.html For searching inside the repository (it has the same interface of POSIX): \fBgit grep \-i \-v \-n KEYWORD\fR
+.
+.SH "ignoring files"
+Just create a file \.gitignore like this:
+.
+.IP "\(bu" 4
+a comment \- this is ignored \fI\.a \- no \.a files !lib\.a \- but do track lib\.a, even though you\'re ignoring \.a files above /TODO \- only ignore the root TODO file, not subdir/TODO build/ \- ignore all files in the build/ directory doc/\fR\.txt \- ignore doc/notes\.txt, but not doc/server/arch\.txt
+.
+.IP "" 0
+.
+.SH "undoing things"
+To replace a commit with another (because you forgot to add somethings in your message):
+.
+.P
+\fBgit commit \-\-amend\fR
+.
+.SS "Pre\-Staging and Staging Errors"
+To unstaging a staged file:
+.
+.P
+\fBgit reset HEAD file\fR
+.
+.P
+Unmodify a modified file up to the last commit:
+.
+.P
+\fBgit checkout \-\- file\.rb\fR
+.
+.SS "Errors After Committing"
+You can un\-commit a commit with git reset \-\-soft\. This does not change any of your files, but rather goes back in time as though your last commit did not happen and you are still in staging:
+.
+.P
+\fBgit reset \-\-soft HEAD^\fR
+.
+.SS "Revert the offending commit"
+You can use git revert to reverse a specific commit:
+.
+.P
+\fBgit revert 42c54ed7262d\fR
+.
+.P
+The nuclear option is with git reset \-\-hard\.
+.
+.P
+Use git reflog to see your recent commits from newest to oldest:
+.
+.P
+\fBgit reflog\fR
+.
+.P
+Use a hard reset to go back in time to your chosen commit:
+.
+.P
+\fBgit reset \-\-hard d1f8998\fR
+.
+.SH "other stuffs"
+To create an alias: \fBgit config \-\-global alias\.co checkout\fR
+.
+.P
+So, you can type: \fBgit co\fR
+.
+.P
+To run an external command with alias: \fBgit config \-\-global alias\.visual "!gitk"\fR
+.
+.P
+There are two important gui tools (do not forget to install tk package first): \fBgtk gui; gitk\fR
+.
+.SH "working with remote"
+To know the remotes: \fBgit remote \-v\fR
+.
+.P
+To add a remote repository: \fBgit remote add [shortname] [url]\fR
+.
+.P
+To get data from a remote repo (but it don\'t merge): \fBgit fetch [shortname]\fR
+.
+.P
+To fetch a specific branch and merge it into your current local branch: \fBgit pull (remote) (branchname)\fR
+.
+.P
+To push a local branch to remote repo: \fBgit push (remote) (branch)\fR
+.
+.P
+For example: \fBgit push origin master\fR
+.
+.P
+If you want to change the name of the remote branch: \fBgit push origin serverfix:awesomebranch\fR
+.
+.P
+Note: This command works only if you cloned and if nobody has pushed in the meantime\.
+.
+.P
+To see info about a remote: \fBgit remote show origin\fR
+.
+.P
+To remove a remote: \fBgit remote rm dav\fR
+.
+.P
+To rename a remote: \fBgit remote rename joe feel\fR
+.
+.SH "tagging and archive"
+List available tags: \fBgit tag\fR
+.
+.P
+To look for some tags: \fBgit tag \-l \'v1\.4\.2\.*\'\fR
+.
+.P
+To create an annotated tag: \fBgit tag \-a v1\.2\.0 \-m \'my version\'\fR
+.
+.P
+To create a Lightweight Tags: \fBgit tag v1\.4\.2\-lw\fR
+.
+.P
+To create and sign a tag with you private key: \fBgit tag \-s\fR
+.
+.P
+To verify sign of a tag: \fBgit tag \-v v1\.4\.2\fR
+.
+.P
+To show information about the tag: \fBgit show v1\.4\.2\fR
+.
+.P
+To add tag to past commit: \fBgit tag \-a v1\.3 [checksum]\fR
+.
+.P
+You can see the checksum typing log command\.
+.
+.P
+To transfer to remote a tag: \fBgit push v1\.2\fR
+.
+.P
+To transfer to remote all tags: \fBgit push \-\-tags\fR
+.
+.P
+To give a unique and human readable release number to the current commit: \fBgit describe master\fR
+.
+.P
+To create an archive: \fBgit archive master | gzip >\fRgit describe master\fB\.tar\.gz\fR
+.
+.P
+Example of Changelog:
+.
+.P
+\fBgit shortlog 0\.18\.1\.\.\.0\.17\.5 \-\-no\-merges\fR
+.
+.P
+\fBgit log 0\.18\.1\.\.\.0\.17\.5 \-\-no\-merges \-\-pretty=format:"%ci %an <%ae>%n * %s" | awk \'BEGIN{ldate=0}{msg=$0; if((NR\-1)%2==0){msg=$1; for(i=4;i<=NF;i++)msg=msg" "$i;} if($1!=ldate){print msg}; if((NR\-1)%2==0){ldate=$1}}\'\fR
+.
+.SH "branching and merge"
+To create a branch: \fBgit branch new_branch\fR
+.
+.P
+HEAD is a pointer to the current active branch\. To switch between branchs: \fBgit checkout other_branch\fR
+.
+.P
+To create and switch at the same time: \fBgit checkout \-b n_branch\fR
+.
+.P
+To merge back into the master commit starting from another branch: Switch: \fBgit checkout master\fR
+.
+.P
+Merge: \fBgit merge hotfix\fR
+.
+.P
+To manage merging conflicts with a graphical tool: \fBgit mergetool\fR
+.
+.P
+To delete a branch: \fBgit branch \-d hotfix\fR
+.
+.P
+To delete a remote branch locally: \fBgit branch \-rd origin/remotebranch\fR
+.
+.P
+To see the last commit on each branch: \fBgit branch \-v\fR
+.
+.P
+To see merged or no\-merged branchs: \fBgit branch [\-\-merged|\-\-no\-merged]\fR
+.
+.P
+To move/rename a branch: \fBgit branch \-m oldbranch newbranch\fR
+.
+.P
+WITH REMOTE: To get changes from a remote you can do two things (after doing "remote add" command): * Fetch and then merge the current local branch: * Create a new branch from the remote one: \fBgit checkout \-b local_branch remote/remote_branch\fR
+.
+.P
+To delete a remote branch: \fBgit push origin :remote_branch\fR
+.
+.P
+To create/rename another branch from local to remote:
+.
+.P
+\fBgit push origin local_branch:remote_branch\fR
+.
+.P
+The local branch will automatically push to and pull from remote/remote_branch:
+.
+.P
+\fBgit checkout \-\-track remote/remote_branch\fR
+.
+.P
+\fBgit checkout \-b local_branch remote/remote_branch\fR
+.
+.SH "deploying using git on server"
+The best way is create a working directory on remote sever\. SERVER SIDE To disable the control from git:
+.
+.P
+\fBgit config \-\-global receive\.denyCurrentBranch ignore\fR
+.
+.P
+Create a work tree:
+.
+.P
+\fBgit init\fR
+.
+.P
+Create the hook:
+.
+.P
+\fBtouch \.git/hooks/post\-receive\fR
+.
+.P
+Write the following:
+.
+.IP "\(bu" 4
+!/bin/sh cd \.\. GIT_DIR=\'\.git\' umask 002 && git reset \-\-hard
+.
+.IP "" 0
+.
+.P
+Exec permissions:
+.
+.P
+\fBchmod a+x \.git/hooks/post\-receive\fR
+.
+.P
+CLIENT SIDE: Add the remote:
+.
+.P
+\fBgit remote add production user@ssh\.domain\.com:~/my_project/\.git\fR
+.
+.SH "Contributing to a project"
+To check whitespaces before commiting: \fBgit diff \-\-check\fR
+.
+.P
+Before pushing to the remote is important to remember the following steps: 1) fetch the changes in order to get the remote (usually origin/master) up to date locally: \fBgit fetch orign\fR
+.
+.P
+2) merge the two versions(master and origin/master)\. You need to be in the master branch: \fBgit merge origin/master\fR
+.
+.P
+3) Push the new snapshot in remote: \fBgit push orign master\fR
+.
+.P
+To check what commits are needed to merge use: \fBgit log \-\-no\-merges\fR
+.
+.P
+To request pull from a remote public repo: \fBgit request\-pull origin/master myfork\fR
+.
+.P
+MANAGE PATCHES: Create a Patch: From your commits it is possible to create a patch: \fBgit format\-patch \-M origin/master\fR
+.
+.P
+Send email with patches (first use git config to set the email account): \fBgit send\-email *\.patch\fR
+.
+.P
+Apply a patch: For applying a new patch is a good practice to create a temporary branch first\. To apply a patch that come from git diff or diff commands: \fBgit apply name_patch\.patch\fR
+.
+.P
+Before apply it is good idea to check first: \fBgit apply \-\-check name_patch\.patch\fR
+.
+.P
+To apply a patch from format\-patch(it is the best way): \fBgit am name_patch\.patch\fR
+.
+.P
+In case of error you can edit the conflict file and type: \fBgit am \-\-resolved\fR
+.
+.P
+Or in case of abort of skip: \fBgit am \-\-skip\fR
+.
+.P
+\fBgit am \-\-abort\fR
+.
+.P
+If the patch doesn\'t work, it is possible to apply using a three\-way merge: \fBgit am \-3 name_patch\.patch\fR
+.
+.P
+The interactive mode is: \fBgit am \-i name_patch\.patch\fR
+.
+.P
+DETERMINE THE DIFFERENCES: It is important to know that using the classic: \fBgit diff master\fR is not always a good idea, in particular when the branches diverges a lot\. To see truly the difference we need to find the common ancestor: \fBgit merge\-base name_branch master\fR
+.
+.P
+and later use that ancestor to diff: \fBgit diff 367cd\fR
+.
+.P
+Git provides an awesome command to do that directly! \fBgit diff name_branch\.\.\.master\fR
+.
+.SH "miscelaneous to be a git master!"
+To get the commit from the branch name: \fBgit rev\-parse branch_name\fR
+.
+.P
+REFLOG: Git records all the operations done in a history: \fBgit reflog\fR
+.
+.P
+To show what is going on yesterday on master: \fBgit show master@{yesterday}\fR
+.
+.P
+And two months ago on HEAD: \fBgit show HEAD@{2\.months\.ago}\fR
+.
+.P
+ANCESTRY REFS: There are two specification ^ or ~\. ^ is used to traverse ancestors with more than one parent and ~ is used to traverse depth in the history\. To get the second parent: \fBgit show HEAD^2\fR or \fBgit show HEAD^^\fR
+.
+.P
+To get the grandparent: \fBgit shoe HEAD~2\fR
+.
+.P
+COMMIT RANGES: What is in experiment branch that hasn’t yet been merged into master branch? \fBgit show master\.\.experiment\fR
+.
+.P
+Or to get a log for the commits that has to be merged in a remote: \fBgit log origin/master\.\.HEAD\fR
+.
+.P
+To get the commits that are reachable by either of two references but not by both of them showing the sides too:
+.
+.P
+\fBgit log \-\-left\-right master\.\.\.experiment\fR
+.
+.P
+DETECT BUGGY COMMITS: In case of having hundreds of commits in order to detect a buggy commit: 1) Start the binary search algorithm: \fBgit bisect start\fR
+.
+.P
+2) Specify that the current commit is buggy: \fBgit bisect bad\fR
+.
+.P
+3) Specify the last known good commit: \fBgit bisect good v1\.0\fR
+.
+.P
+bisect start to evaluate the middle commits and after you test the commit, you can judge the commit as bad o good: \fBgit bisect good/bad\fR
+.
+.P
+Until you get the first bad commit\. To reset the HEAD to the original commit: \fBgit bisect reset\fR
+.
+.P
+If you have a script that return zero in case the commit is good and non\-zero otherwise, you can easily automate as follows: 1) Indicate the good and bad commit: \fBgit bisect start HEAD v1\.0\fR
+.
+.P
+2) Run the process: \fBgit bisect run test\-error\.sh\fR
+.
+.P
+bisect continue until finds the first broken commit\.
+.
+.P
+BUG ANNOTATION: If you detect a bug and want to know when it was introduced and why:
+.
+.P
+\fBgit blame \-L 12,22 name_file\fR
+.
+.P
+To check also if the file was renamed and so on: \fBgit blame \-C \-L 143,160 file_name\fR
+.
+.P
+REWRITNG THE HISTORY: In order to split, merge, change multiple messages in previous commit see http://git\-scm\.com/book/en/Git\-Tools\-Rewriting\-History
+.
+.P
+SUBMODULES: Allows to keep a Git repo as a subdirectory of another Git repo\. To add a git project into the \'rack\' directory: \fBgit submodule add git://github\.com/chneukirchen/rack\.git rack\fR
+.
+.P
+To clone a project with submodules: 1) git clone: \fBgit clone \.\.\.\.\fR
+.
+.P
+2) init the submodules: \fBgit submodule init\fR
+.
+.P
+3) fetch the modules: \fBgit submodule update\fR
+.
+.P
+The info of the submodules will be stored in \.gitmodules Submodules is sometimes odd to use\. Check out the doc for any problem: http://git\-scm\.com/book/en/Git\-Tools\-Submodules
+.
+.P
+SUBTREE MERGING: Is a substitution of the submodules method\. Instead of creating a submodule the method creates a branch: 1) Create a remote: \fBgit remote add rack_remote git@github\.com:schacon/rack\.git\fR
+.
+.P
+2) Fetch: \fBgit fetch rack_remote\fR
+.
+.P
+3) Read the root tree of the branch and put the content into \'rack\' dir: \fBgit read\-tree \-\-prefix=rack/ \-u rack_branch\fR
+.
+.P
+4) After any changes from the rack_branch, merge it using: \fBgit merge \-\-squash \-s subtree \-\-no\-commit rack_branch\fR
+.
+.P
+To see the diff between the \'rack\' directory and rack_branch: \fBgit diff\-tree \-p rack_branch\fR
+.
+.SH "stashing"
+Stashing is useful when you have started a work that you still don\'t want to commit but you have also to switch branch\. To store the changes: \fBgit stash\fR
+.
+.P
+To list the stashs: \fBgit stash list\fR
+.
+.P
+To apply a stash: \fBgit stash apply stash@{1}\fR
+.
+.P
+Even better apply and delete a stash: \fBgit stash pop stash@{1}\fR
+.
+.P
+To drop a stash: \fBgit drop stash@{1}\fR
+.
+.P
+To show the diff: \fBgit stash show \-p stash@{1}\fR
+.
+.P
+After changes it is possible to unapply the work from a stash: \fBgit stash show \-p stash@{0} | git apply \-R\fR
+.
+.P
+To create a branch from a stash: \fBgit stash branch branch_name\fR

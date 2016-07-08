@@ -1,0 +1,91 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "FUGITIVE" "1" "February 2014" "Filippo Squillace" "fugitive"
+.
+.SH ":Git"
+To type any git command: \fB:Git <command>\fR
+.
+.P
+To remove current file: \fB:Git rm %\fR or \fB:Gremove\fR
+.
+.P
+To move current file: \fB:Git mv % target\fR or \fB:Gmove\fR
+.
+.P
+To add for the new commit (overwrite the index copy): \fB:Git add %\fR or \fB:Gwrite\fR
+.
+.P
+To revert on the last commit (also called index copy): \fB:Git checkout %\fR or \fB:Gread\fR
+.
+.P
+To commit the changes: \fB:Gitcommit\fR
+.
+.P
+To view blame: \fB:Gitblame\fR
+.
+.SH ":Gstatus"
+Show the status: \fB:Git status\fR
+.
+.P
+Chars to type: \- \-> to a file (or multi selected files) to be added or reset p \-> to a file to see the diff (same as git add \-\-patch) C \-> to make a commit Enter \-> to view the selected file cntrl\-p \-> to go to the previous file cntrl\-n \-> to go to the next file
+.
+.SH ":Gdiff"
+See the diff between the index file and the working copy of the same file: \fB:Gdiff\fR
+.
+.P
+You can use :Gread and :Gwrite to read or write the index copy or you can use a finer grained diff with :diffget and :diffput Use :diffupdate to update the diff buffers\.
+.
+.P
+If you merge with conflict and type :Gdiff you will get three buffers representing respectively: targert branch (namely the master), working copy, merge branch\.
+.
+.P
+Use \fB:diffget //2 or //3 | diffupdate\fR to choose what change accept to the working copy\. Also, you can use dp that is a diffput and diffupdate\.
+.
+.P
+If you want to pick one of the file in target or merge branch go to the corresponding buffer and type \fB:Gwrite!\fR
+.
+.SH ":Gedit and :Gbrowse"
+To view a file from whatever branch: \fB:Gedit master:path/to/file\fR
+.
+.P
+There are four kind of object it is possible to inspect:
+.
+.P
+COMMIT and TAG \- \fB:Gedit sha_commit\fR
+.
+.P
+Contains blob and tree Navigate between the object of the commit pressing \'Enter\'\. Press \'Enter\' to the diff line to see the diff of the file\.
+.
+.P
+TREE (directory) When inspect a tree object type \'a\' to see the SHA for each object\. Type \'C\' to return to the current commit\.
+.
+.P
+BLOB (file) Type \'C\' to return to the current commit\.
+.
+.P
+Typing \fB:Gedit\fR allow you to return to the tree working version of the active file\.
+.
+.P
+For every git object type \fB:Gbrowse\fR and it will redirect to the github page\. You can even select lines and you will see the lines highlighted in github page\.
+.
+.P
+To view the index version of the current file: \fB:Gedit :0\fR
+.
+.SH ":Glog and :Ggrep"
+To inspect only the last 10 commits: \fB:Glog \-10\fR
+.
+.P
+Type \fB:cnext\fR or \fB:cprev\fR to navigate among the commits To open the quickfix list of commits: \fB:copen\fR
+.
+.P
+To search a particular string on branch demo: \fB:Ggrep \'word he\' demo\fR
+.
+.P
+Use \fB:cnext\fR , \fB:cprev\fR or \fB:copen\fR to navigate\.
+.
+.P
+To search inside commit messages: \fB:Glog \-\-grep=word \-\-\fR
+.
+.P
+To search text even for added/removed files: \fB:Glog \-Sword \-\-\fR

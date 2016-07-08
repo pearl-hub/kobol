@@ -1,0 +1,274 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "PYTHON" "1" "February 2014" "Filippo Squillace" "python"
+.
+.SH "PYTHONPATH"
+Contiene i percorsi in cui Python va alla ricerca di moduli\. A livello di codice si puo\' intervenire alla variabile, per esempio aggiungendo nuovi percorsi tramite la lista:
+.
+.P
+\fBsys\.path\fR
+.
+.SH "Pickle"
+E\' un modulo che consente di serializzare un oggetto in un file\. Il metodo dump(obj, file) serve a serializzare l\'oggetto obj nel file\. Per caricare l\'oggetto si invoca il metodo load
+.
+.IP "" 4
+.
+.nf
+
+\-  x = [1, "asdfg"]
+\-  f = open("/home/feel/prova", "w")
+\-  pickle\.dump(x, f)
+\-  f = open("/home/feel/prova", "r")
+\-  x = pickle\.load(f)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "Formattazione avanzata dell\'output"
+La funzione \fBstr()\fR restituisce la rappresentazione del valore in termini umanamente comprensibili\. La funzione \fBrepr()\fR genera la rappresentazione del valore comprensibile dall’interprete (mostrando per esempio \en o altri caratteri speciali) La stampa in stile sprintf di C puo\' essere fatta in tal modo:
+.
+.P
+\fBprint ’%2d %3d %4d’ % (x, x*x, x*x*x)\fR
+.
+.P
+Dove i numeri 2,3,4 equivalgono all\'allineamento a destra di una certa quantità\. si usa %s per la conversione in stringa o %\.3f per i float con 3 posizioni decimali\. Questo può essere fatto equivalentemente con:
+.
+.P
+\fBprint repr(x)\.rjust(2), repr(x*x)\.rjust(3), repr(x*x*x)\.rjust(4)\fR
+.
+.SH "Operazioni su liste"
+funzione \fBfilter(func, seq)\fR Restituisce una sequenza di elementi che soddisfano la funzione avente un parametro\.
+.
+.P
+funzione \fBmap(func, seq1, seq2,\.\.\.)\fR Restituisce una sequenza di elementi ottenuti da \'funzione\' avente come parametri il generico elemento di ogni sequenza
+.
+.P
+funzione \fBreduce(func, seq, elemento_iniziale)\fR Restituisce un valore ottenuto tramite la funzione binaria partendo dall\'elemento iniziale
+.
+.P
+funzione \fBsum(sequenza)\fR Applica una somma sugli elementi
+.
+.P
+Esempi di costruzione di liste:
+.
+.IP "" 4
+.
+.nf
+
+>>> vec = [2, 4, 6]
+>>> [3*x for x in vec if x > 3]
+[12, 18]
+
+>>> vec1 = [2, 4, 6]
+>>> vec2 = [4, 3, \-9]
+>>> [vec1[i]*vec2[i] for i in range(len(vec1))]
+[8, 12, \-54]
+>>> [x+y for x in vec1 for y in vec2]
+[6, 5, \-7, 8, 7, \-5, 10, 9, \-3]
+.
+.fi
+.
+.IP "" 0
+.
+.P
+L\'istruzione del consente di eliminare un elemento o porzioni in una lista o dizionario:
+.
+.IP "" 4
+.
+.nf
+
+>>>del a[0]
+>>>del a[2:4]
+.
+.fi
+.
+.IP "" 0
+.
+.SH "Operazioni su insiemi"
+Due modi per costruire un insieme:
+.
+.IP "" 4
+.
+.nf
+
+>>> frutta = set([\'mela\', \'pera\', \'banana\', \'mela\'])
+>>> frutta
+set([\'mela\', \'pera\', \'banana\'])
+
+>>> a = set(’abracadabra’)
+>>> a
+set([’a’, ’r’, ’b’, ’c’, ’d’])
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Le operazioni sono le seguenti:
+.
+.IP "" 4
+.
+.nf
+
+>>> a \- b       \-  Operazione differenza
+>>> a | b       \-  Operazione unione
+>>> a & b   \-  Operazione intersezione
+>>> a ^ b       \-  Operazione equivalente a: (a | b) \- (a & b)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "Tecniche sui cicli"
+Per ricavare chiave e valore su un dizionario si usa i metodo \fBiteritems()\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> knights = {’gallahad’: ’the pure’, ’robin’: ’the brave’}
+>>> for k, v in knights\.iteritems():
+\.\.\.     print k, v
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Per ricavare la coppia (indice, valore) si usa \fBenumerate(\'list\')\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> for i, v in enumerate([’tic’, ’tac’, ’toe’]):
+\.\.\.     print i, v
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Per accoppiare due sequenze si usa \fBzip()\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> domande = [’nome’, ’scopo’, ’colore preferito’]
+>>> risposte = [’lancillotto’, ’il santo graal’, ’il blu’]
+>>> for q, a in zip(domande, risposte):
+\.\.\.     print ’Qual’e‘ il tuo %s? E‘ il %s\.’ % (q, a)
+Qual’e‘ il tuo nome? E‘ lancillotto\.
+Qual’e‘ il tuo scopo? E‘ il santo graal\.
+Qual’e‘ il tuo colore preferito? E‘ il blu\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Invertire il ciclo di una sequenza con \fBreversed(seq)\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> for i in reversed(xrange(1,10,2)):
+\.\.\.     print i
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Ciclo di una sequenza ordinata con sorted(seq):
+.
+.IP "" 4
+.
+.nf
+
+>>> basket = [’apple’, ’orange’, ’apple’, ’pear’, ’orange’, ’banana’]
+>>> for f in sorted(set(basket)):
+\.\.\.     print f
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Altri esempi interessanti:
+.
+.IP "" 4
+.
+.nf
+
+for elemento in [1, 2, 3]:
+print elemento
+for elemento in (1, 2, 3):
+print elemento
+for chiave in {’uno’:1, ’due’:2}:
+print chiave
+for carattere in "123":
+print carattere
+for line in open("myfile\.txt"):
+print line
+.
+.fi
+.
+.IP "" 0
+.
+.SH "Iteratori e generatori"
+E\' semplice aggiungere un comportamento iteratore alle proprie classi, basta definire un metodo \fB__iter__()\fR che restituisca un oggetto con un metodo \fBnext()\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> class Reverse:      \-  Iteratore per eseguire un ciclo al contrario su una sequenza
+def __init__(self, data):
+self\.data = data
+self\.index = len(data)
+def __iter__(self):
+return self
+def next(self):
+if self\.index == 0:
+raise StopIteration
+self\.index = self\.index \- 1
+return self\.data[self\.index]
+
+>>> for carattere in Reverse(’spam’):
+print carattere
+m
+a
+p
+s
+.
+.fi
+.
+.IP "" 0
+.
+.P
+La stessa cosa può essere fatta in un solo metodo attrverso la parola chiave yield che automaticamente genera i metodi \fB__iter__()\fR e \fBnext()\fR:
+.
+.IP "" 4
+.
+.nf
+
+>>> def reverse(data):
+for index in range(len(data)\-1, \-1, \-1):
+yield data[index]
+
+>>> for char in reverse(’golf’):
+print char
+f
+l
+o
+g
+.
+.fi
+.
+.IP "" 0
+

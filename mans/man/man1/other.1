@@ -1,0 +1,79 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "OTHER" "1" "August 2015" "Filippo Squillace" "other"
+.
+.SH "/etc/termcap"
+e\' un elenco di tutti i terminali che il sistema conosce, e come controllano il cursore (es\. xterm, minix opp console che e\' un terminale di tipo vt100, ecc)\. l\'aggiunta di un terminale al sistema consiste nel inserire una voce in qst file\.
+.
+.SH "TERM"
+e\' una variabile d\'ambiente per impostare il tipo di console per linux
+.
+.SH "PATH"
+variabile d\'ambiente costituito da un elenco separato da : delle directory in cui la shell deve cercare i programmi\. Talvolta e\' presente anche la directory corrente "\." ma cio puo essere pericoloso! La variabile e\' impostata sul file /etc/profile ed e\' comune a tutti gli utenti! in qst modo si evita di impostare a proprio piacimento la variabile PATH per ogni utente uno per uno sul file \.bashrc
+.
+.SH "PS1"
+variabile d\'ambiente che serve per personalizzare il prompt\. Viene impostato dal file /etc/profile\. Es\. PS1=\'$PWD>\' opp PS1="\eu@\eh:\ew\e$ " opp PS1="[\e033[1;34m]\eu@\eh:\ew\e$ \e033[0m " opp PS1=\'[\ee[34;1m]\eu@\eh:\ew\e$ [\ee[0m]\' opp PS1=\'[\e033[01;31m]\eh [\e033[01;34m]\eW \e$ [\e033[00m]\'\. In qst esempio si usano particolari apici \fBcomando\fR qst permettono di valutare e di fornire l\'output al posto degli apici e del comando!!!!! Es\.PS1=\'\fBhostname\fR:\fBpwd\fR\- \' opp PS1=\'! ${PWD/\- $HOME/~}$ \' opp PS1=\'%n@%m:%~%\- \'
+.
+.SH "loadkeys it"
+carica la tastiera in italiano
+.
+.SH "cal"
+visualizza un calenadrio\. \-1 un mese \-3 tre mesi \-y un anno ecc
+.
+.SH "expr"
+comando utilissimo per operazioni aritmetiche ( matematica ) tra stringhe
+.
+.SH "date"
+visualizza la data It is possible to show previous dates\. Examples:
+.
+.P
+\fB$ date \-\-date=\'10 seconds ago\'\fR
+.
+.P
+\fB$ date \-\-date=\'1 days ago\'\fR
+.
+.P
+\fB$ date \-\-date=\'yesterday\'\fR
+.
+.P
+Date epoch: \fBdate +%s\fR
+.
+.P
+Date format using the epoch: \fBdate \-\-date=\'@number\'\fR
+.
+.P
+To change the TIMEZONE (the values can be found in /usr/share/zoneinfo): \fBTZ=Japan date\fR
+.
+.P
+To get the tomorrow day: \fBTZ=GMT\-24 date +%d\fR
+.
+.SH "hwclock \-\-show"
+visualizza la data
+.
+.SH "hwclock \-\-date=\'7/15/2000 16:45:05\'"
+imposta la data\. con \-\-utc si specifica la data in formato UTC
+.
+.SH "hwclock \-\-systohc &"
+imposta la data dell\'orologio hw a partire da quello di sistema
+.
+.SH "hwclock \-\-hctosys &"
+imposta la data di sistema a partire da quella dell hw
+.
+.SH "rdate \-sp tempo\.cstv\.to\.cnr\.it"
+sincronizza l\'ora di sistema
+.
+.SH "ispellconfig"
+permette di configurare l\'utilità di controllo ortografico ispell
+.
+.SH "echo laboratoio | ispell \-a"
+effettua il controllo ortografico
+.
+.SH "Wildcards \- caratteri jolly \- espressioni regolari"
+permettono di agire su una lista numerosa di ?le\. I metacaratteri supportati dalla gran parte delle shell sono: * espande zero o più caratteri, ? espande un unico carattere, [a\-z] espande un carattere nell?intervallo a\-z(altri es\. [A\-Za\-z] che corrisponde a [:alpha:]; opp [0\-9] che corrisponde a [:digit:]; opp [A\-Za\-z0\-9] che corrisponde [:alnum:]), [abc] espande un carattere nell\'insieme (a, b, c), ^ vieta la corrispondenza successiva (ad esempio [^abc]), ~ rappresenta la home directory dell\'utente\. Per disabilitare l\'uso dei metacaratteri è necessario anteporre il carattere \'\e\'\. Qst permette di usare [ opp ] come dei caratteri\. Altri operatori sono es\. R? indica l\'opzione; R+ indica uno o più d uno; R{5} significa 5 coppie;R{2,5} indica tra 2 e 5; R{2,} indica 2 o più; ^r una r solo se inizia in una linea; r$ una r solo se è alla fine di una linea; \en rapp la nuova linea; Road|Street indica l\'unione; \. rappresenta qualunque carattere\. Ad es\. \'A\-Z \fI[a\-z]\fR\' serve per indicare anche lo spazio, ma è importante l\'uso delle apici per far capire che si tratta di uno stessa espressione regolare\. Vedere cmq man flex nella sezione PATTERNS opp man awk nella sez regular expr per una più dettagliata rappr\. Nell\'esempio che segue viene dimostrato come utilizzare un comando della shell associandolo con il metacarattere \'\fI\' per rimuovere tutti i file che hanno \'stat\' come parte iniziale del nome: $ rm \-fr stat\fR\.
+.
+.SH "lex flex"
+analizzatori lessicali (non conosco bene)
+.
+.P
+

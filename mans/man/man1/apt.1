@@ -1,0 +1,88 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "APT" "1" "January 2015" "Filippo Squillace" "apt"
+.
+.SH "apt\-get"
+.
+.IP "\(bu" 4
+\-c=? legge come configurazione il file specificato(anziche\' apt\.conf)
+.
+.IP "\(bu" 4
+\-d scarica pkg solamente e non installa
+.
+.IP "\(bu" 4
+\-s simula ma nn installa
+.
+.IP "\(bu" 4
+\-y applica si a tutte le domande
+.
+.IP "\(bu" 4
+\-m prova a continuare se gli archivi non ci sono
+.
+.IP "\(bu" 4
+\-V mostra i numeri di versione
+.
+.IP "\(bu" 4
+\-u mostra i pkg che stanno per essere aggiornati\.
+.
+.IP "" 0
+.
+.P
+Comandi:
+.
+.IP "\(bu" 4
+update aggiorna la lista dei pacchetti\. update dovrebbe sempre essere fatto prima di un upgrade o dist\-upgrade
+.
+.IP "\(bu" 4
+upgrade esegue un aggiornamento
+.
+.IP "\(bu" 4
+install istalla pkg
+.
+.IP "\(bu" 4
+remove rimuove pkg
+.
+.IP "\(bu" 4
+dist\-upgrade aggiornamento della distrib\.
+.
+.IP "" 0
+.
+.SH "apt\-cache"
+.
+.IP "\(bu" 4
+\-c=? legge come configurazione il file specificato(anziche\' apt\.conf)
+.
+.IP "\(bu" 4
+\-a (è di default) stampa tutte le versioni disponibili\.
+.
+.IP "" 0
+.
+.P
+Comandi:
+.
+.IP "\(bu" 4
+search "regex" ricerca di pkg
+.
+.IP "\(bu" 4
+depends "pkg" mostra le dipendenze di un pkg
+.
+.IP "\(bu" 4
+showpkg "pkg" mostra info di un pkg
+.
+.IP "\(bu" 4
+pkgnames "prefix" mostra il nome di un pkg\.
+.
+.IP "" 0
+.
+.SH "elenco pacchetti installati"
+1) Creare una lista dei pacchetti installati con il seguente comando: \- dpkg \-\-get\-selections > /home/$USER/lista_pacchetti
+.
+.P
+2) E\' buona norma salvare anche il file /etc/apt/sources\.list
+.
+.P
+3) Per ripristinare i pacchetti sistemiamo il sources\.list salvato in precedenza
+.
+.P
+4) Successivamente diamo da terminale: \- sudo dpkg \-\-set\-selections (simbolo minore) /home/$USER/lista_pacchetti \- sudo apt\-get dselect\-upgrade

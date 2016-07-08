@@ -1,0 +1,84 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "X" "1" "February 2014" "Filippo Squillace" "x"
+.
+.SH "xte"
+Si trova nel pacchetto xautomation: \fBsudo apt\-get install xautomation\fR
+.
+.P
+Esempi d\'uso: * Per scrivere una stringa nell\'app in focus \- \fBxte \'sleep 5\' \'str hello world\' \'key Return\'\fR
+.
+.IP "\(bu" 4
+Per muovere il mouse in una certa posizione dello schermo \- \fBxte \'sleep 1\' \'mousemove 9999 0\'\fR
+.
+.IP "" 0
+.
+.SH "xterm \-rightbar \-bg white \-fg black"
+apre un terminale per X windows\. \-bg è il background, \-fg è il foreground, \-rightbar con la barra a destra\. premendo con il tasto destro del mouse e CTRL è possibile avere dei menu per configurazioni\.
+.
+.SH "xclock"
+visualizza l\'ora \-analog, \-digital, \-update "sec", \-hands "colore"
+.
+.SH "xvidtune"
+serve per configurare le freq del monitor e altro ancora\.\.
+.
+.SH "xset"
+è un utilità che permette di configurare diversi device tra cui mouse monitor ecc, provare xset \-\-help che è fatto bene\. Es\. per inserire i path dei font \- xset fp+ /usr/X11R6/lib/fonts/directory/ opp per rimuovere \- xset fp\- /usr/X11R6/lib/fonts/directory/
+.
+.SH "xsetpointer"
+permette di mostrare e configurare dispositivi di puntamento per l\'ambiente grafico
+.
+.SH "xsetroot \-solid blue"
+permette di configurare lo sfondo dell\'ambiente
+.
+.SH "Server X"
+Si tratta del programma che gestisce l?interfaccia gra?ca e accetta le connessioni di rete per la gestione remota\.
+.
+.SH "Client X"
+Sono tutti i programmi che utilizzano l?ambiente gra?co gestito dal Server X, sia sulla macchina locale che su computer in rete\.
+.
+.SH "Protocollo X"
+Rappresenta il protocollo di comunicazione utilizzato dal Server X e dai relativi client\.
+.
+.SH "Window Manager"
+Sono particolari software diretti a gestire le ?nestre ed ulteriori componenti sopra il Server X agendo anch?essi come client\.
+.
+.SH "Ambienti desktop"
+sono l\'evoluzione di questi ultimi perchè offrono la possibilità di gestire eventi in maniera intuitiva tramite il mouse, la periferica di puntamento largamente diffusa\.
+.
+.SH "Il server XFree86"
+è una implementazione di X Window System, un potente e complesso ambiente gra?co per sistemi operativi Unix\.
+.
+.SH "/etc/X11/XF86Config opp /etc/X11/xorg\.conf"
+è un file di configurazione per configurare il Server X\. è composto da diverse sezioni ognuna delle quali diretta a config i diversi dispositivi\.Esiste anche una sezione XInput dedicata ai disp più particolari quali tavolette grafiche\. eistono diversi comandi che permettono di conf auto il file quali: xf86config, XF86Setup, xf86cfg\.
+.
+.SH "startx"
+Avvia X Server, deve essere utilizzato dopo la config del file xorg\.conf/XF86Config\. Possono accadere degli errori all\'avvio che possono essere visualizzate in qst modo: startx 2> errori\.txt
+.
+.SH "xinit"
+da utilizzare quando startx non funziona
+.
+.SH "CNTRL F1\.\.\.\.F6"
+permette in modalità X Server di aprire un terminale in caso di problemi
+.
+.SH "linux single"
+al prompt di lilo permette di avviare linux in modalità runlevel 2 senza avviare X Server
+.
+.SH "mkfontdir"
+Il comando serve per aggiornare il fonts\.dir della cartella corrente\. fonts\.dir è presente in ogni cartella dei font(tipo /usr/X11/lib/fonts/\.\.) specificati nel file di conf xorg\.conf, e contiene l\'elenco dei font di un certo tipo\.
+.
+.SH "xlsfonts"
+elenca tutti i font attualmente disponibili all?uso e riconosciuti dal Server X elencandoli in una lunga lista organizzata di base alfabeticamente ma facilmente con?gurabile secondo le proprio esigenze con le opzioni presenti\.
+.
+.SH "\.xinitrc"
+qst file applicato nella propria dir home viene all\'avvio eseguito e ci permette di avviare comandi in fase di boot es\. xsetroot \-solid Gray exec xterm & exec fvwm Nell\'esempio presentato si sceglie di utilizzare il Window Manager fvwm con lo sfondo del colore grigio\. Viene inoltre lanciato il programma xterm\.
+.
+.SH "\.twmrc"
+simile a \.initrc bisognerebbe studiarlo
+.
+.SH "xmodmap"
+e\' un programma per interpretare i segnali da tastiera
+.
+.SH "bitmap"
+avvia un programma di disegno

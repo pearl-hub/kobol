@@ -1,0 +1,169 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "IRC\-IRSSI" "1" "December 2015" "Filippo Squillace" "irc-irssi"
+.
+.SH "basic commands"
+To connect to a server: \fB/connect irc\.freenode\.net\fR
+.
+.P
+or: \fB/server irc\.freenode\.net\fR
+.
+.P
+You can use Ctrl\-X to switch between network connections\. To join a channel: \fB/join \- mychan\fR
+.
+.P
+To list all the channel: \fB/list\fR
+.
+.P
+To close the session irc client: \fB/quit\fR
+.
+.P
+List of main commands:
+.
+.IP "" 4
+.
+.nf
+
+|Command               |Alias    |Info                                               |
+|\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-|\-\-\-\-\-\-\-\-\-|\-\-\-\-|
+|/ban                   |/bans,/b|Sets or List bans for a channel|
+|/clear                 |/c, /cl |Clears a channel buffer|
+|/join                  |/j      |Joins a channel|
+|/kick                  |/k      |Kicks a user|
+|/kickban               |/kb     |Kickban a user|
+|/msg                   |/m      |Send a private message to a user|
+|/unban *               |/mub    |Clears the unbanlist (unbans everyone) in a channel|
+|/names                 |/n      |Lists the users in the current channel|
+|/query                 |/q      |Open a query window with a user,|
+|                       |        |or close current query window|
+|/topic                 |/t      |Displays/edits current topic\.|
+|                       |        |Tip: use /t[space][tab] to automatically|
+|                       |        |fill in existing topic\.|
+|/window close          |/wc     |Force closure of a window\.|
+|/whois                 |/wi     |WHOIS a user\. Displays user information|
+|/away "message"        |        |Set the client as away\.|
+|                       |        |To disable it use the same command without message\.|
+|/lastlog "word"        |        |Print the messages containing the "word"|
+|/scrollback goto hh:mm |/sb     |Move to previous conversation\.
+|                       |        |Use /sb end for to go the bottom\.|
+.
+.fi
+.
+.IP "" 0
+.
+.SH "Manage a channel"
+To create a channel:
+.
+.IP "" 4
+.
+.nf
+
+/join #channel
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To invite people in channel:
+.
+.IP "" 4
+.
+.nf
+
+/invite buddy #channel
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To insert the topic:
+.
+.IP "" 4
+.
+.nf
+
+/topic this is my topic
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To change the mode to private or secret:
+.
+.IP "" 4
+.
+.nf
+
+/mode #channel +s
+/mode #channel +p
+.
+.fi
+.
+.IP "" 0
+.
+.SH "miscellaneous"
+To get the property: \fB/set\fR
+.
+.P
+To set a property: \fB/set timestamp_format %H:%M:%S\fR
+.
+.P
+To save the configuration: \fB/save\fR
+.
+.P
+To get all the alias: \fB/alias\fR
+.
+.P
+To set a theme: \fB/set theme themename\fR
+.
+.P
+To highlight some nick: \fB/hilight yournick\fR
+.
+.SH "perl script"
+Put the script in ~/\.irssi/scripts or in ~/\.irssi/scripts/autorun to run the script at startup\. To execute a script: \fB/run scriptname\fR
+.
+.SH "set a new account"
+To set a nick: \fB/nick feel\fR
+.
+.P
+To register the nick: \fB/msg nickserv register password user@email\fR
+.
+.P
+To beingidentified with your own account: \fB/msg nickserv register password\fR
+.
+.P
+To change the password: \fB/ns set password newPassword\fR
+.
+.SH "chatting"
+To a private chat: \fB/query nick\fR
+.
+.SH "manage window"
+To show a window #num in a new horizontal container (works only for non stick windows): \fB/window show #num\fR
+.
+.P
+To hide a window: \fB/window hide #num\fR
+.
+.P
+To disable stickness from a window: \fB/window stick #num off\fR
+.
+.P
+To move window up/down: \fB/window move IP/DOWN\fR
+.
+.P
+To close the current window: \fB/window close\fR
+.
+.SS "manage window size"
+To balance the size of all windows: \fB/window balance\fR
+.
+.P
+To shrink/grow the size of the current window:
+.
+.P
+\fB/window shrink [#lines]\fR
+.
+.P
+\fB/window grow [#lines]\fR

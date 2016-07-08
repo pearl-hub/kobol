@@ -1,0 +1,223 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "RUBY" "1" "February 2014" "Filippo Squillace" "ruby"
+.
+.SH "Basics"
+To import modules:
+.
+.P
+require \'mechanize\'
+.
+.P
+To install a new package:
+.
+.P
+gem install rails \-\-version 3\.0\.1
+.
+.P
+To update the gem package manager:
+.
+.P
+gem update \-\-system
+.
+.P
+Symbols are immutable strings:
+.
+.P
+symb = :rails :rails\.to_s
+.
+.P
+Print
+.
+.P
+puts "name" \- print with \en print "name" \- print without \en p :name \- equal to puts :name\.inspect
+.
+.P
+The value nil correspond to None in python\.
+.
+.P
+Array:
+.
+.P
+x = [1,\'two\',:three] x[1] == \'two\' x[0\.\.2] == [1, \'two\'] x\.length == 3 a << 7 \- append 7 to a %w[0 3 4 5fsad] \- create a array of string
+.
+.P
+Ranges:
+.
+.P
+0\.\.9 (0\.\.9)\.to_a (\'a\'\.\.\'e\')\.to_a => ["a", "b", "c", "e"]
+.
+.P
+Hash:
+.
+.P
+w = {\'a\'=>1, :b=>[2,3]} w\.keys == [\'a\', :b] w = Hash\.new(0) \- default value for nonexistring key w[:foo] \- it returns 0
+.
+.P
+Methods:
+.
+.P
+def foo(x,y=10) return [x, y+1] \- last exp returned as result\. end
+.
+.P
+if and while:
+.
+.P
+if cond stat elsif stat else stat end
+.
+.P
+while cond stat end
+.
+.SH "string & regular expression"
+All this types are available:
+.
+.P
+"string", %Q{string},\'string\',%q{string}
+.
+.P
+The concatenation a=41; "The answer is \- {a+1}"
+.
+.P
+Useful string methods:
+.
+.P
+s\.chomp(\'s\') \- wipe out the last char s\.gsub(//, \'\') \- substitute the occurrence with a new string
+.
+.P
+All this types are available for regex:
+.
+.P
+/(\.\fI)$/i, %r{(\.\fR)$}i, Regexp\.new(\'(\.*)$\', Regexp::IGNORECASE)
+.
+.P
+Matching regexp: "fox@berkeley\.EDU" ~= /(\.\fI)@(\.\fR)\.edu$/i return false if no match, otherwise return true and $1\.\.$n catch the groups\.
+.
+.P
+Replacing a substring: s\.gsub(/s$/, \'\')
+.
+.SH "conversions & more"
+l\.to_a \- convert an Enumerable in Array s\.to_s \- convert in string s\.to_sym \- convert in symbol
+.
+.SH "method call and operators\" >"
+To get all methods of an object:
+.
+.P
+57\.methods
+.
+.P
+Every operator is a method call:
+.
+.P
+1+2 correspond to 1\.send(:+, 2)
+.
+.P
+To append element into a list:
+.
+.P
+y << [6,7]
+.
+.SH "oop"
+Creation of an object:
+.
+.P
+ClassName\.new(\.\.\.)
+.
+.P
+Instance variable:
+.
+.P
+@variable
+.
+.P
+Class (static) variable:
+.
+.P
+@@variable
+.
+.P
+Class method:
+.
+.P
+def self\.bank_name @@bank_name end
+.
+.SH "metaprogramming"
+Generate accessor methods:
+.
+.P
+attr_accessor :balance
+.
+.P
+Add methods REOPENING a class:
+.
+.P
+class Numeric def euros self * 1\.3 end
+.
+.P
+If a method doesn\'t exist ruby call a special method:
+.
+.P
+class Numeric def method_missing(method_id) if method_id\.to_s == \'euro\' self\.send(\'euros\') else super end end end
+.
+.IP "\(bu" 4
+Or in this way useful for both module and class Enumerable\.class_eval do def palindrome? return (self\.is_a? Array) ? self\.reverse == self : self\.to_a\.palindrome? end end
+.
+.IP "" 0
+.
+.SH "iterator"
+Loops:
+.
+.IP "\(bu" 4
+Possible way to iterate across the elements list\.each do |string| puts string end
+.
+.IP "" 0
+.
+.P
+for i in (1\.\.10) do puts i end
+.
+.P
+1\.upto 10 do |num| puts num end
+.
+.P
+3\.times{print "ciao"}
+.
+.IP "\(bu" 4
+Map is the same of map in python x\.map do |f| fruit\.reverse end\.sort
+.
+.IP "\(bu" 4
+Select correspond the same of filter in python x\.select do |el| el =~ /^[aeuio]/i end
+.
+.IP "" 0
+.
+.P
+x\.collect {|f| f\.include?(\'e\')} x\.any?{|f| f\.lenght>5}
+.
+.P
+Hash
+.
+.P
+hsh\.each_key do |k| \.\.\. end hsh\.each_pair do |k,v| \.\.\. end
+.
+.SH "duck typing"
+Similar to interface in Java:
+.
+.P
+class Account include Comparable def \fI=\fR(other) self\.balance \fI=\fR other\.balance end end
+.
+.P
+Enumerable respond a lot of methods!!: each, all? any? collect, find, include?, inject, map, partition,\.\.\.
+.
+.SH "yield"
+It\'s the same concept as in python\.
+.
+.IP "\(bu" 4
+yield function is: def around_stuff \.\.before\.\. yield \.\.after\.\. end
+.
+.IP "\(bu" 4
+in user code \.\.\. around_stuff do my_stuff() end
+.
+.IP "\(bu" 4
+so yield will be replaced with the function my_stuff()
+.
+.IP "" 0
+

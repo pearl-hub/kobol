@@ -1,0 +1,52 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "MAKE" "1" "February 2014" "Filippo Squillace" "make"
+.
+.SH "make"
+Una opzione di make e\' \-f che consente di specificare il Makefile da utilizzare: \fBmake \-f Mafile\-1\fR
+.
+.P
+Un Makefile ha una struttura del genere:
+.
+.P
+<![CDATA[ target: dependencies [tab] compilation command ]]>
+.
+.P
+Special variables are: $^ \-> Prerequisites of the rule $\fI\-\fR First prerequisite $@ \-> The target of the rule $? \-> All out\-of\-data prerequisites
+.
+.P
+To include makefiles inside the same makefile we can use: include <config\.mk>
+.
+.P
+Ecco un esempio in cui si vede il contenuto di un Makefile
+.
+.P
+<![CDATA[ \- This is a comment\. The variable CC will be the compiler to use\. CC=g++ \- CFLAGS will be the options I\'ll pass to the compiler\. CFLAGS=\-c \-Wall
+.
+.P
+all: hello
+.
+.P
+hello: main\.o factorial\.o hello\.o $(CC) main\.o factorial\.o hello\.o \-o hello
+.
+.P
+main\.o: main\.cpp $(CC) $(CFLAGS) main\.cpp
+.
+.P
+clean: rm \-rf *o hello ]]>
+.
+.P
+Un esempio ancora più generale è il seguente:
+.
+.P
+<![CDATA[ CC=g++ CFLAGS=\-c \-Wall LDFLAGS= SOURCES=main\.cpp hello\.cpp factorial\.cpp OBJECTS=$(SOURCES:\.cpp=\.o) EXECUTABLE=hello
+.
+.P
+all: $(SOURCES) $(EXECUTABLE)
+.
+.P
+$(EXECUTABLE): $(OBJECTS) $(CC) $(LDFLAGS) $(OBJECTS) \-o $@
+.
+.P
+\&\.cpp\.o: $(CC) $(CFLAGS) $\fI\-o $@ ]]\fR
