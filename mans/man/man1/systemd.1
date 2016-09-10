@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "SYSTEMD" "1" "February 2014" "Filippo Squillace" "systemd"
+.TH "SYSTEMD" "1" "September 2016" "Filippo Squillace" "systemd"
 .
-.SH "system"
+.SH "System"
 To boot the system: \fBsystemctl reboot\fR
 .
 .P
-To poweroff the system: \fBsudo systemctl poweroff\fR
+To poweroff the system: \fBsystemctl poweroff\fR
 .
 .P
 Analyze the boot time in msec: \fBsystemd\-analyze\fR
@@ -18,11 +18,13 @@ Ordered list of units sortex by init time: \fBsystemd\-analyze blame\fR
 .P
 Plot a graph of init time: \fBsystemd\-analyze plot\fR
 .
-.SH "system\-log"
-BEST COMMAND: Show log from this boot for a specific unit:
+.SH "Journal & Logs"
+.
+.SS "Best commands"
+Show log from this boot for a specific unit:
 .
 .P
-\fBjournatlctl \-xn \-b \-u UNITNAME\fR
+\fBjournalctl \-xn \-b \-u UNITNAME\.service\fR
 .
 .P
 Follow new messages:
@@ -31,7 +33,10 @@ Follow new messages:
 \fBjournalctl \-f\fR
 .
 .P
-BOOT: Shows messages from the current boot:
+To check which services are managed by Journald: \fBjournalctl \-F _SYSTEMD_UNIT\fR
+.
+.SS "Bootstrap"
+Shows messages from the current boot:
 .
 .P
 \fBjournalctl \-b \-0\fR
@@ -43,22 +48,34 @@ From the previous boot:
 \fBjournalctl \-b \-1\fR
 .
 .P
-Show all messages by a specific process:
-.
-.P
-\fBjournalctl _PID=1\fR
-.
-.P
 Create a text file for the log: \fBjournalctl \-a > read_log\.txt\fR
 .
-.P
-Get log a specific unit: \fBjournalctl _SYSTEMD_UNIT=systemd\-logind\.service\fR
+.SS "Filtering"
+Get logs for a specific PID: \fBjournalctl _PID=1\fR
 .
-.SH "services"
+.P
+Get logs for a specific unit: \fBjournalctl _SYSTEMD_UNIT=systemd\-logind\.service\fR
+.
+.P
+Get logs for a specific user: \fBjournalctl _UID=myusername\fR
+.
+.P
+Get logs for a specific command: \fBjournalctl _COMM=sshd\fR
+.
+.P
+Get all logs since yesterday until 9th Sep 2016: \fBjournalctl \-\-since=yesterday \-\-until=2016\-09\-10\fR
+.
+.SH "Services"
 List of services: \fBsystemctl\fR
 .
 .P
-List of active and non active services: \fBsystemctl list\-unit\-files\fR
+List all the active services: \fBsystemctl list\-units\fR
+.
+.P
+List all available services (even the inactive ones): \fBsystemctl list\-unit\-files\fR
+.
+.P
+List the units failed: \fBsystemctl \-\-failed\fR
 .
 .P
 Start a service: \fBsystemctl start service\fR
