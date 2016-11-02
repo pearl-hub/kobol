@@ -1,0 +1,91 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "ECRYPTFS" "" "November 2016" "Filippo Squillace" "ecryptfs.markdown"
+More information here \fIhttps://wiki\.archlinux\.org/index\.php/ECryptfs#Manual_setup\fR
+.
+.P
+Add passphrase to the kernel keyring:
+.
+.IP "" 4
+.
+.nf
+
+ecryptfs\-add\-passphrase
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To check the already created key:
+.
+.IP "" 4
+.
+.nf
+
+keyctl list @u
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Configure ecryptfs:
+.
+.IP "" 4
+.
+.nf
+
+mkdir \-m 700 ~/\.secret ~/\.ecryptfs
+mkdir \-m 500 ~/secret
+echo "$HOME/\.secret $HOME/secret ecryptfs" > ~/\.ecryptfs/secret\.conf
+
+# Add the passphrase signature twice (for filename encryption):
+echo 78c6f0645fe62da0 > ~/\.ecryptfs/secret\.sig
+echo 78c6f0645fe62da0 >> ~/\.ecryptfs/secret\.sig
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Mount the directory:
+.
+.IP "" 4
+.
+.nf
+
+ecryptfs\-add\-passphrase     # in case the key is not in the keyring
+mount\.ecryptfs_private secret
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Umount the directory:
+.
+.IP "" 4
+.
+.nf
+
+umount\.ecryptfs_private secret
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Clear directly the key (not needed after the umount):
+.
+.IP "" 4
+.
+.nf
+
+keyctl clear @u
+.
+.fi
+.
+.IP "" 0
+

@@ -7,7 +7,7 @@ kobol - Snippet-based manuals
 
 kobol is a minimal system used to get essentials snippet information about all the
 important linux commands, programs, and much much more.
-It contains the command `man3` that is a wrapper of the famous `man`.
+It contains the command `kobol` that is a wrapper of the famous `man`.
 
 The Pearl manuals are all located in `$PEARL_PKGDIR/mans/`.
 
@@ -33,22 +33,21 @@ Just type one of the manuals you need in:
 
 ## Copyright ##
 
-    Copyright  (C) 2008-2016 Free  Software Foundation, Inc.
+    Copyright (C) 2008-2016 Free Sofware Foundation, Inc.
 
-    Permission  is  granted to make and distribute verbatim copies
-    of this document provided the copyright notice and  this  per‐
-    mission notice are preserved on all copies.
+    Permission is granted to make and distribute verbatim copies
+    of this document provided the copyright notice and this per
+    missing notice are preserved on all copies.
 
-    Permission is granted to copy and distribute modified versions
-    of this document under the conditions  for  verbatim  copying,
+    Permission is grante to copy and distribute modified versions
+    of this document under the conditions for verbatim copying,
     provided that the entire resulting derived work is distributed
     under the terms of a permission notice identical to this one.
 
-    Permission is granted to copy and distribute  translations  of
-    this  document  into  another language, under the above condi‐
-    tions for  modified  versions,  except  that  this  permission
-    notice  may  be  stated  in a translation approved by the Free
-    Software Foundation.
+    Permsision is granted to copy and distribute translations of
+    this document into another language, under the above conditions
+    fo modified versions, except that this permission notice may be
+    stated in a translation approved by the Free Sofware Foundation.
 
 ## Bugs ##
 Of course there is no bug in pearl. But there may be unexpected behaviors.
@@ -59,7 +58,7 @@ this unexpected behaviors.
 Filippo Squillace <feel.sqoox@gmail.com>.
 
 ## WWW ##
-https://github.com/fsquillace/pearl
+https://github.com/pearl-core/pearl
 https://github.com/pearl-hub/kobol
 
 ## Last words ##
