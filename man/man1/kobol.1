@@ -3,99 +3,91 @@
 .
 .TH "README" "" "November 2016" "Filippo Squillace" "kobol"
 .
-.SH "Name"
-kobol \- Snippet\-based manuals
-.
-.SH "Description"
-kobol is a minimal system used to get essentials snippet information about all the important linux commands, programs, and much much more\. It contains the command \fBkobol\fR that is a wrapper of the famous \fBman\fR\.
-.
 .P
-The Pearl manuals are all located in \fB$PEARL_PKGDIR/mans/\fR\.
+\fBTable of Contents\fR \- \fIDescription\fR \- \fIQuickstart\fR \- \fIInstallation\fR \- \fITroubleshooting\fR
 .
-.P
-You can create your own markdown manuals just place them to the directory \fB~/\.config/pearl/markdown\fR\.
+.IP "\(bu" 4
+name: \fBkobol\fR
 .
-.SH "Installation"
-\fBkobol\fR is a \fIpearl\fR \fIhttps://github\.com/fsquillace/pearl\fR\.
+.IP "\(bu" 4
+description: \fBman\fR wrapper for reading user manuals from markdown files\.
 .
-.P
-After installing pearl type just the following:
+.IP "\(bu" 4
+author: Filippo Squillace
+.
+.IP "\(bu" 4
+username: fsquillace
+.
+.IP "\(bu" 4
+OS compatibility: linux, osx
+.
+.IP "" 0
+.
+.IP "\(bu" 4
+Create the markdown file \fBmymanual\.md\fR in \fB$KOBOL_VARDIR/markdown\fR\.
+.
+.IP "\(bu" 4
+To view the content of it as a manual (the manual will be generated just before viewing it):
+.
+.IP "" 0
 .
 .IP "" 4
 .
 .nf
 
-$ pearl install kobol
+$ kobol mymanual
 .
 .fi
 .
 .IP "" 0
 .
-.SH "Usage"
-.
-.IP "\(bu" 4
-To search for a "keyword" among all themans: \fBman3 \-K keyword\fR
-.
-.IP "\(bu" 4
-To see a specific "manual": \fBman3 manual_name\fR
-.
-.IP "\(bu" 4
-To create your own markdown document \fImydoc\fR, just save it in \fB~/\.config/pearl/markdown\fR and then:\fBman3 mydoc\fR
-.
-.IP "" 0
-.
-.SH "Help"
-Just type one of the manuals you need in:
+.P
+Every \fBman\fR options can be used in \fBkobol\fR as well\. For instance for searching according to the keyword \fIbanana\fR :
 .
 .IP "" 4
 .
 .nf
 
-man pearl\.kobol
+$ kobol \-K banana mymanual
 .
 .fi
 .
 .IP "" 0
 .
-.SH "Copyright"
+.P
+\fBkobol\fR creates the corresponding manual in \fB$KOBOL_VARDIR/mans\fR directory\.This package needs to be installed via Pearl \fIhttps://github\.com/pearl\-core/pearl\fR system\.
+.
+.IP "" 4
 .
 .nf
 
-Copyright (C) 2008\-2016 Free Sofware Foundation, Inc\.
-
-Permission is granted to make and distribute verbatim copies
-of this document provided the copyright notice and this per
-missing notice are preserved on all copies\.
-
-Permission is grante to copy and distribute modified versions
-of this document under the conditions for verbatim copying,
-provided that the entire resulting derived work is distributed
-under the terms of a permission notice identical to this one\.
-
-Permsision is granted to copy and distribute translations of
-this document into another language, under the above conditions
-fo modified versions, except that this permission notice may be
-stated in a translation approved by the Free Sofware Foundation\.
+pearl install kobol
 .
 .fi
 .
-.SH "Bugs"
-Of course there is no bug in pearl\. But there may be unexpected behaviors\. Go to \'https://github\.com/pearl\-hub/kobol/issues\' you can report directly this unexpected behaviors\.
+.IP "" 0
 .
-.SH "Authors"
-Filippo Squillace \fIfeel\.sqoox@gmail\.com\fR\.
+.P
+\fBkobol\fR requires the ronn \fIhttps://github\.com/rtomayko/ronn\fR command to be installed:
 .
-.SH "WWW"
-https://github\.com/pearl\-core/pearl https://github\.com/pearl\-hub/kobol
-.
-.SH "Last words"
+.IP "" 4
 .
 .nf
 
-Consider your origins:
-You were not born to live like brutes
-but to follow virtue and knowledge\.
-[verse, Dante Alighieri, from Divine Comedy]
+gem install ronn
 .
 .fi
-
+.
+.IP "" 0
+.
+.SH "Dependencies"
+The main dependencies are the following:
+.
+.IP "\(bu" 4
+Pearl \fIhttps://github\.com/pearl\-core/pearl\fR
+.
+.IP "\(bu" 4
+ronn \fIhttps://github\.com/rtomayko/ronn\fR
+.
+.IP "" 0
+This section has been left blank intentionally\. It will be filled up as soon as troubles come in!

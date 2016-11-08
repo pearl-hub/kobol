@@ -9,3 +9,4 @@ echo -e "## Kobol ##\nKobol is a tool for creating manuals via markdown files." 
 
 kobol -P cat example
 
+man -P cat kobol

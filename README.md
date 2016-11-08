@@ -1,70 +1,69 @@
-# Kobol #
+Kobol
+=====
 
-## Name ##
-kobol - Snippet-based manuals
+|Project Status|Communication|
+|:-----------:|:-----------:|
+|[![Build status](https://api.travis-ci.org/pearl-hub/kobol.png?branch=master)](https://travis-ci.org/pearl-hub/kobol) | [![Join the gitter chat at https://gitter.im/pearl-hub/kobol](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pearl-hub/kobol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 
-## Description ##
+**Table of Contents**
+- [Description](#description)
+- [Quickstart](#quickstart)
+- [Installation](#installation)
+- [Troubleshooting](#troubleshooting)
 
-kobol is a minimal system used to get essentials snippet information about all the
-important linux commands, programs, and much much more.
-It contains the command `kobol` that is a wrapper of the famous `man`.
+Description
+===========
 
-The Pearl manuals are all located in `$PEARL_PKGDIR/mans/`.
+- name: `kobol`
+- description: `man` wrapper for reading user manuals from markdown files.
+- author: Filippo Squillace
+- username: fsquillace
+- OS compatibility: linux, osx
 
-You can create your own markdown manuals just place them to the directory
-`~/.config/pearl/markdown`.
+Quickstart
+==========
 
-## Installation ##
-`kobol` is a [*pearl*](https://github.com/fsquillace/pearl).
+- Create the markdown file `mymanual.md` in `$KOBOL_VARDIR/markdown`.
 
-After installing pearl type just the following:
+- To view the content of it as a manual (the manual will be generated just before viewing it):
 
-    $ pearl install kobol
+```sh
+$ kobol mymanual
+```
 
-## Usage ##
-- To search for a "keyword" among all themans: `man3 -K keyword`
-- To see a specific "manual": `man3 manual_name`
-- To create your own markdown document *mydoc*, just save it in `~/.config/pearl/markdown` and then:`man3 mydoc`
+Every `man` options can be used in `kobol` as well.
+For instance for searching according to the keyword *banana* :
 
-## Help ##
-Just type one of the manuals you need in:
+```sh
+$ kobol -K banana mymanual
+```
 
-    man pearl.kobol
+`kobol` creates the corresponding manual in `$KOBOL_VARDIR/mans` directory.
 
-## Copyright ##
 
-    Copyright (C) 2008-2016 Free Sofware Foundation, Inc.
+Installation
+============
+This package needs to be installed via [Pearl](https://github.com/pearl-core/pearl) system.
 
-    Permission is granted to make and distribute verbatim copies
-    of this document provided the copyright notice and this per
-    missing notice are preserved on all copies.
+```sh
+pearl install kobol
+```
 
-    Permission is grante to copy and distribute modified versions
-    of this document under the conditions for verbatim copying,
-    provided that the entire resulting derived work is distributed
-    under the terms of a permission notice identical to this one.
+`kobol` requires the [ronn](https://github.com/rtomayko/ronn)
+command to be installed:
 
-    Permsision is granted to copy and distribute translations of
-    this document into another language, under the above conditions
-    fo modified versions, except that this permission notice may be
-    stated in a translation approved by the Free Sofware Foundation.
+```sh
+gem install ronn
+```
 
-## Bugs ##
-Of course there is no bug in pearl. But there may be unexpected behaviors.
-Go to 'https://github.com/pearl-hub/kobol/issues' you can report directly
-this unexpected behaviors.
+Dependencies
+------------
+The main dependencies are the following:
 
-## Authors ##
-Filippo Squillace <feel.sqoox@gmail.com>.
+- [Pearl](https://github.com/pearl-core/pearl)
+- [ronn](https://github.com/rtomayko/ronn)
 
-## WWW ##
-https://github.com/pearl-core/pearl
-https://github.com/pearl-hub/kobol
-
-## Last words ##
-
-    Consider your origins:
-    You were not born to live like brutes
-    but to follow virtue and knowledge.
-    [verse, Dante Alighieri, from Divine Comedy]
-
+Troubleshooting
+===============
+This section has been left blank intentionally.
+It will be filled up as soon as troubles come in!
