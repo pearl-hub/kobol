@@ -6,7 +6,7 @@
 #
 # vim: ft=sh
 
-RONN=${KOBOL_ROOT}/mods/ronn/bin/ronn
+RONN=ronn
 
 #######################################
 # Make a manual from the given markdown file.
