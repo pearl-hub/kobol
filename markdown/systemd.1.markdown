@@ -2,13 +2,13 @@
 #  systemd
 
 
-## system
+## System ##
 
 To boot the system:
 `systemctl reboot`
 
 To poweroff the system:
-`sudo systemctl poweroff`
+`systemctl poweroff`
 
 Analyze the boot time in msec:
 `systemd-analyze`
@@ -19,22 +19,21 @@ Ordered list of units sortex by init time:
 Plot a graph of init time:
 `systemd-analyze plot`
 
+## Journal & Logs ##
 
-
-## system-log
-
-BEST COMMAND:
+### Best commands ###
 Show log from this boot for a specific unit:
 
-`journatlctl -xn -b -u UNITNAME`
-
+`journalctl -xn -b -u UNITNAME.service`
 
 Follow new messages:
 
 `journalctl -f`
 
+To check which services are managed by Journald:
+`journalctl -F _SYSTEMD_UNIT`
 
-BOOT:
+### Bootstrap ###
 Shows messages from the current boot:
 
 `journalctl -b -0`
@@ -43,28 +42,40 @@ From the previous boot:
 
 `journalctl -b -1`
 
-
-Show all messages by a specific process:
-
-`journalctl _PID=1`
-
-
 Create a text file for the log:
 `journalctl -a > read_log.txt`
 
-Get log a specific unit:
+### Filtering ###
+
+Get logs for a specific PID:
+`journalctl _PID=1`
+
+Get logs for a specific unit:
 `journalctl _SYSTEMD_UNIT=systemd-logind.service`
 
+Get logs for a specific user:
+`journalctl _UID=myusername`
+
+Get logs for a specific command:
+`journalctl _COMM=sshd`
+
+Get all logs since yesterday until 9th Sep 2016:
+`journalctl --since=yesterday --until=2016-09-10`
 
 
-
-## services
+## Services ##
 
 List of services:
 `systemctl`
 
-List of active and non active services:
+List all the active services:
+`systemctl list-units`
+
+List all available services (even the inactive ones):
 `systemctl list-unit-files`
+
+List the units failed:
+`systemctl --failed`
 
 Start a service:
 `systemctl start service`

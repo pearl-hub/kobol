@@ -1,0 +1,102 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SYSTEMD" "1" "September 2016" "Filippo Squillace" "systemd"
+.
+.SH "System"
+To boot the system: \fBsystemctl reboot\fR
+.
+.P
+To poweroff the system: \fBsystemctl poweroff\fR
+.
+.P
+Analyze the boot time in msec: \fBsystemd\-analyze\fR
+.
+.P
+Ordered list of units sortex by init time: \fBsystemd\-analyze blame\fR
+.
+.P
+Plot a graph of init time: \fBsystemd\-analyze plot\fR
+.
+.SH "Journal & Logs"
+.
+.SS "Best commands"
+Show log from this boot for a specific unit:
+.
+.P
+\fBjournalctl \-xn \-b \-u UNITNAME\.service\fR
+.
+.P
+Follow new messages:
+.
+.P
+\fBjournalctl \-f\fR
+.
+.P
+To check which services are managed by Journald: \fBjournalctl \-F _SYSTEMD_UNIT\fR
+.
+.SS "Bootstrap"
+Shows messages from the current boot:
+.
+.P
+\fBjournalctl \-b \-0\fR
+.
+.P
+From the previous boot:
+.
+.P
+\fBjournalctl \-b \-1\fR
+.
+.P
+Create a text file for the log: \fBjournalctl \-a > read_log\.txt\fR
+.
+.SS "Filtering"
+Get logs for a specific PID: \fBjournalctl _PID=1\fR
+.
+.P
+Get logs for a specific unit: \fBjournalctl _SYSTEMD_UNIT=systemd\-logind\.service\fR
+.
+.P
+Get logs for a specific user: \fBjournalctl _UID=myusername\fR
+.
+.P
+Get logs for a specific command: \fBjournalctl _COMM=sshd\fR
+.
+.P
+Get all logs since yesterday until 9th Sep 2016: \fBjournalctl \-\-since=yesterday \-\-until=2016\-09\-10\fR
+.
+.SH "Services"
+List of services: \fBsystemctl\fR
+.
+.P
+List all the active services: \fBsystemctl list\-units\fR
+.
+.P
+List all available services (even the inactive ones): \fBsystemctl list\-unit\-files\fR
+.
+.P
+List the units failed: \fBsystemctl \-\-failed\fR
+.
+.P
+Start a service: \fBsystemctl start service\fR
+.
+.P
+Stop a service: \fBsystemctl stop service\fR
+.
+.P
+Restart a service: \fBsystemctl restart service\fR
+.
+.P
+Reload a service: \fBsudo systemctl reload service\fR
+.
+.P
+Show the status of a service: \fBsystemctl status service\fR
+.
+.P
+Enable a service at boot: \fBsystemctl enable service\fR
+.
+.P
+Disable a service at boot: \fBsystemctl disable service\fR
+.
+.P
+Check whether a service is disabled: \fBsystemctl is\-enabled service; echo $?\fR
