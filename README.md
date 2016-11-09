@@ -15,7 +15,7 @@ Description
 ===========
 
 - name: `kobol`
-- description: `man` wrapper for reading user manuals from markdown files.
+- description: `man` wrapper for creating and reading user manuals from markdown files.
 - author: Filippo Squillace
 - username: fsquillace
 - OS compatibility: linux, osx
