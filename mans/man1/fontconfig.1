@@ -1,7 +1,0 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "FONTCONFIG" "1" "February 2014" "Filippo Squillace" "fontconfig"
-.
-.SH "fontconfig"
-E\' la nuova versione di gestione dei font di sistema (la versione X11 che utilizza xset e\' deprecata)\. E\' possibile aggiungere i propri font nella cartella home ~/\.fonts/ oppure nella directory globale /usr/share/fonts/\. Per la configurazione considerare i seguenti files: * /etc/fonts/local\.conf Per config globali * ~/\.fonts\.conf o la directory ~/\.fonts\.conf\.d/ Per config utente NOTA: Non modificare il file in /etc/fonts/fonts\.conf NOTA!: Per rendere visibile il file di config utente aggiungere: if it doesn\'t exist \-\-> includeincludeinclude<include ignore_missing="yes ~/\.fonts\.conf</include>]]></p> <p>Per visualizzare i font disponibili sul sistema: <code>fc\-list | sed \'s,:\.*,,\' | sort \-u</code></p> <p>Per controllare i font presenti sulla cache (che facilità l\'accesso ai font): <code>fc\-cache \-vf</code></p> </p>

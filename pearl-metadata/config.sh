@@ -4,11 +4,6 @@ export KOBOL_VARDIR="$PEARL_PKGVARDIR"
 mkdir -p ${KOBOL_VARDIR}/markdown
 mkdir -p ${KOBOL_VARDIR}/mans/man1
 
-if [[ $KOBOL_MANPATH != *"${PEARL_PKGDIR}/mans"* ]]
-then
-    export KOBOL_MANPATH="$PEARL_PKGDIR/mans:$KOBOL_MANPATH"
-fi
-
 if [[ $KOBOL_MANPATH != *"${PEARL_PKGVARDIR}/mans"* ]]
 then
     export KOBOL_MANPATH="$PEARL_PKGVARDIR/mans:$KOBOL_MANPATH"
