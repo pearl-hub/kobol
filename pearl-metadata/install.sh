@@ -1,7 +1,6 @@
 
 function post_install(){
-    [ -e "${PEARL_PKGDIR}/bin/kobol" ] && pre_remove
-    ln -s "${PEARL_PKGDIR}/bin/kobol" ${PEARL_HOME}/bin
+    link_to_path "${PEARL_PKGDIR}/bin/kobol"
 
     info "ronn command is required for kobol:"
     info "> gem install ronn"
@@ -12,5 +11,5 @@ function post_update(){
 }
 
 function pre_remove(){
-    rm -f ${PEARL_HOME}/bin/kobol
+    unlink_from_path "${PEARL_PKGDIR}/bin/kobol"
 }
