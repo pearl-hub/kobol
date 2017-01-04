@@ -3,7 +3,7 @@ Kobol
 
 |Project Status|Communication|
 |:-----------:|:-----------:|
-|[![Build status](https://api.travis-ci.org/pearl-hub/kobol.png?branch=master)](https://travis-ci.org/pearl-hub/kobol) | [![Join the gitter chat at https://gitter.im/pearl-hub/kobol](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pearl-hub/kobol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
+|[![Build status](https://api.travis-ci.org/pearl-hub/kobol.png?branch=master)](https://travis-ci.org/pearl-hub/kobol) | [![Join the gitter chat at https://gitter.im/pearl-core/pearl](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pearl-core/pearl?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 
 **Table of Contents**
 - [Description](#description)

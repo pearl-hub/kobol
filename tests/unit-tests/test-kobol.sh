@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source "$(dirname $0)/../utils/utils.sh"
 
 KOBOL_LOCATION="$(dirname $0)/../.."
@@ -50,7 +50,7 @@ function test_kobol_no_kobol_manpath_defined(){
 }
 
 function test_cmd_kobol(){
-    assertCommandSuccess $KOBOL_LOCATION/bin/kobol --help
+    assertCommandSuccess $KOBOL_LOCATION/bin/kobol -w
 }
 
 source $(dirname $0)/../utils/shunit2
