@@ -10,10 +10,14 @@ set -e -o pipefail
 
 [[ -z "$KOBOL_MANPATH" ]] && { echo "Error: The variable KOBOL_MANPATH must be specified in order to run this script."; exit 1; }
 
+source $PEARL_ROOT/lib/utils/osx-compat.sh
+# Update PATH for OSX
+pearl_update_path
+source $PEARL_ROOT/lib/utils/utils.sh
+
 KOBOL_ROOT="${KOBOL_ROOT:-$(readlink -f $(dirname $(readlink -f "$0"))/..)}"
 MAN=man
 
-source $PEARL_ROOT/lib/utils/utils.sh
 source "${KOBOL_ROOT}/lib/core.sh"
 
 make_user_mans
