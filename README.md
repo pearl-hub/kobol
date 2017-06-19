@@ -40,6 +40,15 @@ $ kobol -K banana mymanual
 
 `kobol` creates the corresponding manual in `$KOBOL_VARDIR/mans` directory.
 
+Similarly to `man` command, to list all available mans you need to run `mandb`
+first to generate the cache:
+```sh
+mandb $KOBOL_MANPATH
+kobol -k .
+```
+
+For more information on how to search for manuals go
+[here](https://wiki.archlinux.org/index.php/Man_page#Searching_manuals).
 
 Installation
 ============
