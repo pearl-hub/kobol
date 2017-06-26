@@ -4,7 +4,6 @@ OLD_PWD=$PWD
 
 function pearlSetUp() {
     export PEARL_ROOT=$(TMPDIR=/tmp mktemp -d -t pearl-test-root.XXXXXXX)
-    git clone --quiet https://github.com/pearl-core/pearl.git $PEARL_ROOT
 }
 
 function pearlTearDown(){
