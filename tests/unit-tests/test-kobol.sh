@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-source "$(dirname $0)/../utils/utils.sh"
-
-KOBOL_LOCATION="$(dirname $0)/../.."
+PKG_LOCATION="$(dirname $0)/../.."
+source "$PKG_LOCATION/tests/bunit/utils/utils.sh"
+source "$PKG_LOCATION/tests/test-utils/utils.sh"
+source "$PKG_LOCATION/tests/utils/utils.sh"
 
 # Disable the exiterr
 set +e
@@ -26,21 +27,21 @@ function tearDown(){
 
 function test_kobol_no_kobol_vardir_defined(){
     unset KOBOL_VARDIR
-    assertCommandFailOnStatus 1 $KOBOL_LOCATION/bin/kobol
+    assertCommandFailOnStatus 1 $PKG_LOCATION/bin/kobol
 }
 
 function test_kobol_no_kobol_vardir_directory(){
     export KOBOL_VARDIR="not-a-directory"
-    assertCommandFailOnStatus 2 $KOBOL_LOCATION/bin/kobol
+    assertCommandFailOnStatus 2 $PKG_LOCATION/bin/kobol
 }
 
 function test_kobol_no_kobol_manpath_defined(){
     unset KOBOL_MANPATH
-    assertCommandFailOnStatus 1 $KOBOL_LOCATION/bin/kobol
+    assertCommandFailOnStatus 1 $PKG_LOCATION/bin/kobol
 }
 
 function test_cmd_kobol(){
-    assertCommandSuccess $KOBOL_LOCATION/bin/kobol -w
+    assertCommandSuccess $PKG_LOCATION/bin/kobol -w
 }
 
-source $(dirname $0)/../utils/shunit2
+source $PKG_LOCATION/tests/bunit/utils/shunit2
