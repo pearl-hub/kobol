@@ -2,7 +2,8 @@
 source "$(dirname $0)/../utils/utils.sh"
 
 pearlSetUp
-source $PEARL_ROOT/lib/utils/utils.sh
+KOBOL_LOCATION="$(dirname $0)/../.."
+source $KOBOL_LOCATION/buava/lib/utils.sh
 
 # Disable the exiterr
 set +e
@@ -16,7 +17,7 @@ function oneTimeTearDown(){
 }
 
 function setUp(){
-    source "$(dirname $0)/../../lib/core.sh"
+    source "$KOBOL_LOCATION/lib/core.sh"
     kobolSetUp
 }
 

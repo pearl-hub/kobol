@@ -24,16 +24,6 @@ function tearDown(){
     pearlTearDown
 }
 
-function test_kobol_no_pearl_root_defined(){
-    unset PEARL_ROOT
-    assertCommandFailOnStatus 1 $KOBOL_LOCATION/bin/kobol
-}
-
-function test_kobol_no_pearl_root_directory(){
-    export PEARL_ROOT="not-a-directory"
-    assertCommandFailOnStatus 2 $KOBOL_LOCATION/bin/kobol
-}
-
 function test_kobol_no_kobol_vardir_defined(){
     unset KOBOL_VARDIR
     assertCommandFailOnStatus 1 $KOBOL_LOCATION/bin/kobol

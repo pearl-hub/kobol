@@ -2,23 +2,27 @@
 
 set -e -o pipefail
 
-[[ -z "$PEARL_ROOT" ]] && { echo "Error: The variable PEARL_ROOT must be specified in order to run this script."; exit 1; }
-[[ -d "$PEARL_ROOT" ]] || { echo "Error: The value in variable PEARL_ROOT is not a directory."; exit 2; }
-
 [[ -z "$KOBOL_VARDIR" ]] && { echo "Error: The variable KOBOL_VARDIR must be specified in order to run this script."; exit 1; }
 [[ -d "$KOBOL_VARDIR" ]] || { echo "Error: The value in variable KOBOL_VARDIR is not a directory."; exit 2; }
 
 [[ -z "$KOBOL_MANPATH" ]] && { echo "Error: The variable KOBOL_MANPATH must be specified in order to run this script."; exit 1; }
 
-source $PEARL_ROOT/lib/utils/osx-compat.sh
-# Update PATH for OSX
-pearl_update_path
-source $PEARL_ROOT/lib/utils/utils.sh
+# PATH needs to be updated since GNU Coreutils is required in OSX
+# environments. Buava `osx_update_path` cannot be used because in
+# order to load osx-compat.sh file the `readlink` command is
+# required first (circular dependency).
+GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
+[ -d "$GNUBIN" ] && PATH="$GNUBIN:$PATH"
 
-KOBOL_ROOT="${KOBOL_ROOT:-$(readlink -f $(dirname $(readlink -f "$0"))/..)}"
+# Identify the location of the current package
+PKG_ROOT="$(readlink -f $(dirname $(readlink -f "$0"))/..)"
+
+# Import buava library if needed during the script logic
+source $PKG_ROOT/buava/lib/utils.sh
+
 MAN=man
 
-source "${KOBOL_ROOT}/lib/core.sh"
+source "${PKG_ROOT}/lib/core.sh"
 
 make_user_mans
 $MAN -M ${KOBOL_MANPATH} $@
