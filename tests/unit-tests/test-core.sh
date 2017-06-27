@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-source "$(dirname $0)/../utils/utils.sh"
+PKG_LOCATION="$(dirname $0)/../.."
+source "$PKG_LOCATION/tests/bunit/utils/utils.sh"
+source "$PKG_LOCATION/tests/test-utils/utils.sh"
+source "$PKG_LOCATION/tests/utils/utils.sh"
 
 pearlSetUp
-KOBOL_LOCATION="$(dirname $0)/../.."
-source $KOBOL_LOCATION/buava/lib/utils.sh
+source $PKG_LOCATION/buava/lib/utils.sh
 
 # Disable the exiterr
 set +e
@@ -17,7 +19,7 @@ function oneTimeTearDown(){
 }
 
 function setUp(){
-    source "$KOBOL_LOCATION/lib/core.sh"
+    source "$PKG_LOCATION/lib/core.sh"
     kobolSetUp
 }
 
@@ -122,4 +124,4 @@ function test_make_user_mans(){
     assertEquals "" "$(ls -A ${KOBOL_VARDIR}/mans/man1)"
 }
 
-source $(dirname $0)/../utils/shunit2
+source $PKG_LOCATION/tests/bunit/utils/shunit2
